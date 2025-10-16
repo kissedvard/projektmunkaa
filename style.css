@@ -1,0 +1,99 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f3e9d2;
+  margin: 0;
+  padding: 0;
+  color: #4b2e05;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #efe3c0;
+  padding: 0.5rem 2rem;
+  border-bottom: 2px solid #c3a56b;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav button {
+  background: #f6f0df;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.3rem;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.profile-icon img {
+  width: 32px;
+  height: 32px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.horse {
+  width: 200px;
+}
+
+.speech-bubble {
+  background: #8ba978;
+  border-radius: 10px;
+  padding: 1.5rem;
+  color: #fff;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+}
+
+.speech-bubble button {
+  background: #a2b889;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.right {
+  background: #f8f4ea;
+  padding: 1.5rem;
+  border: 1px solid #c4a86e;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.right form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.right input, .right button {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #c4a86e;
+}
+
+.right button {
+  background-color: #f6f0df;
+  font-weight: bold;
+  cursor: pointer;
+}
