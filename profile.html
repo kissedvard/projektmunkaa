@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - DI-Ló</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Alegreya+Sans:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="DI-Ló logó">
+            <h1>DI-Ló</h1>
+        </div>
+        
+        <nav>
+            <button class="nav-btn" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-btn">Explore</button>
+        </nav>
+        
+        <button class="profile-btn" onclick="window.location.href='profile.html'">
+            <div class="profile-icon">U</div>
+        </button>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">U</div>
+                <h2>Felhasználó Neve</h2>
+                <p>@felhasznalonev</p>
+            </div>
+            
+            <div class="profile-info">
+                <h3>Profil adatok</h3>
+                <div class="info-item">
+                    <span>Email:</span>
+                    <span>user@example.com</span>
+                </div>
+                <div class="info-item">
+                    <span>Regisztráció:</span>
+                    <span>2024. január 15.</span>
+                </div>
+                <div class="info-item">
+                    <span>Feltöltött fotók:</span>
+                    <span>24</span>
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="window.location.href='index.html'">
+                Vissza a főoldalra
+            </button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
