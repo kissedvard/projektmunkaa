@@ -1,15 +1,17 @@
 ************* Git használata *************
 
 - Ha nekiállsz, terminálba írd be:
-	git pull origin main -> letölti a legfrissebb verziót
+	git pull origin master -> letölti a legfrissebb verziót
 	- FONTOS: mindig pull-olj mielőtt dolgozni kezdesz a projekten
 
 -Ha végeztél, terminálba írd be:
 	git add . -> A "staging areaba" teszi az összes fájlt amiket később a "push"-al feltöltesz a GitHub repoba
 	git commit -m "Ide 3rd be mit változtattál" (csak hogy lássuk mi volt a változás)
-	git push origin main	
+	git push origin master	
 
 Fontos parancsok még:
 	git status -> Megmutatja mit változtattál
 	git log -> Előzmények
 
+Fontos tudnivalók:
+	Ha valamit változtatsz a fájlokon, VSCodeban meg fog jelenni mellettükk egy sárga M, onnan látszik hogy van el nem mentett változtatás.
