@@ -1,0 +1,33 @@
+# Mac rendszerfájlok
+.DS_Store
+*.DS_Store
+
+# Node.js függőségek
+node_modules/
+npm-debug.log*
+
+# Környezeti változók
+.env
+.env.local
+
+# Naplófájlok
+*.log
+
+# IDE/Editor fájlok
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build eredmények
+dist/
+build/
+*.exe
+
+# Operációs rendszer fájlok
+Thumbs.db
+desktop.ini
+
+# Egyéb
+.cache/
+.tmp/
