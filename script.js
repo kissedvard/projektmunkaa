@@ -26,3 +26,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// AI Buborék kezelése
+document.addEventListener('DOMContentLoaded', function() {
+    const aiBubble = document.getElementById('aiBubble');
+    const aiContent = document.getElementById('aiContent');
+    
+    if (aiBubble) {
+        aiBubble.addEventListener('click', function(e) {
+            // Ne nyíljon ki ha a formra kattintanak
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+                return;
+            }
+            
+            this.classList.toggle('open');
+        });
+        
+        // Form submit
+        const aiForm = aiContent.querySelector('form');
+        if (aiForm) {
+            aiForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('AI keresés indítva!');
+                // Itt később lehet a keresés logikát implementálni
+            });
+        }
+    }
+});
