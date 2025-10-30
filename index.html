@@ -6,8 +6,6 @@
   <title>DI-Ló</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  
-  <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -18,45 +16,44 @@
     </div>
 
     <nav>
-      <button class = "nav-btn">Home</button>
-      <button class = "nav-btn">Explore</button>
+      <button class="nav-btn">Home</button>
+      <button class="nav-btn">Explore</button>
     </nav>
     
-    <button class="profile-btn" id="profileBtn">
+    <a href="profile/profile.html" class="profile-btn" id="profileBtn">
       <div class="profile-icon">
         <img src="images/fiok-ikon.png" alt="Profil">
       </div>
-    </button>
-
+    </a>
   </header>
 
   <main>
     <section class="left">
-      <img src="horse.png" alt="Ló figura" class="horse" />
+      <img src="images/HorseImage.png" alt="Ló figura" class="horse" />
       <div class="speech-bubble">
-        <p>Töltsd fel kedvenc fotóid és oszd meg a barátaiddal!</p>
+        <h2>Töltsd fel kedvenc fotóid és oszd meg a barátaiddal!</h2>
+        <p>Regisztrálj most!</p>
         <button>Regisztrálj most!</button>
       </div>
     </section>
 
     <div class="ai-bubble-container">
-            <div class="ai-bubble" id="aiBubble">
-                <div class="ai-bubble-header">
-                    <span>AI Keresés</span>
-                    <span class="ai-arrow">▼</span>
-                </div>
-                <div class="ai-bubble-content" id="aiContent">
-                    <h3>Keress mesterséges intelligenciával!</h3>
-                    <form>
-                        <input type="text" placeholder="Keress az AI-al">
-                        <input type="text" placeholder="Fajta">
-                        <input type="text" placeholder="Életkor">
-                        <input type="text" placeholder="Hely">
-                        <button type="submit">Keresés</button>
-                    </form>
-                </div>
-            </div>
+      <div class="ai-bubble" id="aiBubble">
+        <div class="ai-bubble-header">
+          <span>AI Keresés</span>
         </div>
+        <div class="ai-bubble-content" id="aiContent">
+          <h3>Keress mesterséges intelligenciával!</h3>
+          <form>
+            <input type="text" placeholder="Keress az AI-al">
+            <input type="text" placeholder="Fajta">
+            <input type="text" placeholder="Életkor">
+            <input type="text" placeholder="Hely">
+            <button type="submit">Keresés</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </main>
 </body>
 </html>
