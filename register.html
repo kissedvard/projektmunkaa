@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció - DI-Ló</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <style>
+        /* Regisztrációs specifikus stílusok */
+        .registration-container {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f3e9d2;
+            font-family: "Alegreya Sans", sans-serif;
+            font-weight: 300;
+            color: #4b2e05;
+            margin: 0;
+            padding: 0;
+        }
+
+        .left-section {
+            flex: 1;
+            background-color: #efe3c0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            border-right: 2px solid #c3a56b;
+        }
+
+        .left-section img {
+            max-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .left-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-family: "Exo 2", sans-serif;
+        }
+
+        .left-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .registration-form {
+            background: #f8f4ea;
+            padding: 2rem;
+            border: 1px solid #c4a86e;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+        }
+
+        .registration-form h2 {
+            text-align: center;
+            color: #4b2e05;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-family: "Exo 2", sans-serif;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b2e05;
+            font-weight: 400;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #c4a86e;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            font-family: "Alegreya Sans", sans-serif;
+            background: #fff;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #8ba978;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 35px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4b2e05;
+            font-size: 0.9rem;
+            font-family: "Exo 2", sans-serif;
+        }
+
+        .password-toggle:hover {
+            color: #8ba978;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 0.8rem;
+            background: #8ba978;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: "Exo 2", sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .btn-register:hover {
+            background: #7a9a6a;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #4b2e05;
+        }
+
+        .login-link a {
+            color: #8ba978;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #7a6a4f;
+            margin-top: 0.3rem;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .terms-checkbox input {
+            margin-top: 0.3rem;
+        }
+
+        .terms-checkbox label {
+            margin-bottom: 0;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <!-- Bal oldali szekció képnel és szöveggel -->
+        <div class="left-section">
+            <img src="horse.png" alt="DI-Ló karakter" class="welcome-image">
+            <h2>Csatlakozz a DI-Ló közösséghez!</h2>
+            <p>Oszd meg lovas élményeidet, fedezz fel új barátokat, és tárold biztonságosan kedvenc fotóidat egy helyen.</p>
+        </div>
+
+        <!-- Jobb oldali szekció - regisztrációs űrlap -->
+        <div class="right-section">
+            <div class="registration-form">
+                <h2>Regisztráció</h2>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">Teljes név</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                        <div class="error-message" id="nameError">Kérjük, adja meg a teljes nevét</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail cím</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="emailError">Kérjük, adjon meg érvényes e-mail címet</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Felhasználónév</label>
+                        <input type="text" id="username" name="username" required>
+                        <div class="error-message" id="usernameError">A felhasználónév minimum 3 karakter hosszú kell legyen</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Jelszó</label>
+                        <input type="password" id="password" name="password" required minlength="6">
+                        <button type="button" class="password-toggle" id="togglePassword">Mutasd</button>
+                        <div class="password-requirements">A jelszónak minimum 6 karakter hosszúnak kell lennie</div>
+                        <div class="error-message" id="passwordError">A jelszó nem felel meg a követelményeknek</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Jelszó megerősítése</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <button type="button" class="password-toggle" id="toggleConfirmPassword">Mutasd</button>
+                        <div class="error-message" id="confirmPasswordError">A jelszavak nem egyeznek</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="terms-checkbox">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">Elfogadom a <a href="#" style="color: #8ba978;">felhasználási feltételeket</a> és az <a href="#" style="color: #8ba978;">adatvédelmi szabályzatot</a></label>
+                        </div>
+                        <div class="error-message" id="termsError">El kell fogadnia a felhasználási feltételeket</div>
+                    </div>
+
+                    <button type="submit" class="btn-register">Regisztráció</button>
+                    
+                    <div class="login-link">
+                        Már van fiókja? <a href="index.html">Jelentkezzen be</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Jelszó megjelenítés/elrejtés funkció
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Mutasd' : 'Elrejt';
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Mutasd' : 'Elrejt';
+        });
+
+        // Regisztrációs form validáció
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+
+            let isValid = true;
+
+            // Name validation
+            const fullName = document.getElementById('fullName').value.trim();
+            if (fullName.length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Username validation
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 3) {
+                document.getElementById('usernameError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            if (password.length < 6) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Confirm password
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Terms validation
+            if (!document.getElementById('terms').checked) {
+                document.getElementById('termsError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Sikeres regisztráció - itt lehetne AJAX kérés a szerverhez
+                alert('Sikeres regisztráció! Most már bejelentkezhet.');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Real-time password confirmation check
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const errorElement = document.getElementById('confirmPasswordError');
+            
+            if (confirmPassword && password !== confirmPassword) {
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
