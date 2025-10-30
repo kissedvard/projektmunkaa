@@ -6,6 +6,7 @@
   <title>DI-Ló</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="images/Wheat.png" as="image">
 </head>
 
 <body>
@@ -29,7 +30,8 @@
 
   <main>
     <section class="left">
-      <img src="images/HorseImage.png" alt="Ló figura" class="horse" />
+      <img src="images/HorseImage.png" alt="Ló figura" class="horse" id="horseImage" />
+      <div class="confetti-container" id="confettiContainer"></div>
       <div class="speech-bubble">
         <h2>Töltsd fel kedvenc fotóid és oszd meg a barátaiddal!</h2>
         <p>Regisztrálj most!</p>
@@ -55,5 +57,6 @@
       </div>
     </div>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>

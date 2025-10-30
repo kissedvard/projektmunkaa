@@ -114,6 +114,33 @@ main {
   top: 60%; /* Moved down to 60% */
   transform: translateY(-50%) scaleX(-1); /* Flip horizontally to face right */
   z-index: 0;
+  transition: transform 0.2s ease;
+}
+
+.horse:hover {
+  transform: translateY(-50%) scaleX(-1) scale(1.02);
+}
+
+/* Confetti container */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('images/Wheat.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
 }
 
 .speech-bubble {
@@ -279,6 +306,10 @@ main {
     transform: scaleX(-1);
     margin-bottom: 1rem;
     top: auto;
+  }
+  
+  .horse:hover {
+    transform: scaleX(-1) scale(1.02);
   }
   
   .speech-bubble {
