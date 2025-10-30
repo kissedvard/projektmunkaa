@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - DI-Ló</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/profile/profile.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Alegreya+Sans:wght@400;500&display=swap" rel="stylesheet">
+    
+
+    <script src="/script.js" defer></script>
+    <script src="/profile/profile.js" defer></script>
+</head>
+<body class="profile-page">
+    <header>
+        <div class="logo">
+            <img src="/images/logo-removebg-preview.png" alt="Logó">
+            <h1>DI-Ló</h1>
+        </div>
+        
+        <nav>
+            <button class="nav-btn" onclick="window.location.href='/index.html'">Home</button>
+            <button class="nav-btn">Explore</button>
+        </nav>
+        
+        <button class="profile-btn" id="profileBtn">
+            <div class="profile-icon">←</div>
+        </button>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <!-- Profil fejléc -->
+            <div class="profile-header">
+                <div class="profile-avatar">E</div>
+                <div class="profile-info">
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">poszt</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">128</div>
+                            <div class="stat-label">követő</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">86</div>
+                            <div class="stat-label">követ</div>
+                        </div>
+                    </div>
+                    <div class="profile-name">Kiss Edvárd</div>
+                    <div class="profile-bio">
+                        Lóimádó és fotós 📸<br>
+                        Megosztom a legszebb lovaimat veletek! 🐎
+                    </div>
+                    <button class="edit-profile-btn">Profil szerkesztése</button>
+                </div>
+            </div>
+
+            <!-- Posztok szekció -->
+            <div class="posts-section">
+                <div class="posts-tabs">
+                    <div class="tab active" data-tab="posts" id="postsTab">
+                        📱 Posztok
+                    </div>
+                    <div class="tab" data-tab="tagged" id="taggedTab">
+                        🏷️ Megjelöltek
+                    </div>
+                </div>
+
+                <!-- Posztok grid -->
+                <div class="posts-grid" id="postsGrid">
+                    <!-- Posztok dinamikusan jönnek ide -->
+                </div>
+
+                <!-- Nincsenek posztok üzenet -->
+                <div class="no-posts" id="noPosts">
+                    <div class="no-posts-icon">📸</div>
+                    <h3>Még nincsenek bejegyzések</h3>
+                    <p>Amint feltöltesz képeket, itt fognak megjelenni.</p>
+                    <button class="upload-prompt" onclick="window.location.href='/index.html'">
+                        Első kép feltöltése
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
