@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (profileBtn) {
         profileBtn.addEventListener('click', function() {
-            window.location.href = 'profile.html';
+            window.location.href = 'profile/profile.html';
         });
     }
     
@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     navButtons.forEach(button => {
         button.addEventListener('click', function() {
             const buttonText = this.textContent;
-            alert(buttonText + ' gomb megnyomva!');
-            // Itt később lehet navigációt implementálni
         });
     });
     
