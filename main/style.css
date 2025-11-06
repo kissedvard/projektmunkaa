@@ -68,6 +68,9 @@ header {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.2rem;
+  color: #4b2e05;
 }
 
 .profile-btn:hover {
@@ -141,7 +144,7 @@ main {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-image: url('images/Wheat.png');
+  background-image: url('../images/Wheat.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
