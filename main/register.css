@@ -1,0 +1,192 @@
+/* Regisztrációs specifikus stílusok */
+.registration-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f3e9d2;
+    font-family: "Alegreya Sans", sans-serif;
+    font-weight: 300;
+    color: #4b2e05;
+    margin: 0;
+    padding: 0;
+}
+
+.left-section {
+    flex: 1;
+    background-color: #efe3c0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+    border-right: 2px solid #c3a56b;
+}
+
+.left-section img {
+    max-width: 300px;
+    margin-bottom: 30px;
+}
+
+.left-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-family: "Exo 2", sans-serif;
+}
+
+.left-section p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.registration-form {
+    background: #f8f4ea;
+    padding: 2rem;
+    border: 1px solid #c4a86e;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+}
+
+.registration-form h2 {
+    text-align: center;
+    color: #4b2e05;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-family: "Exo 2", sans-serif;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4b2e05;
+    font-weight: 400;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #c4a86e;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+    font-family: "Alegreya Sans", sans-serif;
+    background: #fff;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #8ba978;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4b2e05;
+    font-size: 0.9rem;
+    font-family: "Exo 2", sans-serif;
+}
+
+.password-toggle:hover {
+    color: #8ba978;
+}
+
+.btn-register {
+    width: 100%;
+    padding: 0.8rem;
+    background: #8ba978;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: "Exo 2", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.btn-register:hover {
+    background: #7a9a6a;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #4b2e05;
+}
+
+.login-link a {
+    color: #8ba978;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    display: none;
+}
+
+.password-requirements {
+    font-size: 0.8rem;
+    color: #7a6a4f;
+    margin-top: 0.3rem;
+}
+
+/* Updated terms checkbox styling */
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 0.5rem;
+}
+
+.terms-checkbox input {
+    margin-top: 0.3rem;
+    flex-shrink: 0;
+}
+
+.terms-checkbox label {
+    margin-bottom: 0;
+    line-height: 1.4;
+    font-size: 0.95rem;
+    text-align: left;
+    word-spacing: normal;
+    letter-spacing: normal;
+}
+
+/* New class for aligning checkbox with text inputs */
+.terms-container {
+    margin-top: 0.5rem;
+}
+
+.terms-container .form-group {
+    margin-bottom: 0.5rem;
+}
