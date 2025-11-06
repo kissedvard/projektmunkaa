@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DI-Ló - Fedőoldal</title>
+  <link rel="stylesheet" href="../main/style.css" />
+  <link rel="stylesheet" href="explore.css" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="../images/Wheat.png" as="image">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="../images/logo-removebg-preview.png" alt="DI-Ló logó" />
+      <h1>DI-Ló</h1>
+    </div>
+
+    <nav>
+      <button class="nav-btn" onclick="location.href='../main/index.html'">Home</button>
+      <button class="nav-btn active">Explore</button>
+    </nav>
+    
+    <a href="../profile/profile.html" class="profile-btn" id="profileBtn">
+      <div class="profile-icon">
+        <img src="../images/fiok-ikon.png" alt="Profil">
+      </div>
+    </a>
+  </header>
+
+  <main class="explore-main">
+    <div class="feed-container">
+      <!-- Poszt template -->
+      <div class="post">
+        <div class="post-header">
+          <div class="user-info">
+            <div class="avatar">
+              <img src="../images/fiok-ikon.png" alt="Felhasználó avatár">
+            </div>
+            <div class="username">lovas_kati</div>
+          </div>
+          <button class="more-btn">⋯</button>
+        </div>
+        
+        <div class="post-image">
+          <img src="../images/HorseImage.png" alt="Poszt képe - ló">
+        </div>
+        
+        <div class="post-actions">
+          <button class="action-btn like-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+          <button class="action-btn comment-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </button>
+          <button class="action-btn share-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+              <polyline points="16 6 12 2 8 6"></polyline>
+              <line x1="12" y1="2" x2="12" y2="15"></line>
+            </svg>
+          </button>
+          <button class="action-btn save-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="19 21 12 16 5 21 5 3 19 3 19 21"></polygon>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="post-likes">
+          <strong>132 kedvelés</strong>
+        </div>
+        
+        <div class="post-caption">
+          <span class="caption-username">lovas_kati</span>
+          <span class="caption-text">Csodálatos nap a lovarda mellett! Bella ma különösen vidám volt 🐎❤️ #lovasélet #diló #lóimádók</span>
+        </div>
+        
+        <div class="post-comments">
+          <div class="comment">
+            <span class="comment-username">lovas_peter</span>
+            <span class="comment-text">Gyönyörű ló! Milyen fajta?</span>
+          </div>
+          <div class="comment">
+            <span class="comment-username">lovas_kati</span>
+            <span class="comment-text">@lovas_peter Shagya arab, 5 éves 😊</span>
+          </div>
+          <div class="view-all-comments">
+            <a href="#">Összes hozzászólás megtekintése (12)</a>
+          </div>
+        </div>
+        
+        <div class="post-time">
+          2 órája
+        </div>
+        
+        <div class="add-comment">
+          <input type="text" placeholder="Szólj hozzá...">
+          <button class="post-comment-btn">Küldés</button>
+        </div>
+      </div>
+      
+      <!-- További posztok -->
+      <div class="post">
+        <div class="post-header">
+          <div class="user-info">
+            <div class="avatar">
+              <img src="../images/fiok-ikon.png" alt="Felhasználó avatár">
+            </div>
+            <div class="username">aranypatkó_ranch</div>
+          </div>
+          <button class="more-btn">⋯</button>
+        </div>
+        
+        <div class="post-image">
+          <img src="../images/HorseImage.png" alt="Poszt képe - ló">
+        </div>
+        
+        <div class="post-actions">
+          <button class="action-btn like-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+          <button class="action-btn comment-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </button>
+          <button class="action-btn share-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+              <polyline points="16 6 12 2 8 6"></polyline>
+              <line x1="12" y1="2" x2="12" y2="15"></line>
+            </svg>
+          </button>
+          <button class="action-btn save-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="19 21 12 16 5 21 5 3 19 3 19 21"></polygon>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="post-likes">
+          <strong>89 kedvelés</strong>
+        </div>
+        
+        <div class="post-caption">
+          <span class="caption-username">aranypatkó_ranch</span>
+          <span class="caption-text">Reggeli lovaglás a hajnali ködben 🌅 Mindig különleges érzés együtt kelni a napral! #reggelilovaglás #természet #diló</span>
+        </div>
+        
+        <div class="post-comments">
+          <div class="comment">
+            <span class="comment-username">lovas_zoli</span>
+            <span class="comment-text">Milyen gyönyörű látvány! 😍</span>
+          </div>
+          <div class="view-all-comments">
+            <a href="#">Összes hozzászólás megtekintése (7)</a>
+          </div>
+        </div>
+        
+        <div class="post-time">
+          1 napja
+        </div>
+        
+        <div class="add-comment">
+          <input type="text" placeholder="Szólj hozzá...">
+          <button class="post-comment-btn">Küldés</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Animated horse at the bottom -->
+  <div class="horse-animation-container">
+    <img src="../images/HorseImage.png" alt="Animált ló" class="animated-horse" />
+  </div>
+
+  <script src="explore.js"></script>
+</body>
+</html>
