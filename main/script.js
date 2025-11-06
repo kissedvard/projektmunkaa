@@ -132,3 +132,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+// 🌙 Sötét mód váltás
+const darkModeToggle = document.getElementById('darkModeToggle');
+const body = document.body;
+
+// Ellenőrizzük, volt-e korábbi beállítás
+if (localStorage.getItem('darkMode') === 'enabled') {
+  body.classList.add('dark-mode');
+  darkModeToggle.textContent = '☀️';
+}
+
+// Gomb kattintás esemény
+darkModeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+
+  if (body.classList.contains('dark-mode')) {
+    localStorage.setItem('darkMode', 'enabled');
+    darkModeToggle.textContent = '☀️';
+  } else {
+    localStorage.setItem('darkMode', 'disabled');
+    darkModeToggle.textContent = '🌙';
+  }
+});

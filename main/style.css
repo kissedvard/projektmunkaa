@@ -55,24 +55,109 @@ header {
 }
 
 .profile-btn {
-  background: none;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 8px;
+  background: #f8f4ea;
   border: 2px solid #c4a86e;
-  padding: 4px;
-  margin: 0;
-  cursor: pointer;
   border-radius: 50%;
-  transition: transform 0.2s ease;
-  width: 44px;                
-  height: 44px;               
+  cursor: pointer;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  font-family: 'Exo 2', sans-serif;
-  font-size: 1.2rem;
-  color: #4b2e05;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+/* Jobb oldali akciógombok */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
+/* 🌙 Sötét mód gomb stílus */
+.darkmode-toggle {
+  font-size: 1.3rem;
+  cursor: pointer;
+  background: none;
+  border: 2px solid #c4a86e;
+  color: #4b2e05;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.darkmode-toggle:hover {
+  transform: scale(1.1);
+  border-color: #8ba978;
+  background-color: #f8f4ea;
+}
+
+/* 🌙 Sötét mód színek */
+body.dark-mode {
+  background-color: #2b2b2b;
+  color: #f3e9d2;
+}
+
+body.dark-mode header {
+  background-color: #3a3a3a;
+  border-bottom-color: #5a5a5a;
+}
+
+body.dark-mode .nav-btn {
+  background: #444;
+  color: #f3e9d2;
+  box-shadow: none;
+}
+
+body.dark-mode .speech-bubble {
+  background: #5f785a;
+  color: #fff;
+}
+
+body.dark-mode .ai-bubble {
+  background: #4e654f;
+}
+
+body.dark-mode .ai-bubble-content {
+  background: #3a3a3a;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content input {
+  background: #555;
+  border-color: #777;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content button {
+  background: #777;
+}
+
+body.dark-mode .profile-btn {
+  border-color: #777;
+}
+
+body.dark-mode .darkmode-toggle {
+  color: #f3e9d2;
+  border-color: #777;
+  background-color: #3a3a3a;
+}
+
+/* Finom átmenet váltáskor */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
 .profile-btn:hover {
   transform: scale(1.1);
   border-color: #8ba978;      
@@ -362,4 +447,99 @@ main {
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
   }
+}
+/* 🌙 Sötét mód teljes színkorrekció */
+body.dark-mode {
+  background-color: #2b2b2b;
+  color: #f3e9d2;
+}
+
+/* Fejléc */
+body.dark-mode header {
+  background-color: #3a3a3a;
+  border-bottom-color: #5a5a5a;
+}
+
+/* Menü gombok (HOME, EXPLORE) */
+body.dark-mode .nav-btn {
+  background: #444;
+  color: #f3e9d2;
+  box-shadow: none;
+}
+
+body.dark-mode .nav-btn:hover {
+  background: #5a5a5a;
+}
+
+/* Beszédbuborék (Töltsd fel kedvenc fotóid...) */
+body.dark-mode .speech-bubble {
+  background: #5f785a;
+  color: #f3e9d2;
+}
+
+body.dark-mode .speech-bubble h2 {
+  color: #f3e9d2;
+}
+
+body.dark-mode .speech-bubble button {
+  background: #7b926c;
+  color: #fff;
+}
+
+body.dark-mode .speech-bubble button:hover {
+  background: #90a582;
+}
+
+/* AI buborék */
+body.dark-mode .ai-bubble {
+  background: #4e654f;
+}
+
+body.dark-mode .ai-bubble-header {
+  background: #4e654f;
+  color: #f3e9d2; /* "AI Keresés" szöveg */
+}
+
+body.dark-mode .ai-bubble-content {
+  background: #3a3a3a;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content h3 {
+  color: #f3e9d2; /* "Keress mesterséges intelligenciával!" */
+}
+
+body.dark-mode .ai-bubble-content input {
+  background: #555;
+  border-color: #777;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content::placeholder {
+  color: #ccc;
+}
+
+body.dark-mode .ai-bubble-content button {
+  background: #777;
+  color: #fff;
+}
+
+body.dark-mode .ai-bubble-content button:hover {
+  background: #999;
+}
+
+/* Profil és sötét mód ikon */
+body.dark-mode .profile-btn {
+  border-color: #777;
+}
+
+body.dark-mode .darkmode-toggle {
+  color: #f3e9d2;
+  border-color: #777;
+  background-color: #3a3a3a;
+}
+
+/* Átmenet */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
