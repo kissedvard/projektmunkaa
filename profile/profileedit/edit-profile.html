@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Szerkesztése - DI-Ló</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../profile.css">
+    <link rel="stylesheet" href="edit-profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Alegreya+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <script src="edit-profile.js" defer></script>
+</head>
+<body class="profile-page">
+    <header>
+        <div class="logo">
+            <img src="/images/logo-removebg-preview.png" alt="DI-Ló logó">
+            <h1>DI-Ló</h1>
+        </div>
+        
+        <nav>
+            <button class="nav-btn" onclick="window.location.href='../../index.html'">Home</button>
+            <button class="nav-btn">Explore</button>
+        </nav>
+        
+        <button class="profile-btn" id="profileBtn">
+            <div class="profile-icon">←</div>
+        </button>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <div class="edit-profile-header">
+                <h2>Profil Szerkesztése</h2>
+                <p>Itt testreszabhatod a profilod adatait</p>
+            </div>
+
+            <div class="edit-profile-form">
+                <!-- Profilkép feltöltés -->
+                <div class="form-section">
+                    <h3>Profilkép</h3>
+                    <div class="avatar-upload">
+                        <div class="avatar-preview" id="avatarPreview">
+                            <div class="current-avatar">E</div>
+                        </div>
+                        <div class="upload-controls">
+                            <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('avatarInput').click()">
+                                Kép feltöltése
+                            </button>
+                            <button type="button" class="remove-btn" id="removeAvatar">
+                                Kép eltávolítása
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alapadatok -->
+                <div class="form-section">
+                    <h3>Alapadatok</h3>
+                    <div class="form-group">
+                        <label for="fullName">Teljes név</label>
+                        <input type="text" id="fullName" value="Kiss Edvárd" placeholder="Add meg a neved">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Felhasználónév</label>
+                        <input type="text" id="username" value="edvardkiss" placeholder="Válassz felhasználónevet">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email cím</label>
+                        <input type="email" id="email" value="edvard.kiss@example.com" placeholder="email@example.com">
+                    </div>
+                </div>
+
+                <!-- Profil információk -->
+                <div class="form-section">
+                    <h3>Profil információk</h3>
+                    <div class="form-group">
+                        <label for="bio">Bemutatkozás</label>
+                        <textarea id="bio" placeholder="Írj magadról egy rövid bemutatkozást..." rows="4">Lóimádó és fotós 📸
+Megosztom a legszebb lovaimat veletek! 🐎</textarea>
+                        <div class="char-count"><span id="bioCharCount">0</span>/150 karakter</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Weboldal</label>
+                        <input type="url" id="website" placeholder="https://..." value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Helyszín</label>
+                        <input type="text" id="location" placeholder="Város, ország" value="Budapest, Magyarország">
+                    </div>
+                </div>
+
+                <!-- Fiók beállítások -->
+                <div class="form-section">
+                    <h3>Fiók beállítások</h3>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="privateProfile" checked>
+                        <label for="privateProfile">Privát profil</label>
+                        <span class="help-text">Csak a követőid láthatják a posztjaidat</span>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="emailNotifications">
+                        <label for="emailNotifications">Email értesítések</label>
+                        <span class="help-text">Értesítések küldése új követőkről és megjegyzésekről</span>
+                    </div>
+                </div>
+
+                <!-- Művelet gombok -->
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="window.location.href='../profile.html'">
+                        Mégse
+                    </button>
+                    <button type="submit" class="save-btn" id="saveProfile">
+                        Változtatások mentése
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

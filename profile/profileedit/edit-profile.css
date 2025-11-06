@@ -1,0 +1,242 @@
+.edit-profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0d6b8;
+}
+
+.edit-profile-header h2 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2rem;
+    color: #4b2e05;
+    margin-bottom: 10px;
+}
+
+.edit-profile-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.edit-profile-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-section {
+    background: #f8f4ea;
+    border: 1px solid #e0d6b8;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-section h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.3rem;
+    color: #4b2e05;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #c4a86e;
+    padding-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    color: #4b2e05;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #c4a86e;
+    border-radius: 8px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #8ba978;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.char-count {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Avatar feltöltés */
+.avatar-upload {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8ba978, #c4a86e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+    border: 4px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 200px;
+}
+
+.upload-btn,
+.remove-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload-btn {
+    background: #8ba978;
+    color: white;
+}
+
+.upload-btn:hover {
+    background: #7a9769;
+}
+
+.remove-btn {
+    background: #f8f4ea;
+    border: 1px solid #c4a86e;
+    color: #4b2e05;
+}
+
+.remove-btn:hover {
+    background: #f6f0df;
+}
+
+/* Checkbox csoport */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-top: 5px;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.help-text {
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Művelet gombok */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0d6b8;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.cancel-btn {
+    background: #f8f4ea;
+    border: 1px solid #c4a86e;
+    color: #4b2e05;
+}
+
+.cancel-btn:hover {
+    background: #f6f0df;
+}
+
+.save-btn {
+    background: #8ba978;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #7a9769;
+}
+
+@media (max-width: 768px) {
+    .avatar-upload {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+    .upload-controls {
+        /* Add these lines: */
+        width: 100%;
+        min-width: auto;
+    }
+}
