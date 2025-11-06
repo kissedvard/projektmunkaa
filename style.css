@@ -1,4 +1,8 @@
 /* style.css */
+html {
+  overflow-y: scroll;
+}
+
 body {
   font-family: "Alegraya Sans", sans-serif;
   font-weight: 300;
