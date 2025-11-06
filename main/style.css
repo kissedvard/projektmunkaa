@@ -229,7 +229,7 @@ main {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-image: url('images/Wheat.png');
+  background-image: url('../images/Wheat.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0;
