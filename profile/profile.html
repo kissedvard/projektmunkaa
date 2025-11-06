@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - DI-Ló</title>
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/main/style.css">
     <link rel="stylesheet" href="./profile.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Alegreya+Sans:wght@400;500&display=swap" rel="stylesheet">
     
 
-    <script src="../script.js" defer></script>
-    <script src="profile.js" defer></script>
+    <script src="/main/script.js" defer></script>
+    <script src="/profile/profile.js" defer></script>
 </head>
 <body class="profile-page">
     <header>
@@ -24,11 +24,11 @@
         </div>
         
         <nav>
-            <button class="nav-btn" href="../index.html">Home</button>
+            <button class="nav-btn" onclick="window.location.href='/main/index.html'">Home</button>
             <button class="nav-btn">Explore</button>
         </nav>
         
-        <button class="profile-btn" id="profileBtn">
+        <button class="profile-btn" id="profileBtn" onclick="window.location.href='../main/index.html'">
             <div class="profile-icon">←</div>
         </button>
     </header>
@@ -58,7 +58,9 @@
                         Lóimádó és fotós 📸<br>
                         Megosztom a legszebb lovaimat veletek! 🐎
                     </div>
-                    <button class="edit-profile-btn">Profil szerkesztése</button>
+                    <button class="edit-profile-btn" onclick="window.location.href='profileedit/edit-profile.html'">
+                        Profil szerkesztése
+                    </button>
                 </div>
             </div>
 
@@ -83,7 +85,7 @@
                     <div class="no-posts-icon">📸</div>
                     <h3>Még nincsenek bejegyzések</h3>
                     <p>Amint feltöltesz képeket, itt fognak megjelenni.</p>
-                    <button class="upload-prompt" onclick="window.location.href='/index.html'">
+                    <button class="upload-prompt" onclick="window.location.href='/main/index.html'"></button>
                         Első kép feltöltése
                     </button>
                 </div>

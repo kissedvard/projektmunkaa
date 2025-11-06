@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const homeBtn = document.querySelector('.nav-btn');
         if (homeBtn && homeBtn.textContent === 'Home') {
             homeBtn.addEventListener('click', function() {
-                window.location.href = '../index.html';
+                window.location.href = '../main/index.html';
             });
         }
         
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const profileBtn = document.getElementById('profileBtn');
         if (profileBtn) {
             profileBtn.addEventListener('click', function() {
-                window.location.href = '../index.html';
+                window.location.href = '../main/index.html';
             });
         }
         
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const uploadPrompt = document.getElementById('uploadPrompt');
         if (uploadPrompt) {
             uploadPrompt.addEventListener('click', function() {
-                window.location.href = '/index.html';
+                window.location.href = '../main/index.html';
             });
         }
     }
