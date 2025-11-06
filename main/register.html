@@ -169,21 +169,34 @@
             margin-top: 0.3rem;
         }
 
+        /* Updated terms checkbox styling */
         .terms-checkbox {
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            justify-content: flex-start; /* Vízszintes balra igazítás */
         }
 
         .terms-checkbox input {
             margin-top: 0.3rem;
+            flex-shrink: 0;
         }
 
         .terms-checkbox label {
             margin-bottom: 0;
             line-height: 1.4;
             font-size: 0.95rem;
+            text-align: left;
+            word-spacing: normal;
+            letter-spacing: normal;
+        }
+        
+        /* New class for aligning checkbox with text inputs */
+        .terms-container {
+            margin-top: 0.5rem;
+        }
+        
+        .terms-container .form-group {
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -191,7 +204,7 @@
     <div class="registration-container">
         <!-- Bal oldali szekció képnel és szöveggel -->
         <div class="left-section">
-            <img src="images/logo-removebg-preview.png" alt="DI-Ló karakter" class="welcome-image">
+            <img src="horse.png" alt="DI-Ló karakter" class="welcome-image">
             <h2>Csatlakozz a DI-Ló közösséghez!</h2>
             <p>Oszd meg lovas élményeidet, fedezz fel új barátokat, és tárold biztonságosan kedvenc fotóidat egy helyen.</p>
         </div>
@@ -234,7 +247,8 @@
                         <div class="error-message" id="confirmPasswordError">A jelszavak nem egyeznek</div>
                     </div>
 
-                    <div class="form-group">
+                    <!-- Updated terms section -->
+                    <div class="terms-container">
                         <div class="terms-checkbox">
                             <input type="checkbox" id="terms" name="terms" required>
                             <label for="terms">Elfogadom a <a href="#" style="color: #8ba978;">felhasználási feltételeket</a> és az <a href="#" style="color: #8ba978;">adatvédelmi szabályzatot</a></label>
