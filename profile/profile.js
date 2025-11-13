@@ -1,6 +1,9 @@
-// Profil oldal JavaScript - RÉGI STRUKTÚRA JAVÍTVA
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 Profil oldal betöltődött - JavaScript aktív");
+    
+    // Debug info
+    console.log("Upload button:", document.getElementById('uploadButton'));
+    console.log("File input:", document.getElementById('fileInput'));
     
     // 1. Navigáció kezelése
     setupNavigation();
@@ -10,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 3. Posztok kezelése
     initializePosts();
+    
+    // 4. FELTÖLTÉS RENDSZER - ÚJ
+    initializeUploadSystem();
 
     function setupNavigation() {
         // HOME gomb
@@ -28,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // FELTÖLTÉS gomb
+        // FELTÖLTÉS gomb (a régi, amit átirányít)
         const uploadPrompt = document.getElementById('uploadPrompt');
         if (uploadPrompt) {
             uploadPrompt.addEventListener('click', function() {
@@ -70,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // HIÁNYZÓ FÜGGVÉNYEK
     function setActiveTab(activeTabName) {
         const postsTab = document.getElementById('postsTab');
         const taggedTab = document.getElementById('taggedTab');
@@ -86,15 +91,59 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showNoPostsMessage(tabType) {
-    const noPostsPosts = document.getElementById('noPostsPosts');
-    const noPostsTagged = document.getElementById('noPostsTagged');
-    
-    if (tabType === 'posts') {
-        if (noPostsPosts) noPostsPosts.style.display = 'block';
-        if (noPostsTagged) noPostsTagged.style.display = 'none';
-    } else {
-        if (noPostsPosts) noPostsPosts.style.display = 'none';
-        if (noPostsTagged) noPostsTagged.style.display = 'block';
+        const noPostsPosts = document.getElementById('noPostsPosts');
+        const noPostsTagged = document.getElementById('noPostsTagged');
+        
+        if (tabType === 'posts') {
+            if (noPostsPosts) noPostsPosts.style.display = 'block';
+            if (noPostsTagged) noPostsTagged.style.display = 'none';
+        } else {
+            if (noPostsPosts) noPostsPosts.style.display = 'none';
+            if (noPostsTagged) noPostsTagged.style.display = 'block';
+        }
     }
-}
+
+    function initializeUploadSystem() {
+        const uploadButton = document.getElementById('uploadButton');
+        const fileInput = document.getElementById('fileInput');
+        
+        console.log("🎯 Feltöltés rendszer inicializálása...");
+        console.log("Upload button elem:", uploadButton);
+        console.log("File input elem:", fileInput);
+        
+        // MINDIG ellenőrizzük, hogy az elemek léteznek-e
+        if (!uploadButton) {
+            console.error("❌ uploadButton nem található - ellenőrizd az ID-t a HTML-ben");
+            return;
+        }
+        
+        if (!fileInput) {
+            console.error("❌ fileInput nem található - ellenőrizd az ID-t a HTML-ben");
+            return;
+        }
+        
+        // Accessibility javítás
+        uploadButton.setAttribute('aria-label', 'Képek feltöltése');
+        fileInput.setAttribute('aria-label', 'Képek kiválasztása');
+        
+        // Eseménykezelők
+        uploadButton.addEventListener('click', function() {
+            console.log("🎯 Feltöltés gomb megnyomva");
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function(e) {
+            console.log("📁 File input változott");
+            const files = e.target.files;
+            if (files.length > 0) {
+                alert(`${files.length} kép kiválasztva!`);
+                console.log('Kiválasztott fájlok:', files);
+                fileInput.value = '';
+            } else {
+                console.log("❌ Nincs fájl kiválasztva");
+            }
+        });
+        
+        console.log("✅ Feltöltés rendszer inicializálva");
+    }
 });

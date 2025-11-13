@@ -85,7 +85,22 @@
                     <div class="no-posts-icon">📸</div>
                     <h3>Még nincsenek bejegyzések</h3>
                     <p>Amint feltöltesz képeket, itt fognak megjelenni.</p>
-                    <button class="upload-prompt" onclick="window.location.href='/main/index.html'">
+                    
+                    <!-- Rejtett file input -->
+                    <input 
+                        type="file" 
+                        id="fileInput" 
+                        accept="image/*" 
+                        multiple 
+                        style="display: none;"
+                        title="Képek kiválasztása feltöltéshez"
+                        aria-label="Képek kiválasztása feltöltéshez"
+                    >
+                    <div id="fileInputDescription" style="display: none;">
+                        Válassz ki egy vagy több képet a feltöltéshez. Támogatott formátumok: JPG, PNG, GIF.
+                    </div>
+
+                    <button class="upload-prompt" id="uploadButton">
                         Feltöltés
                     </button>
                 </div>
