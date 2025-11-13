@@ -81,13 +81,19 @@
                 </div>
 
                 <!-- Nincsenek posztok üzenet -->
-                <div class="no-posts" id="noPosts">
+                <div class="no-posts" id="noPostsPosts">
                     <div class="no-posts-icon">📸</div>
                     <h3>Még nincsenek bejegyzések</h3>
                     <p>Amint feltöltesz képeket, itt fognak megjelenni.</p>
-                    <button class="upload-prompt" onclick="window.location.href='/main/index.html'"></button>
-                        Első kép feltöltése
+                    <button class="upload-prompt" onclick="window.location.href='/main/index.html'">
+                        Feltöltés
                     </button>
+                </div>
+
+                <div class="no-posts tagged-content" id="noPostsTagged" style="display: none;">
+                    <div class="no-posts-icon">🏷️</div>
+                    <h3>Még nincsenek megjelölt bejegyzések</h3>
+                    <p>Amint megjelölnek egy képen, itt fog megjelenni.</p>
                 </div>
             </div>
         </div>

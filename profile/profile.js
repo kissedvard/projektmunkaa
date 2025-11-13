@@ -86,20 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showNoPostsMessage(tabType) {
-        const noPosts = document.getElementById('noPosts');
-        if (!noPosts) return;
-        
-        const title = noPosts.querySelector('h3');
-        const description = noPosts.querySelector('p');
-        
-        if (tabType === 'posts') {
-            title.textContent = 'Még nincsenek bejegyzések';
-            description.textContent = 'Amint feltöltesz képeket, itt fognak megjelenni.';
-        } else {
-            title.textContent = 'Még nincsenek megjelölt bejegyzések';
-            description.textContent = 'Amint megjelölnek egy képen, itt fog megjelenni.';
-        }
-        
-        noPosts.style.display = 'block';
+    const noPostsPosts = document.getElementById('noPostsPosts');
+    const noPostsTagged = document.getElementById('noPostsTagged');
+    
+    if (tabType === 'posts') {
+        if (noPostsPosts) noPostsPosts.style.display = 'block';
+        if (noPostsTagged) noPostsTagged.style.display = 'none';
+    } else {
+        if (noPostsPosts) noPostsPosts.style.display = 'none';
+        if (noPostsTagged) noPostsTagged.style.display = 'block';
     }
+}
 });
