@@ -485,3 +485,53 @@ body.dark-mode .darkmode-toggle {
     border-right: 15px solid transparent;
   }
 }
+
+/* Confetti container */
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/Wheat.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+}
+
+/* Horse animation at the bottom */
+.horse-animation-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.animated-horse {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    transform: scaleX(-1); /* Flip horse to face right */
+    animation: horseRun 15s linear infinite;
+}
+
+@keyframes horseRun {
+    0% {
+        left: -30px;
+    }
+    100% {
+        left: 100%;
+    }
+}
