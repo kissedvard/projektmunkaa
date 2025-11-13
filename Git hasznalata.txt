@@ -12,6 +12,7 @@
 Fontos parancsok még:
 	git status -> Megmutatja mit változtattál
 	git log -> Előzmények
+	git reset --hard -> Visszaállítja a legutolsó verziót és törli amit csináltál eddig helyileg
 
 Fontos tudnivalók:
 	Ha valamit változtatsz a fájlokon, VSCodeban meg fog jelenni mellettükk egy sárga M, onnan látszik hogy van el nem mentett változtatás.
