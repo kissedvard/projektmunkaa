@@ -535,3 +535,171 @@ body.dark-mode .darkmode-toggle {
         left: 100%;
     }
 }
+
+/* DROPDOWN LOGIN STYLES */
+.login-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.login-dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #f8f4ea;
+    border: 1px solid #c4a86e;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none;
+    margin-top: 0.5rem;
+}
+
+.login-dropdown-content.show {
+    display: block;
+    animation: dropdownFade 0.3s ease;
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.dropdown-header h3 {
+    font-family: 'Exo 2', sans-serif;
+    color: #4b2e05;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+}
+
+.dropdown-header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.dropdown-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dropdown-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-form-group label {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    color: #4b2e05;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.dropdown-form-group input {
+    padding: 0.7rem;
+    border: 1px solid #c4a86e;
+    border-radius: 6px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 0.9rem;
+    background: white;
+}
+
+.dropdown-form-group input:focus {
+    outline: none;
+    border-color: #8ba978;
+}
+
+.dropdown-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.dropdown-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.dropdown-forgot {
+    color: #8ba978;
+    text-decoration: none;
+}
+
+.dropdown-forgot:hover {
+    text-decoration: underline;
+}
+
+.dropdown-submit-btn {
+    background: #8ba978;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.dropdown-submit-btn:hover {
+    background: #7a9769;
+}
+
+.dropdown-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.dropdown-footer a {
+    color: #8ba978;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.dropdown-footer a:hover {
+    text-decoration: underline;
+}
+
+/* DARK MODE DROPDOWN */
+body.dark-mode .login-dropdown-content {
+    background: #3a3a3a;
+    border-color: #555;
+}
+
+body.dark-mode .dropdown-header h3 {
+    color: #f3e9d2;
+}
+
+body.dark-mode .dropdown-form-group label {
+    color: #f3e9d2;
+}
+
+body.dark-mode .dropdown-form-group input {
+    background: #555;
+    border-color: #777;
+    color: #f3e9d2;
+}
+
+body.dark-mode .dropdown-form-group input:focus {
+    border-color: #8ba978;
+}
