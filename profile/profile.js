@@ -1,5 +1,164 @@
+// profile.js - ADD EZT A RÉSZT
+
+function initializeUploadModal() {
+    const uploadButton = document.getElementById('uploadButton');
+    const uploadModal = document.getElementById('uploadModal');
+    const closeModal = document.querySelector('.close-modal');
+    const cancelButton = document.querySelector('.btn-cancel');
+    const uploadForm = document.getElementById('uploadForm');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const imageCaption = document.getElementById('imageCaption');
+    const charCount = document.getElementById('charCount');
+    const uploadButtonElem = document.querySelector('.btn-upload');
+
+    let selectedFiles = [];
+
+    // Modal megnyitása
+    if (uploadButton) {
+        uploadButton.addEventListener('click', function() {
+            console.log("📸 Upload modal megnyitása");
+            uploadModal.classList.add('show');
+        });
+    }
+
+    // Modal bezárása
+    function closeUploadModal() {
+        uploadModal.classList.remove('show');
+        resetForm();
+    }
+
+    if (closeModal) closeModal.addEventListener('click', closeUploadModal);
+    if (cancelButton) cancelButton.addEventListener('click', closeUploadModal);
+
+    // Kattintás a modal backdrop-ra
+    uploadModal.addEventListener('click', function(e) {
+        if (e.target === uploadModal) {
+            closeUploadModal();
+        }
+    });
+
+    // Drag & Drop funkció
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    // File input változás
+    fileInput.addEventListener('change', function(e) {
+        handleFiles(e.target.files);
+    });
+
+    // Karakterszám számláló
+    imageCaption.addEventListener('input', function() {
+        const count = this.value.length;
+        charCount.textContent = count;
+        
+        if (count > 200) {
+            charCount.classList.add('warning');
+        } else {
+            charCount.classList.remove('warning');
+        }
+        
+        updateUploadButton();
+    });
+
+    // Form submit
+    uploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        uploadFiles();
+    });
+
+    // File kezelés
+    function handleFiles(files) {
+        if (files.length > 0) {
+            selectedFiles = Array.from(files);
+            showFilePreview(selectedFiles[0]);
+            updateUploadButton();
+        }
+    }
+
+    // File előnézet
+    function showFilePreview(file) {
+        const placeholder = uploadArea.querySelector('.upload-placeholder');
+        
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                placeholder.innerHTML = `
+                    <div class="file-preview">
+                        <img src="${e.target.result}" alt="Előnézet">
+                        <div class="file-info">${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</div>
+                    </div>
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Feltöltés gomb állapota
+    function updateUploadButton() {
+        const hasFiles = selectedFiles.length > 0;
+        const hasCaption = imageCaption.value.trim().length > 0;
+        uploadButtonElem.disabled = !(hasFiles && hasCaption);
+    }
+
+    // Feltöltés
+    function uploadFiles() {
+        if (selectedFiles.length === 0) return;
+
+        console.log("🚀 Fájlok feltöltése:", selectedFiles);
+        console.log("📝 Leírás:", imageCaption.value);
+        console("🏷️ Címkék:", document.getElementById('imageTags').value);
+
+        // Loading state
+        uploadButtonElem.textContent = 'Feltöltés...';
+        uploadButtonElem.disabled = true;
+
+        // Szimulált feltöltés
+        setTimeout(() => {
+            alert('✅ Kép sikeresen feltöltve!');
+            closeUploadModal();
+            
+            // Itt később lesz a valós feltöltés
+            // await postService.uploadPost(selectedFiles[0], imageCaption.value);
+        }, 2000);
+    }
+
+    // Form reset
+    function resetForm() {
+        selectedFiles = [];
+        fileInput.value = '';
+        imageCaption.value = '';
+        document.getElementById('imageTags').value = '';
+        charCount.textContent = '0';
+        charCount.classList.remove('warning');
+        
+        const placeholder = uploadArea.querySelector('.upload-placeholder');
+        placeholder.innerHTML = `
+            <div class="upload-icon">📁</div>
+            <p>Kattints ide vagy húzd ide a képet</p>
+            <small>Formátumok: JPG, PNG, GIF (max. 10MB)</small>
+        `;
+        
+        uploadButtonElem.disabled = true;
+        uploadButtonElem.textContent = 'Feltöltés';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 Profil oldal betöltődött - JavaScript aktív");
+    initializeUploadModal(); 
     
     // Debug info
     console.log("Upload button:", document.getElementById('uploadButton'));
@@ -101,49 +260,5 @@ document.addEventListener('DOMContentLoaded', function() {
             if (noPostsPosts) noPostsPosts.style.display = 'none';
             if (noPostsTagged) noPostsTagged.style.display = 'block';
         }
-    }
-
-    function initializeUploadSystem() {
-        const uploadButton = document.getElementById('uploadButton');
-        const fileInput = document.getElementById('fileInput');
-        
-        console.log("🎯 Feltöltés rendszer inicializálása...");
-        console.log("Upload button elem:", uploadButton);
-        console.log("File input elem:", fileInput);
-        
-        // MINDIG ellenőrizzük, hogy az elemek léteznek-e
-        if (!uploadButton) {
-            console.error("❌ uploadButton nem található - ellenőrizd az ID-t a HTML-ben");
-            return;
-        }
-        
-        if (!fileInput) {
-            console.error("❌ fileInput nem található - ellenőrizd az ID-t a HTML-ben");
-            return;
-        }
-        
-        // Accessibility javítás
-        uploadButton.setAttribute('aria-label', 'Képek feltöltése');
-        fileInput.setAttribute('aria-label', 'Képek kiválasztása');
-        
-        // Eseménykezelők
-        uploadButton.addEventListener('click', function() {
-            console.log("🎯 Feltöltés gomb megnyomva");
-            fileInput.click();
-        });
-        
-        fileInput.addEventListener('change', function(e) {
-            console.log("📁 File input változott");
-            const files = e.target.files;
-            if (files.length > 0) {
-                alert(`${files.length} kép kiválasztva!`);
-                console.log('Kiválasztott fájlok:', files);
-                fileInput.value = '';
-            } else {
-                console.log("❌ Nincs fájl kiválasztva");
-            }
-        });
-        
-        console.log("✅ Feltöltés rendszer inicializálva");
     }
 });

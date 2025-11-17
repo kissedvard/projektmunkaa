@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - DI-Ló</title>
-
     <link rel="stylesheet" href="/main/style.css">
     <link rel="stylesheet" href="./profile.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Alegreya+Sans:wght@400;500&display=swap" rel="stylesheet">
-    
-
     <script src="/main/script.js" defer></script>
     <script src="/profile/profile.js" defer></script>
 </head>
@@ -86,7 +82,6 @@
                     <h3>Még nincsenek bejegyzések</h3>
                     <p>Amint feltöltesz képeket, itt fognak megjelenni.</p>
                     
-                    <!-- Rejtett file input -->
                     <input 
                         type="file" 
                         id="fileInput" 
@@ -113,5 +108,49 @@
             </div>
         </div>
     </main>
+
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Kép feltöltése</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <form id="uploadForm" class="upload-form">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-placeholder">
+                        <div class="upload-icon">📁</div>
+                        <p>Kattints ide vagy húzd ide a képet</p>
+                        <small>Formátumok: JPG, PNG, GIF (max. 10MB)</small>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" multiple>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imageCaption">Kép leírása</label>
+                    <textarea 
+                        id="imageCaption" 
+                        placeholder="Leírás hozzáadása"
+                        maxlength="220"
+                    ></textarea>
+                    <div class="char-counter"><span id="charCount">0</span>/220</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imageTags">Címkék</label>
+                    <input 
+                        type="text" 
+                        id="imageTags" 
+                        placeholder="lovas, ló, természet, stb..."
+                    >
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel">Mégse</button>
+                    <button type="submit" class="btn-upload" disabled>Feltöltés</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

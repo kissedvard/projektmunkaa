@@ -386,3 +386,241 @@ body.dark-mode * {
     height: 100%;
     object-fit: cover;
 }
+
+/* UPLOAD MODAL STYLES */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #f8f4ea;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(2rem);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e0d6b8;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #4b2e05;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-modal:hover {
+    color: #4b2e05;
+    background: #f6f0df;
+    border-radius: 50%;
+}
+
+/* UPLOAD FORM */
+.upload-form {
+    padding: 1.5rem;
+}
+
+.upload-area {
+    border: 2px dashed #c4a86e;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.upload-area:hover {
+    border-color: #8ba978;
+    background: #f6f0df;
+}
+
+.upload-area.dragover {
+    border-color: #8ba978;
+    background: #e8f4e8;
+}
+
+.upload-placeholder .upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.upload-area input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* FORM ELEMENTS */
+.upload-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.upload-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #4b2e05;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.upload-form textarea,
+.upload-form input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #c4a86e;
+    border-radius: 0.5rem;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 1rem;
+    background: white;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.upload-form textarea {
+    min-height: 100px;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.char-counter.warning {
+    color: #e74c3c;
+}
+
+/* FORM ACTIONS */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.btn-cancel {
+    background: #95a5a6;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+}
+
+.btn-upload {
+    background: #8ba978;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.btn-upload:hover:not(:disabled) {
+    background: #7a9769;
+}
+
+.btn-upload:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* FILE PREVIEW */
+.file-preview {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.file-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 0.5rem;
+    border: 1px solid #e0d6b8;
+}
+
+.file-info {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* DARK MODE */
+body.dark-mode .modal-content {
+    background: #3a3a3a;
+    color: #f3e9d2;
+}
+
+body.dark-mode .upload-area {
+    border-color: #555;
+    background: #444;
+}
+
+body.dark-mode .upload-form textarea,
+body.dark-mode .upload-form input[type="text"] {
+    background: #555;
+    border-color: #777;
+    color: #f3e9d2;
+}
