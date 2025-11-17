@@ -1,4 +1,293 @@
-// profile.js - ADD EZT A RÉSZT
+// Egy poszt elem létrehozása
+function createPostElement(post) {
+    const postItem = document.createElement('div');
+    postItem.className = 'post-item';
+    postItem.setAttribute('data-post-id', post.id);
+    
+    postItem.innerHTML = `
+        <img src="${post.image_url}" alt="${post.caption}" class="post-image" loading="lazy">
+        <div class="post-overlay">
+            <div class="post-stats">
+                <span>❤️ ${post.likes_count}</span>
+                <span>💬 ${post.comments_count}</span>
+            </div>
+        </div>
+    `;
+    
+    return postItem;
+}
+
+// 🆕 Segédfüggvény - Összes poszt lekérése (lightbox-hoz)
+function getAllPosts() {
+    return generateDemoPosts();
+}
+
+// 🆕 ÚJ FUNKCIÓ - Demo posztok betöltése
+function loadDemoPosts() {
+    console.log("🎨 Demo posztok betöltése...");
+    
+    // Posztok renderelése a grid-be
+    renderPostsToGrid();
+    
+    console.log("✅ Demo profil kész!");
+}
+
+// Posztok renderelése a grid-be
+function renderPostsToGrid() {
+    const postsGrid = document.getElementById('postsGrid');
+    const noPostsElement = document.getElementById('noPostsPosts');
+    
+    if (!postsGrid) return;
+
+    const demoPosts = generateDemoPosts();
+    
+    if (demoPosts.length === 0) {
+        // Nincsenek posztok - mutatjuk az üzenetet
+        if (noPostsElement) noPostsElement.style.display = 'block';
+        postsGrid.innerHTML = '';
+        return;
+    }
+
+    // Elrejtjük az üzenetet
+    if (noPostsElement) noPostsElement.style.display = 'none';
+    
+    // Posztok generálása
+    postsGrid.innerHTML = '';
+    
+    demoPosts.forEach(post => {
+        const postElement = createPostElement(post);
+        postsGrid.appendChild(postElement);
+    });
+    
+    console.log(`✅ ${demoPosts.length} demo poszt betöltve`);
+}
+
+
+function generateDemoPosts() {
+    const demoPosts = [
+        {
+            id: 1,
+            image_url: '../images/vices_lo_xd.jpg',
+            caption: 'Csicska lovam megint bolondozik 🐎❤️ #lovasélet #diló',
+            likes_count: 67,
+            comments_count: 12,
+            created_at: '2024-01-15T10:30:00Z'
+        },
+        {
+            id: 2,
+            image_url: '../images/HorseImage.png', 
+            caption: 'Reggeli lovaglás a hajnali ködben 🌅 #reggelilovaglás #természet',
+            likes_count: 89,
+            comments_count: 7,
+            created_at: '2024-01-14T08:15:00Z'
+        }
+    ];
+
+    return demoPosts;
+}
+
+// profile.js - LIGHTBOX JAVÍTOTT VERZIÓ
+
+function initializeLightbox() {
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+    const lightboxLike = document.querySelector('.lightbox-like');
+    const lightboxDownload = document.querySelector('.lightbox-download');
+
+    let currentPosts = [];
+    let currentIndex = 0;
+
+    // 🔽 JAVÍTOTT: Delegált eseménykezelő a post-item-ekre
+    document.addEventListener('click', (e) => {
+        const postItem = e.target.closest('.post-item');
+        if (postItem) {
+            const postId = parseInt(postItem.getAttribute('data-post-id'));
+            console.log("🖼️ Kattintás posztra, ID:", postId);
+            openLightbox(postId);
+        }
+    });
+
+    // Lightbox megnyitása
+    function openLightbox(postId) {
+        console.log("🎯 Lightbox megnyitása post ID:", postId);
+        
+        currentPosts = getAllPosts();
+        currentIndex = currentPosts.findIndex(post => post.id === postId);
+        
+        console.log("📊 Talált posztok:", currentPosts.length, "Aktuális index:", currentIndex);
+        
+        if (currentIndex !== -1) {
+            loadLightboxImage(currentPosts[currentIndex]);
+            lightboxModal.classList.add('show');
+            
+            // Keyboard event listeners
+            document.addEventListener('keydown', handleKeyboardNavigation);
+        } else {
+            console.log("❌ Poszt nem található ID-vel:", postId);
+        }
+    }
+
+    // Lightbox bezárása
+    function closeLightbox() {
+        lightboxModal.classList.remove('show');
+        document.removeEventListener('keydown', handleKeyboardNavigation);
+    }
+
+    // Kép betöltése a lightbox-ba
+    function loadLightboxImage(post) {
+        console.log("🖼️ Kép betöltése:", post.image_url);
+        
+        lightboxImage.src = post.image_url;
+        lightboxImage.alt = post.caption;
+        
+        // Caption frissítése
+        document.getElementById('lightboxUsername').textContent = 'Kiss Edvárd';
+        document.getElementById('lightboxCaption').textContent = post.caption;
+        
+        // Statisztikák frissítése
+        document.querySelector('.lightbox-like span').textContent = post.likes_count || 0;
+        document.querySelector('.lightbox-comment span').textContent = post.comments_count || 0;
+        
+        // Loading state
+        lightboxImage.onload = () => {
+            console.log("✅ Kép betöltve");
+            lightboxImage.style.opacity = '1';
+        };
+        
+        lightboxImage.onerror = () => {
+            console.log("❌ Kép betöltési hiba:", post.image_url);
+            lightboxImage.style.opacity = '1';
+        };
+        
+        lightboxImage.style.opacity = '0.5'; // Loading state
+    }
+
+    // Navigáció
+    function showNextImage() {
+        if (currentPosts.length > 0) {
+            currentIndex = (currentIndex + 1) % currentPosts.length;
+            console.log("➡️ Következő kép:", currentIndex);
+            loadLightboxImage(currentPosts[currentIndex]);
+        }
+    }
+
+    function showPrevImage() {
+        if (currentPosts.length > 0) {
+            currentIndex = (currentIndex - 1 + currentPosts.length) % currentPosts.length;
+            console.log("⬅️ Előző kép:", currentIndex);
+            loadLightboxImage(currentPosts[currentIndex]);
+        }
+    }
+
+    // Keyboard navigáció
+    function handleKeyboardNavigation(e) {
+        console.log("⌨️ Billentyű:", e.key);
+        switch(e.key) {
+            case 'Escape':
+                closeLightbox();
+                break;
+            case 'ArrowLeft':
+                showPrevImage();
+                break;
+            case 'ArrowRight':
+                showNextImage();
+                break;
+        }
+    }
+
+    // Like funkció
+    function toggleLike() {
+        lightboxLike.classList.toggle('liked');
+        const likeCount = lightboxLike.querySelector('span');
+        const currentLikes = parseInt(likeCount.textContent);
+        
+        if (lightboxLike.classList.contains('liked')) {
+            likeCount.textContent = currentLikes + 1;
+        } else {
+            likeCount.textContent = Math.max(0, currentLikes - 1);
+        }
+    }
+
+    // Kép letöltése
+    function downloadImage() {
+        const link = document.createElement('a');
+        link.href = lightboxImage.src;
+        link.download = `dilo-image-${Date.now()}.jpg`;
+        link.click();
+        
+        console.log("📥 Kép letöltése:", lightboxImage.src);
+    }
+
+    // Event listeners
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
+    if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
+    if (lightboxLike) lightboxLike.addEventListener('click', toggleLike);
+    if (lightboxDownload) lightboxDownload.addEventListener('click', downloadImage);
+
+    // Kattintás a backdrop-ra
+    if (lightboxModal) {
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+    }
+
+    console.log("✅ Lightbox inicializálva");
+}
+
+function getAllPosts() {
+    return generateDemoPosts();
+}
+
+// Segédfüggvények
+function getAllPosts() {
+    // Mock adatok - később a localStorage-ből vagy API-ból
+    return [
+        {
+            id: 1,
+            image_url: '../images/vices_lo_xd.jpg',
+            caption: 'Csicska lovam megint bolondozik 🐎❤️',
+            likes_count: 67,
+            comments_count: 12
+        },
+        {
+            id: 2, 
+            image_url: '../images/HorseImage.png',
+            caption: 'Reggeli lovaglás a hajnali ködben 🌅',
+            likes_count: 89,
+            comments_count: 7
+        }
+    ];
+}
+
+function showNotification(message, type = 'info') {
+    // Egyszerű notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        background: ${type === 'info' ? '#3498db' : '#2ecc71'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        z-index: 3000;
+        animation: slideInRight 0.3s ease;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+
 
 function initializeUploadModal() {
     const uploadButton = document.getElementById('uploadButton');
@@ -159,6 +448,7 @@ function initializeUploadModal() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 Profil oldal betöltődött - JavaScript aktív");
     initializeUploadModal(); 
+    initializeLightbox(); 
     
     // Debug info
     console.log("Upload button:", document.getElementById('uploadButton'));
@@ -174,7 +464,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePosts();
     
     // 4. FELTÖLTÉS RENDSZER - ÚJ
-    initializeUploadSystem();
+    initializeUploadModal();
+
+    // 5. Lightbox inicializálása
+    initializeLightbox();
+    
+    // 🆕 6. DEMO POSZTOK BETÖLTÉSE
+    loadDemoPosts();
 
     function setupNavigation() {
         // HOME gomb
