@@ -161,6 +161,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginDropdown = document.getElementById('loginDropdown');
     const dropdownForm = document.querySelector('.dropdown-form');
     
+    if (sessionStorage.getItem('autoOpenLogin') === 'true') {
+        openLoginDropdown(); // vagy ami a dropdown megnyitása
+        sessionStorage.removeItem('autoOpenLogin');
+    }
+
     if (loginDropdownBtn && loginDropdown) {
         // Dropdown megnyitása/bezárása
         loginDropdownBtn.addEventListener('click', function(e) {
@@ -205,5 +210,24 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             alert('Jelszó visszaállítási link elküldve!');
         });
-    }
+    }       
 });
+
+// Főoldal script.js-hez add hozzá:
+function openLoginDropdown() {
+    const loginDropdown = document.getElementById('loginDropdown');
+    const loginDropdownBtn = document.getElementById('loginDropdownBtn');
+    
+    if (loginDropdown) {
+        console.log('🎯 Automatikus login megnyitás');
+        loginDropdown.classList.add('show');
+        
+        // Opcionális: görgetés a gombhoz
+        if (loginDropdownBtn) {
+            loginDropdownBtn.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }
+}
