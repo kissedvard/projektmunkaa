@@ -17,7 +17,6 @@ function createPostElement(post) {
     return postItem;
 }
 
-// 🆕 Segédfüggvény - Összes poszt lekérése (lightbox-hoz)
 function getAllPosts() {
     return generateDemoPosts();
 }
@@ -444,6 +443,7 @@ function initializeUploadModal() {
         uploadButtonElem.textContent = 'Feltöltés';
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 Profil oldal betöltődött - JavaScript aktív");
