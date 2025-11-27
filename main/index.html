@@ -12,28 +12,61 @@
 
 <body>
   <header>
-    <div class="logo">
-      <!-- KÉP ÚTVONAL JAVÍTVA -->
-      <img src="../images/logo-removebg-preview.png" alt="DI-Ló logó" />
-      <h1>DI-Ló</h1>
-    </div>
-
-    <nav>
+  <div class="logo">
+    <img src="/images/logo-removebg-preview.png" alt="Logo">
+    <h1>Di-Ló</h1>
+  </div>
+  
+  <nav>
+    <div class="nav-center">
       <button class="nav-btn">Home</button>
-      <!-- EXPLORE LINK JAVÍTVA -->
-      <button class="nav-btn" onclick="window.location.href='explore/explore.html'">Explore</button>
-    </nav>
-
-    <div class="header-actions">
+      <button class="nav-btn" onclick="window.location.href='/main/explore/explore.html'">Explore</button>
+    </div>
+    <div class="nav-right">
+      <div class="login-dropdown">
+        <button class="nav-btn login-btn" id="loginDropdownBtn">Bejelentkezés</button>
+        <div class="login-dropdown-content" id="loginDropdown">
+            <div class="dropdown-header">
+                <h3>Bejelentkezés</h3>
+                <p>Üdv újra!</p>
+            </div>
+            
+            <form class="dropdown-form">
+                <div class="dropdown-form-group">
+                    <label for="dropdownEmail">Email cím</label>
+                    <input type="email" id="dropdownEmail" placeholder="email@pelda.hu" required>
+                </div>
+                
+                <div class="dropdown-form-group">
+                    <label for="dropdownPassword">Jelszó</label>
+                    <input type="password" id="dropdownPassword" placeholder="••••••••" required>
+                </div>
+                
+                <div class="dropdown-form-options">
+                    <label class="dropdown-checkbox">
+                        <input type="checkbox">
+                        <span>Emlékezz rám</span>
+                    </label>
+                    <a href="#" class="dropdown-forgot">Elfelejtett jelszó?</a>
+                </div>
+                
+                <button type="submit" class="dropdown-submit-btn">Bejelentkezés</button>
+            </form>
+            
+            <div class="dropdown-footer">
+                <p>Nincs fiókod? <a href="register/register.html">Regisztrálj</a></p>
+            </div>
+        </div>
+      </div>
       <button class="darkmode-toggle" id="darkModeToggle" title="Sötét mód váltás">🌙</button>
-      <!-- PROFIL LINK JAVÍTVA -->
-      <a href="profile/profile.html" class="profile-btn" id="profileBtn">
+      <a href="/profile/profile.html" class="profile-btn" id="profileBtn">
         <div class="profile-icon">
           <img src="../images/fiok-ikon.png" alt="Profil">
         </div>
       </a>
     </div>
-  </header>
+  </nav>
+</header>
 
   <main>
     <section class="left">
@@ -42,8 +75,7 @@
       <div class="confetti-container" id="confettiContainer"></div>
       <div class="speech-bubble">
         <h2>Töltsd fel kedvenc fotóid és oszd meg a barátaiddal!</h2>
-        <!-- REGISZTRÁCIÓ LINK JAVÍTVA -->
-        <button onclick="location.href='register.html'">Regisztrálj most!</button>
+        <button onclick="location.href='register/register.html'">Regisztrálj most!</button>
       </div>
     </section>
 
@@ -71,7 +103,6 @@
     <!-- ANIMÁLT LÓ KÉP ÚTVONAL JAVÍTVA -->
     <img src="../images/HorseImage.png" alt="Animált ló" class="animated-horse" />
   </div>
-
-  <script src="script.js"></script>
+  <script src="../main/script.js"></script>
 </body>
 </html>

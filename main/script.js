@@ -154,3 +154,80 @@ darkModeToggle.addEventListener('click', () => {
     darkModeToggle.textContent = '🌙';
   }
 });
+
+// Dropdown login kezelése
+document.addEventListener('DOMContentLoaded', function() {
+    const loginDropdownBtn = document.getElementById('loginDropdownBtn');
+    const loginDropdown = document.getElementById('loginDropdown');
+    const dropdownForm = document.querySelector('.dropdown-form');
+    
+    if (sessionStorage.getItem('autoOpenLogin') === 'true') {
+        openLoginDropdown(); // vagy ami a dropdown megnyitása
+        sessionStorage.removeItem('autoOpenLogin');
+    }
+
+    if (loginDropdownBtn && loginDropdown) {
+        // Dropdown megnyitása/bezárása
+        loginDropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            loginDropdown.classList.toggle('show');
+        });
+        
+        // Form submit
+        if (dropdownForm) {
+            dropdownForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('dropdownEmail').value;
+                const password = document.getElementById('dropdownPassword').value;
+                
+                console.log('Bejelentkezés:', { email, password });
+                // Itt lesz a bejelentkezési logika
+                
+                // Sikeres bejelentkezés után bezárás
+                loginDropdown.classList.remove('show');
+            });
+        }
+        
+        // Klikk a dokumentumon kívülre bezárja a dropdown-t
+        document.addEventListener('click', function(e) {
+            if (!loginDropdown.contains(e.target) && e.target !== loginDropdownBtn) {
+                loginDropdown.classList.remove('show');
+            }
+        });
+        
+        // Escape billentyű is bezárja
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                loginDropdown.classList.remove('show');
+            }
+        });
+    }
+    
+    // Elfelejtett jelszó
+    const forgotPassword = document.querySelector('.dropdown-forgot');
+    if (forgotPassword) {
+        forgotPassword.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Jelszó visszaállítási link elküldve!');
+        });
+    }       
+});
+
+// Főoldal script.js-hez add hozzá:
+function openLoginDropdown() {
+    const loginDropdown = document.getElementById('loginDropdown');
+    const loginDropdownBtn = document.getElementById('loginDropdownBtn');
+    
+    if (loginDropdown) {
+        console.log('🎯 Automatikus login megnyitás');
+        loginDropdown.classList.add('show');
+        
+        // Opcionális: görgetés a gombhoz
+        if (loginDropdownBtn) {
+            loginDropdownBtn.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }
+}

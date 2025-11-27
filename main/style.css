@@ -12,6 +12,7 @@ body {
   color: #4b2e05;
 }
 
+/* HEADER STYLES */
 header {
   display: flex;
   justify-content: space-between;
@@ -41,6 +42,31 @@ header {
   white-space: nowrap;
 }
 
+/* NAVIGATION */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex: 1;
+  justify-content: center;
+  position: relative;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  position: absolute; 
+  right: 0;
+}
+
+/* NAV BUTTONS */
 .nav-btn {
   font-family: "Exo 2", sans-serif;
   background: #f6f0df;
@@ -52,36 +78,74 @@ header {
   box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   cursor: pointer;
   font-size: 1rem;
+  transition: all 0.3s ease;
+  color: #4b2e05;
+}
+
+.nav-btn:hover {
+  background: #e8dcc1;
+  transform: translateY(-0.125rem);
+}
+
+/* LOGIN BUTTON - SPECIFIC STYLES */
+.nav-btn.login-btn {
+  background: #f6f0df;
+  color: #4b2e05;
+  margin-left: auto;
+}
+
+.nav-btn.login-btn:hover {
+  background-color: #e8dcc1;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.2);
+}
+
+/* HEADER ACTIONS */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .profile-btn {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  padding: 8px;
-  background: #f8f4ea;
+  background: none;
   border: 2px solid #c4a86e;
-  border-radius: 50%;
+  padding: 4px;
+  margin: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.2rem;
+  color: #4b2e05;
+}
+
+.profile-btn:hover {
+  transform: scale(1.1);
+  border-color: #8ba978;
+  background-color: #f8f4ea;
+}
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-/* Jobb oldali akciógombok */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
+
+.profile-icon img {
+  width: 32px;
+  height: 32px;
 }
 
-/* 🌙 Sötét mód gomb stílus */
+/* DARK MODE TOGGLE */
 .darkmode-toggle {
   font-size: 1.3rem;
   cursor: pointer;
@@ -103,82 +167,7 @@ header {
   background-color: #f8f4ea;
 }
 
-/* 🌙 Sötét mód színek */
-body.dark-mode {
-  background-color: #2b2b2b;
-  color: #f3e9d2;
-}
-
-body.dark-mode header {
-  background-color: #3a3a3a;
-  border-bottom-color: #5a5a5a;
-}
-
-body.dark-mode .nav-btn {
-  background: #444;
-  color: #f3e9d2;
-  box-shadow: none;
-}
-
-body.dark-mode .speech-bubble {
-  background: #5f785a;
-  color: #fff;
-}
-
-body.dark-mode .ai-bubble {
-  background: #4e654f;
-}
-
-body.dark-mode .ai-bubble-content {
-  background: #3a3a3a;
-  color: #f3e9d2;
-}
-
-body.dark-mode .ai-bubble-content input {
-  background: #555;
-  border-color: #777;
-  color: #f3e9d2;
-}
-
-body.dark-mode .ai-bubble-content button {
-  background: #777;
-}
-
-body.dark-mode .profile-btn {
-  border-color: #777;
-}
-
-body.dark-mode .darkmode-toggle {
-  color: #f3e9d2;
-  border-color: #777;
-  background-color: #3a3a3a;
-}
-
-/* Finom átmenet váltáskor */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-.profile-btn:hover {
-  transform: scale(1.1);
-  border-color: #8ba978;      
-  background-color: #f8f4ea; 
-}
-
-.profile-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.profile-icon img {
-  width: 32px;
-  height: 32px;
-}
-
-/* Main content styles */
+/* MAIN CONTENT STYLES */
 main {
   display: flex;
   justify-content: space-between;
@@ -198,13 +187,13 @@ main {
   z-index: 1;
 }
 
-/* Horse styling - larger, positioned off-screen, facing right */
+/* HORSE STYLING */
 .horse {
-  width: 600px; /* Much larger size */
+  width: 600px;
   position: absolute;
-  left: -350px; /* Position off-screen so only head shows */
-  top: 60%; /* Moved down to 60% */
-  transform: translateY(-50%) scaleX(-1); /* Flip horizontally to face right */
+  left: -350px;
+  top: 60%;
+  transform: translateY(-50%) scaleX(-1);
   z-index: 0;
   transition: transform 0.2s ease;
 }
@@ -213,28 +202,7 @@ main {
   transform: translateY(-50%) scaleX(-1) scale(1.02);
 }
 
-/* Confetti container */
-.confetti-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
-  overflow: hidden;
-}
-
-.confetti {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-image: url('../images/Wheat.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0;
-}
-
+/* SPEECH BUBBLE */
 .speech-bubble {
   background: #8ba978;
   border-radius: 10px;
@@ -248,7 +216,6 @@ main {
   z-index: 2;
 }
 
-/* Speech bubble arrow pointing left */
 .speech-bubble:after {
   content: '';
   position: absolute;
@@ -293,14 +260,14 @@ main {
   background: #94a87a;
 }
 
-/* AI Bubble styles - always visible, not dropdown */
+/* AI BUBBLE */
 .ai-bubble-container {
   position: static;
   flex: 0 0 350px;
   margin-left: 2rem;
   z-index: 1;
   display: flex;
-  align-items: center; /* Vertically center the AI bubble */
+  align-items: center;
 }
 
 .ai-bubble {
@@ -372,35 +339,108 @@ main {
   background: #b39a5e;
 }
 
-/* Horse animation at the bottom */
-.horse-animation-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  overflow: hidden;
-  z-index: 1000;
+/* DARK MODE STYLES */
+body.dark-mode {
+  background-color: #2b2b2b;
+  color: #f3e9d2;
 }
 
-.animated-horse {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  transform: scaleX(-1); /* Flip horse to face right */
-  animation: horseRun 15s linear infinite;
+body.dark-mode header {
+  background-color: #3a3a3a;
+  border-bottom-color: #5a5a5a;
 }
 
-@keyframes horseRun {
-  0% {
-    left: -30px;
-  }
-  100% {
-    left: 100%;
-  }
+body.dark-mode .nav-btn {
+  background: #444;
+  color: #f3e9d2;
+  box-shadow: none;
 }
 
-/* Responsive adjustments */
+body.dark-mode .nav-btn:hover {
+  background: #5a5a5a;
+}
+
+body.dark-mode .nav-btn.login-btn {
+  background: #444;
+  color: #f3e9d2;
+  box-shadow: none;
+}
+
+body.dark-mode .nav-btn.login-btn:hover {
+  background-color: #0b5ed7;
+}
+
+body.dark-mode .speech-bubble {
+  background: #5f785a;
+  color: #f3e9d2;
+}
+
+body.dark-mode .speech-bubble:after {
+  border-right-color: #5f785a;
+}
+
+body.dark-mode .speech-bubble h2 {
+  color: #f3e9d2;
+}
+
+body.dark-mode .speech-bubble button {
+  background: #7b926c;
+  color: #fff;
+}
+
+body.dark-mode .speech-bubble button:hover {
+  background: #90a582;
+}
+
+body.dark-mode .ai-bubble {
+  background: #4e654f;
+}
+
+body.dark-mode .ai-bubble-header {
+  background: #4e654f;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content {
+  background: #3a3a3a;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content h3 {
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content input {
+  background: #555;
+  border-color: #777;
+  color: #f3e9d2;
+}
+
+body.dark-mode .ai-bubble-content button {
+  background: #777;
+  color: #fff;
+}
+
+body.dark-mode .ai-bubble-content button:hover {
+  background: #999;
+}
+
+body.dark-mode .profile-btn {
+  border-color: #777;
+}
+
+body.dark-mode .darkmode-toggle {
+  color: #f3e9d2;
+  border-color: #777;
+  background-color: #3a3a3a;
+}
+
+/* TRANSITIONS */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   main {
     flex-direction: column;
@@ -411,7 +451,6 @@ main {
   .ai-bubble-container {
     margin-left: 0;
     width: 100%;
-    align-items: flex-start; /* Reset alignment for mobile */
   }
   
   .left {
@@ -419,7 +458,6 @@ main {
     text-align: center;
   }
   
-  /* Adjust horse for mobile */
   .horse {
     width: 400px;
     left: -250px;
@@ -437,7 +475,6 @@ main {
     margin-left: 0;
   }
   
-  /* Adjust speech bubble arrow for mobile */
   .speech-bubble:after {
     left: 50%;
     top: -20px;
@@ -448,98 +485,221 @@ main {
     border-right: 15px solid transparent;
   }
 }
-/* 🌙 Sötét mód teljes színkorrekció */
-body.dark-mode {
-  background-color: #2b2b2b;
-  color: #f3e9d2;
+
+/* Confetti container */
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
 }
 
-/* Fejléc */
-body.dark-mode header {
-  background-color: #3a3a3a;
-  border-bottom-color: #5a5a5a;
+.confetti {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/Wheat.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
 }
 
-/* Menü gombok (HOME, EXPLORE) */
-body.dark-mode .nav-btn {
-  background: #444;
-  color: #f3e9d2;
-  box-shadow: none;
+/* Horse animation at the bottom */
+.horse-animation-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    z-index: 1000;
 }
 
-body.dark-mode .nav-btn:hover {
-  background: #5a5a5a;
+.animated-horse {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    transform: scaleX(-1); /* Flip horse to face right */
+    animation: horseRun 15s linear infinite;
 }
 
-/* Beszédbuborék (Töltsd fel kedvenc fotóid...) */
-body.dark-mode .speech-bubble {
-  background: #5f785a;
-  color: #f3e9d2;
+@keyframes horseRun {
+    0% {
+        left: -30px;
+    }
+    100% {
+        left: 100%;
+    }
 }
 
-body.dark-mode .speech-bubble h2 {
-  color: #f3e9d2;
+/* DROPDOWN LOGIN STYLES */
+.login-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-body.dark-mode .speech-bubble button {
-  background: #7b926c;
-  color: #fff;
+.login-dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #f8f4ea;
+    border: 1px solid #c4a86e;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 300px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none;
+    margin-top: 0.5rem;
 }
 
-body.dark-mode .speech-bubble button:hover {
-  background: #90a582;
+.login-dropdown-content.show {
+    display: block;
+    animation: dropdownFade 0.3s ease;
 }
 
-/* AI buborék */
-body.dark-mode .ai-bubble {
-  background: #4e654f;
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-body.dark-mode .ai-bubble-header {
-  background: #4e654f;
-  color: #f3e9d2; /* "AI Keresés" szöveg */
+.dropdown-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
-body.dark-mode .ai-bubble-content {
-  background: #3a3a3a;
-  color: #f3e9d2;
+.dropdown-header h3 {
+    font-family: 'Exo 2', sans-serif;
+    color: #4b2e05;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
 }
 
-body.dark-mode .ai-bubble-content h3 {
-  color: #f3e9d2; /* "Keress mesterséges intelligenciával!" */
+.dropdown-header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
-body.dark-mode .ai-bubble-content input {
-  background: #555;
-  border-color: #777;
-  color: #f3e9d2;
+.dropdown-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-body.dark-mode .ai-bubble-content::placeholder {
-  color: #ccc;
+.dropdown-form-group {
+    display: flex;
+    flex-direction: column;
 }
 
-body.dark-mode .ai-bubble-content button {
-  background: #777;
-  color: #fff;
+.dropdown-form-group label {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    color: #4b2e05;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
 }
 
-body.dark-mode .ai-bubble-content button:hover {
-  background: #999;
+.dropdown-form-group input {
+    padding: 0.7rem;
+    border: 1px solid #c4a86e;
+    border-radius: 6px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 0.9rem;
+    background: white;
 }
 
-/* Profil és sötét mód ikon */
-body.dark-mode .profile-btn {
-  border-color: #777;
+.dropdown-form-group input:focus {
+    outline: none;
+    border-color: #8ba978;
 }
 
-body.dark-mode .darkmode-toggle {
-  color: #f3e9d2;
-  border-color: #777;
-  background-color: #3a3a3a;
+.dropdown-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
 }
 
-/* Átmenet */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+.dropdown-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.dropdown-forgot {
+    color: #8ba978;
+    text-decoration: none;
+}
+
+.dropdown-forgot:hover {
+    text-decoration: underline;
+}
+
+.dropdown-submit-btn {
+    background: #8ba978;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.dropdown-submit-btn:hover {
+    background: #7a9769;
+}
+
+.dropdown-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.dropdown-footer a {
+    color: #8ba978;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.dropdown-footer a:hover {
+    text-decoration: underline;
+}
+
+/* DARK MODE DROPDOWN */
+body.dark-mode .login-dropdown-content {
+    background: #3a3a3a;
+    border-color: #555;
+}
+
+body.dark-mode .dropdown-header h3 {
+    color: #f3e9d2;
+}
+
+body.dark-mode .dropdown-form-group label {
+    color: #f3e9d2;
+}
+
+body.dark-mode .dropdown-form-group input {
+    background: #555;
+    border-color: #777;
+    color: #f3e9d2;
+}
+
+body.dark-mode .dropdown-form-group input:focus {
+    border-color: #8ba978;
 }
