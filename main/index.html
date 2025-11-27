@@ -4,41 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DI-Ló</title>
-  <link rel="stylesheet" href="../main/style.css" />
+  <!-- CSS ÚTVONALAK JAVÍTVA -->
+  <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="../images/Wheat.png" as="image">
 </head>
 
 <body>
   <header>
-  <div class="logo">
+    <div class="logo">
+      <!-- KÉP ÚTVONAL JAVÍTVA -->
+      <img src="../images/logo-removebg-preview.png" alt="DI-Ló logó" />
+      <h1>DI-Ló</h1>
+    </div>
 
-    <img src="/images/logo-removebg-preview.png" alt="DI-Ló logó" />
+    <nav>
+      <button class="nav-btn">Home</button>
+      <!-- EXPLORE LINK JAVÍTVA -->
+      <button class="nav-btn" onclick="window.location.href='explore/explore.html'">Explore</button>
+    </nav>
 
-    <h1>DI-Ló</h1>
-  </div>
-
-  <nav>
-    <button class="nav-btn">Home</button>
-    <button class="nav-btn" onclick="window.location.href='/main/explore/explore.html'">Explore</button>
-  </nav>
-
-  <div class="header-actions">
-    <button class="darkmode-toggle" id="darkModeToggle" title="Sötét mód váltás">🌙</button>
-    <a href="/profile/profile.html" class="profile-btn" id="profileBtn">
-      <div class="profile-icon">
-        <img src="../images/fiok-ikon.png" alt="Profil">
-      </div>
-    </a>
-  </div>
-</header>
+    <div class="header-actions">
+      <button class="darkmode-toggle" id="darkModeToggle" title="Sötét mód váltás">🌙</button>
+      <!-- PROFIL LINK JAVÍTVA -->
+      <a href="profile/profile.html" class="profile-btn" id="profileBtn">
+        <div class="profile-icon">
+          <img src="../images/fiok-ikon.png" alt="Profil">
+        </div>
+      </a>
+    </div>
+  </header>
 
   <main>
     <section class="left">
+      <!-- LÓ KÉP ÚTVONAL JAVÍTVA -->
       <img src="../images/HorseImage.png" alt="Ló figura" class="horse" id="horseImage" />
       <div class="confetti-container" id="confettiContainer"></div>
       <div class="speech-bubble">
         <h2>Töltsd fel kedvenc fotóid és oszd meg a barátaiddal!</h2>
+        <!-- REGISZTRÁCIÓ LINK JAVÍTVA -->
         <button onclick="location.href='register.html'">Regisztrálj most!</button>
       </div>
     </section>
@@ -64,9 +68,10 @@
 
   <!-- Animated horse at the bottom -->
   <div class="horse-animation-container">
+    <!-- ANIMÁLT LÓ KÉP ÚTVONAL JAVÍTVA -->
     <img src="../images/HorseImage.png" alt="Animált ló" class="animated-horse" />
   </div>
 
-  <script src="../main/script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
