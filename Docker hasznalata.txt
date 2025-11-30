@@ -1,0 +1,20 @@
+************* Docker használata *************
+
+-Ha el akarod indítani a Docker konténert:
+    docker compose up -d
+    -Ha változott a Dockerfile hozzá kell adni:
+        docker compose up -d --build
+
+-Ha le akarod állítani 
+    docker compose down
+
+-Megmutatja mik futnak a stackben:
+    docker compose ps
+
+-Megmutatja az összes konténer logjait:
+    docker compose logs -f
+
+⚠️⚠️⚠️ Nagyon fontos ⚠️⚠️⚠️
+
+Mostantól nem Live Servert kell használni (mivel az csak a frontend részét tudja kezelni a projektnek), hanem dockeren keresztül tudjuk elérni élőben a változtatásokat.
+Ehhez a böngészőben ezt kell beírni, hogyha fut a docker konténer: http://localhost
