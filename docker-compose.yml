@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # 1. PHP/Web App Service
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: php_app
+    # http://localhost címen lesz elérhető
+    ports:
+      - "80:80"
+    # A projektgyökér csatolása a konténer webgyökerébe
+    volumes:
+      - .:/var/www/html
+      # Az Apache konfigurációs fájl csatolása
+      - ./docker/vhost/000-default.conf:/etc/apache2/sites-available/000-default.conf             
+
+    depends_on:
+      - db
+    
+    environment:
+      MYSQL_HOST: db                  
+      MYSQL_DATABASE: egyetemidb
+      MYSQL_USER: user_dev
+      MYSQL_PASSWORD: secure_pass
+      
+  # 2. MySQL Database Service
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      # Gyökér (root) jelszó (csak fejlesztéshez)
+      MYSQL_ROOT_PASSWORD: root_secret 
+      # Ugyanazok az adatok, mint amit az APP konténer használ
+      MYSQL_DATABASE: egyetemidb
+      MYSQL_USER: user_dev
+      MYSQL_PASSWORD: secure_pass
+    volumes:
+      # Perzisztens tároló a DB adatoknak
+      - db_data:/var/lib/mysql       
+      # ⭐ A KULCS FONTOSSÁGÚ MÓDOSÍTÁS: A teljes db_init mappa csatolása
+      # Minden .sql fájl ebben a mappában (betűrendben/számrendben) lefut az indításkor.
+      - ./db_init:/docker-entrypoint-initdb.d
+    # DB port kitetetele (opcionális, de hasznos külső DB klienshez)
+    ports:
+      - "3306:3306"                  
+
+# 3. Kötetek definíciója
+volumes:
+  db_data:
