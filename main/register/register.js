@@ -1,5 +1,3 @@
-// register/register.js - TELJES VERZIÓ
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📝 Register oldal betöltődött");
 
@@ -9,11 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         goToLoginLink.addEventListener('click', function(e) {
             e.preventDefault();
             console.log("🎯 Register → Főoldal (login dropdown)");
-            
-            // SessionStorage beállítás
             sessionStorage.setItem('autoOpenLogin', 'true');
-            
-            // Átirányítás a főoldalra
+            // Mivel a register mappában vagyunk, a főoldal egy szinttel feljebb van:
             window.location.href = '../index.html';
         });
     }
@@ -33,25 +28,29 @@ document.addEventListener('DOMContentLoaded', function() {
         this.textContent = type === 'password' ? 'Mutasd' : 'Elrejt';
     });
 
-    // 3. Regisztrációs form validáció
-    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    // 3. Regisztrációs form validáció és KÜLDÉS
+    const regForm = document.getElementById('registrationForm');
+    
+    regForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Reset error messages
+        // Hibaüzenetek elrejtése
         document.querySelectorAll('.error-message').forEach(error => {
             error.style.display = 'none';
         });
 
         let isValid = true;
 
-        // Name validation
+        // --- VALIDÁCIÓK ---
+        
+        // Név
         const fullName = document.getElementById('fullName').value.trim();
         if (fullName.length < 2) {
             document.getElementById('nameError').style.display = 'block';
             isValid = false;
         }
 
-        // Email validation
+        // Email
         const email = document.getElementById('email').value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -59,45 +58,75 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Username validation
+        // Felhasználónév
         const username = document.getElementById('username').value.trim();
         if (username.length < 3) {
             document.getElementById('usernameError').style.display = 'block';
             isValid = false;
         }
 
-        // Password validation
+        // Jelszó
         const password = document.getElementById('password').value;
         if (password.length < 6) {
             document.getElementById('passwordError').style.display = 'block';
             isValid = false;
         }
 
-        // Confirm password
+        // Jelszó megerősítés
         const confirmPassword = document.getElementById('confirmPassword').value;
         if (password !== confirmPassword) {
             document.getElementById('confirmPasswordError').style.display = 'block';
             isValid = false;
         }
 
-        // Terms validation
+        // ÁSZF
         if (!document.getElementById('terms').checked) {
             document.getElementById('termsError').style.display = 'block';
             isValid = false;
         }
 
         if (isValid) {
-            // Sikeres regisztráció
-            console.log("✅ Sikeres regisztráció");
-            alert('Sikeres regisztráció! Most már bejelentkezhet.');
-            
-            // Átirányítás a főoldalra login dropdownnal
-            sessionStorage.setItem('autoOpenLogin', 'true');
-            window.location.href = '../index.html';
+            // Gomb letiltása
+            const submitBtn = regForm.querySelector('.btn-register');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Regisztráció folyamatban...";
+
+            // Adatok összekészítése
+            const formData = new FormData(regForm);
+
+            // FONTOS: Itt a javítás! 
+            // Mivel a PHP is a 'register' mappában van, nem kell '../'
+            fetch('register.php', { 
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("✅ Sikeres mentés adatbázisba");
+                    alert(data.message); 
+                    
+                    // Átirányítás a főoldalra
+                    sessionStorage.setItem('autoOpenLogin', 'true');
+                    window.location.href = '../index.html';
+                } else {
+                    console.error("❌ Szerver hiba:", data.message);
+                    alert("Hiba: " + data.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            })
+            .catch(error => {
+                console.error('Hálózati hiba:', error);
+                alert("Hálózati hiba történt. Ellenőrizd, hogy fut-e a Docker!");
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            });
         }
     });
 
-    // 4. Real-time password confirmation check
+    // 4. Real-time jelszó egyezés
     document.getElementById('confirmPassword').addEventListener('input', function() {
         const password = document.getElementById('password').value;
         const confirmPassword = this.value;

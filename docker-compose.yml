@@ -33,17 +33,14 @@ services:
     environment:
       # Gyökér (root) jelszó (csak fejlesztéshez)
       MYSQL_ROOT_PASSWORD: root_secret 
-      # Ugyanazok az adatok, mint amit az APP konténer használ
       MYSQL_DATABASE: egyetemidb
       MYSQL_USER: user_dev
       MYSQL_PASSWORD: secure_pass
     volumes:
       # Perzisztens tároló a DB adatoknak
       - db_data:/var/lib/mysql       
-      # ⭐ A KULCS FONTOSSÁGÚ MÓDOSÍTÁS: A teljes db_init mappa csatolása
-      # Minden .sql fájl ebben a mappában (betűrendben/számrendben) lefut az indításkor.
+      
       - ./db_init:/docker-entrypoint-initdb.d
-    # DB port kitetetele (opcionális, de hasznos külső DB klienshez)
     ports:
       - "3306:3306"                  
 
