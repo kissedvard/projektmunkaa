@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }       
 });
 
-// Főoldal script.js-hez add hozzá:
+
 function openLoginDropdown() {
     const loginDropdown = document.getElementById('loginDropdown');
     const loginDropdownBtn = document.getElementById('loginDropdownBtn');
@@ -231,3 +231,38 @@ function openLoginDropdown() {
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const loginForm = document.getElementById('loginForm');
+
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const formData = new FormData(this);
+
+            fetch('../login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("✅ Sikeres belépés");
+                    
+                    alert("Sikeres bejelentkezés! Üdv, " + data.user);
+                    
+                    
+                    window.location.href = '../profile/index.html';
+                } else {
+                    alert("Hiba: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Hiba:', error);
+            });
+        });
+    }
+});

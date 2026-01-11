@@ -7,10 +7,10 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     container_name: php_app
-    # http://localhost címen lesz elérhető
+    
     ports:
       - "80:80"
-    # A projektgyökér csatolása a konténer webgyökerébe
+    
     volumes:
       - .:/var/www/html
       # Az Apache konfigurációs fájl csatolása

@@ -110,3 +110,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ÚTVONAL: Kettőt lépünk vissza (../../) a gyökérbe
+    fetch('../../get_user_data.php')
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            const data = response.data;
+            
+            // FONTOS: Itt INPUT mezőket töltünk ki (.value), nem sima szöveget (.textContent)
+            // Ellenőrizd az ID-kat a HTML-ben!
+            
+            if(document.getElementById('editFullName')) 
+                document.getElementById('editFullName').value = data.teljes_nev;
+            
+            if(document.getElementById('editBio')) 
+                document.getElementById('editBio').value = data.bemutatkozas || "";
+            
+            if(document.getElementById('editLocation')) 
+                document.getElementById('editLocation').value = data.lakhely || "";
+            
+            if(document.getElementById('editWebsite')) 
+                document.getElementById('editWebsite').value = data.weboldal || "";
+
+            // Jelenlegi profilkép előnézete
+            const imgElement = document.getElementById('currentProfileImage');
+            if (imgElement) {
+                // Itt is KETTŐT kell visszalépni az uploads mappához
+                const imgPath = data.profil_kep && data.profil_kep !== 'default_avatar.jpg' 
+                                ? `../../uploads/${data.profil_kep}` 
+                                : '../../images/default_avatar.jpg';
+                imgElement.src = imgPath;
+            }
+
+        } else {
+            // Ha nincs belépve, visszaküldjük a főoldalra (Login)
+            // A main mappa eléréséhez: ../../main/index.html
+            window.location.href = '../../main/index.html';
+        }
+    })
+    .catch(error => console.error('Hiba:', error));
+});

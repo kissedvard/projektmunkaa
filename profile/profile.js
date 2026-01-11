@@ -558,3 +558,62 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// profile/script.js - TELJES, FRISSÍTETT VERZIÓ
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Lekérjük az adatokat (nevet, képet ÉS a számokat is)
+    fetch('../get_user_data.php')
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            const data = response.data;
+            
+            // --- 1. ALAP ADATOK (Ez volt a régi kódban is) ---
+            
+            // Név
+            if(document.getElementById('profileName')) 
+                document.getElementById('profileName').textContent = data.teljes_nev;
+            
+            // Felhasználónév (ha van ilyen elemed)
+            if(document.getElementById('username')) 
+                document.getElementById('username').textContent = "@" + data.felhasznalo;
+            
+            // Bemutatkozás (Sortörések kezelésével)
+            const bioElem = document.getElementById('bio');
+            if(bioElem) {
+                 bioElem.textContent = data.bemutatkozas || "Nincs még bemutatkozás.";
+            }
+
+            // --- 2. STATISZTIKÁK (EZ AZ ÚJ RÉSZ!) ---
+            // Ezek töltik ki a 0-kat a valós számokkal
+            
+            if(document.getElementById('postCount'))
+                document.getElementById('postCount').textContent = data.posts_count;
+            
+            if(document.getElementById('followerCount'))
+                document.getElementById('followerCount').textContent = data.followers_count;
+            
+            if(document.getElementById('followingCount'))
+                document.getElementById('followingCount').textContent = data.following_count;
+
+            // --- 3. PROFILKÉP ---
+            const imgElement = document.getElementById('profileImage');
+            if (imgElement) {
+                // Megnézzük, van-e feltöltött kép, ha nincs, marad a default
+                const imgPath = data.profil_kep && data.profil_kep !== 'default_avatar.jpg' 
+                                ? `../uploads/${data.profil_kep}` 
+                                : '../images/default_avatar.jpg';
+                
+                imgElement.src = imgPath;
+            }
+
+        } else {
+            // Ha nincs bejelentkezve, visszaküldjük a főoldalra
+            console.log("Nincs belépve, átirányítás...");
+            window.location.href = '../main/index.html';
+        }
+    })
+    .catch(error => console.error('Hiba:', error));
+});

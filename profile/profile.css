@@ -37,6 +37,7 @@ main {
     font-weight: bold;
     color: #ffffff;
     margin-bottom: 20px;
+    object-fit: cover;
 }
 
 .profile-info {

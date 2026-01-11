@@ -30,35 +30,33 @@
     </header>
 
     <main>
-        <div class="profile-container">
-            <!-- Profil fejléc -->
-            <div class="profile-header">
-                <div class="profile-avatar">E</div>
-                <div class="profile-info">
-                    <div class="profile-stats">
-                        <div class="stat">
-                            <div class="stat-number">24</div>
-                            <div class="stat-label">poszt</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">128</div>
-                            <div class="stat-label">követő</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">86</div>
-                            <div class="stat-label">követ</div>
-                        </div>
+       <div class="profile-header">
+            <img src="../images/default_avatar.jpg" alt="Profilkép" class="profile-avatar" id="profileImage">
+    
+            <div class="profile-info">
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="postCount">0</div>
+                        <div class="stat-label">poszt</div>
                     </div>
-                    <div class="profile-name">Kiss Edvárd</div>
-                    <div class="profile-bio">
-                        Lóimádó és fotós 📸<br>
-                        Megosztom a legszebb lovaimat veletek! 🐎
+                    <div class="stat">
+                        <div class="stat-number" id="followerCount">0</div>
+                        <div class="stat-label">követő</div>
                     </div>
-                    <button class="edit-profile-btn" onclick="window.location.href='profileedit/edit-profile.html'">
-                        Profil szerkesztése
-                    </button>
+                    <div class="stat">
+                        <div class="stat-number" id="followingCount">0</div>
+                        <div class="stat-label">követ</div>
+                    </div>
                 </div>
+        
+                <div class="profile-name" id="profileName">Betöltés...</div>
+                <div class="profile-bio" id="bio"></div>
+        
+                <button class="edit-profile-btn" onclick="window.location.href='profileedit/edit-profile.html'">
+                    Profil szerkesztése
+                </button>
             </div>
+        </div>
 
             <!-- Posztok szekció -->
             <div class="posts-section">
