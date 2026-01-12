@@ -6,7 +6,6 @@ header('Content-Type: application/json; charset=utf-8');
 
 
 if (!isset($_SESSION['user_id'])) {
-    // Ha nincs munkamenet (nincs ID), akkor hiba
     echo json_encode(['success' => false, 'message' => 'Nincs bejelentkezve']);
     exit;
 }

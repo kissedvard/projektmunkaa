@@ -1,16 +1,21 @@
+DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `follows`;
+
 -- Posts
-CREATE TABLE IF NOT EXISTS `posts` (
-  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `kep_utvonal` varchar(255) NOT NULL,
-  `leiras` text,
-  `feltoltve` timestamp DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`post_id`),
+  `image_url` varchar(255) NOT NULL,  -- Régen: kep_utvonal
+  `caption` text,                     -- Régen: leiras
+  `likes_count` int(11) DEFAULT 0,    -- ÚJ: lájkok száma
+  `comments_count` int(11) DEFAULT 0, -- ÚJ: kommentek száma
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `register` (`reg_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE IF NOT EXISTS `follows` (
+-- Follows
+CREATE TABLE `follows` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `follower_id` int(11) NOT NULL COMMENT 'Aki követ',
   `following_id` int(11) NOT NULL COMMENT 'Akit követnek',
