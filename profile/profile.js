@@ -601,10 +601,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // --- 3. PROFILKÉP ---
             const imgElement = document.getElementById('profileImage');
             if (imgElement) {
-                // Megnézzük, van-e feltöltött kép, ha nincs, marad a default
-                const imgPath = data.profil_kep && data.profil_kep !== 'default_avatar.jpg' 
-                                ? `../uploads/${data.profil_kep}` 
-                                : '../images/default_avatar.jpg';
+                console.log("Adatbázisban lévő kép neve:", data.profil_kep);
+                let imgPath;
+
+                
+                if (!data.profil_kep || data.profil_kep === 'fiok-ikon.png' || data.profil_kep === 'default_avatar.jpg') {
+                    imgPath = '../images/fiok-ikon.png';
+                } else {
+                    imgPath = `../uploads/${data.profil_kep}`;
+                }
                 
                 imgElement.src = imgPath;
             }
