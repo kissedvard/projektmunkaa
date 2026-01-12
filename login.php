@@ -1,5 +1,4 @@
 <?php
-// Fájl helye: PROJEKT_GYÖKÉR/login.php
 
 // 1. Munkamenet indítása (NAGYON FONTOS: ez jegyzi meg, hogy be vagy lépve)
 session_start();

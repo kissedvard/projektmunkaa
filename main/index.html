@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DI-Ló</title>
-  <!-- CSS ÚTVONALAK JAVÍTVA -->
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="../images/Wheat.png" as="image">
@@ -31,26 +30,27 @@
                 <p>Üdv újra!</p>
             </div>
             
-            <form class="dropdown-form">
-                <div class="dropdown-form-group">
-                    <label for="dropdownEmail">Email cím</label>
-                    <input type="email" id="dropdownEmail" placeholder="email@pelda.hu" required>
-                </div>
-                
-                <div class="dropdown-form-group">
-                    <label for="dropdownPassword">Jelszó</label>
-                    <input type="password" id="dropdownPassword" placeholder="••••••••" required>
-                </div>
-                
-                <div class="dropdown-form-options">
-                    <label class="dropdown-checkbox">
-                        <input type="checkbox">
-                        <span>Emlékezz rám</span>
-                    </label>
-                    <a href="#" class="dropdown-forgot">Elfelejtett jelszó?</a>
-                </div>
-                
-                <button type="submit" class="dropdown-submit-btn">Bejelentkezés</button>
+            <form class="dropdown-form" id="loginForm">
+              <div class="dropdown-form-group">
+                  <label for="dropdownEmail">Felhasználónév vagy Email</label>
+                  
+                  <input type="text" name="username" id="dropdownEmail" placeholder="Felhasználónév vagy Email" required>
+              </div>
+              
+              <div class="dropdown-form-group">
+                  <label for="dropdownPassword">Jelszó</label>
+                  <input type="password" name="password" id="dropdownPassword" placeholder="••••••••" required>
+              </div>
+              
+              <div class="dropdown-form-options">
+                  <label class="dropdown-checkbox">
+                      <input type="checkbox">
+                      <span>Emlékezz rám</span>
+                  </label>
+                  <a href="#" class="dropdown-forgot">Elfelejtett jelszó?</a>
+              </div>
+              
+              <button type="submit" class="dropdown-submit-btn">Bejelentkezés</button>
             </form>
             
             <div class="dropdown-footer">

@@ -177,14 +177,28 @@ document.addEventListener('DOMContentLoaded', function() {
         if (dropdownForm) {
             dropdownForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const email = document.getElementById('dropdownEmail').value;
-                const password = document.getElementById('dropdownPassword').value;
+
+                const formData = new FormData(dropdownForm);
+            
+                fetch('../login.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("📩 Szerver válasza:", data);
                 
-                console.log('Bejelentkezés:', { email, password });
-                // Itt lesz a bejelentkezési logika
-                
-                // Sikeres bejelentkezés után bezárás
-                loginDropdown.classList.remove('show');
+                    if (data.success) {
+                        alert("Sikeres bejelentkezés! Üdvözlünk, " + (data.user || "Felhasználó") + "!");
+                        window.location.href = '../profile/profile.html';
+                    } else {
+                        alert("Hiba: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Hálózati hiba:', error);
+                    alert("Hálózati hiba történt! Ellenőrizd a konzolt.");
+                });
             });
         }
         
@@ -262,6 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Hiba:', error);
+                alert("Hálózati hiba történt!");
             });
         });
     }
