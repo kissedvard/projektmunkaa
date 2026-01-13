@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (profileBtn) {
         profileBtn.addEventListener('click', function() {
-            window.location.href = 'profile/profile.html';
+            window.location.href = '../profile/profile.html';
         });
     }
     
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert("Sikeres bejelentkezés! Üdv, " + data.user);
                     
                     
-                    window.location.href = '../profile/index.html';
+                    window.location.href = '../profile/profile.html';
                 } else {
                     alert("Hiba: " + data.message);
                 }
