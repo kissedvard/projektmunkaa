@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateProfileUI(response.data);
             } else {
                 console.log("Nincs belépve, átirányítás...");
+                alert("Nem vagy bejelentkezve!\nA profil oldal megtekintéséhez kérlek, jelentkezz be.");
                 window.location.href = '../main/index.html';
             }
         })
