@@ -134,18 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Gomb kattintás esemény
-darkModeToggle.addEventListener('click', () => {
-  body.classList.toggle('dark-mode');
-
-  if (body.classList.contains('dark-mode')) {
-    localStorage.setItem('darkMode', 'enabled');
-    darkModeToggle.textContent = '☀️';
-  } else {
-    localStorage.setItem('darkMode', 'disabled');
-    darkModeToggle.textContent = '🌙';
-  }
-});
 
 // Dropdown login kezelése
 document.addEventListener('DOMContentLoaded', function() {

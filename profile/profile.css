@@ -202,98 +202,6 @@ main {
 }
 
 
-/* 🌙 SÖTÉT MÓD PROFIL OLDALHOZ */
-body.dark-mode.profile-page {
-  background-color: #2b2b2b;
-  color: #f3e9d2;
-}
-
-/* Profil header */
-body.dark-mode .profile-header {
-  border-bottom-color: #555;
-}
-
-/* Profil avatar */
-body.dark-mode .profile-avatar {
-  background: linear-gradient(135deg, #5f785a, #8b7b4b);
-  border-color: #444;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Név, statok, bio */
-body.dark-mode .profile-name {
-  color: #f3e9d2;
-}
-
-body.dark-mode .stat-number {
-  color: #f3e9d2;
-}
-
-body.dark-mode .stat-label {
-  color: #ccc;
-}
-
-body.dark-mode .profile-bio {
-  color: #ccc;
-}
-
-/* Profil szerkesztés gomb */
-body.dark-mode .edit-profile-btn {
-  background: #444;
-  color: #f3e9d2;
-  border-color: #777;
-}
-
-body.dark-mode .edit-profile-btn:hover {
-  background: #555;
-}
-
-/* Poszt szekció */
-body.dark-mode .posts-tabs {
-  border-top-color: #555;
-}
-
-body.dark-mode .tab {
-  color: #ccc;
-}
-
-body.dark-mode .tab.active {
-  color: #f3e9d2;
-  border-top-color: #f3e9d2;
-}
-
-/* Poszt kártyák */
-body.dark-mode .post-item {
-  background: #3a3a3a;
-  border-color: #555;
-}
-
-body.dark-mode .post-item:hover {
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-}
-
-/* Üres állapot (nincsenek posztok) */
-body.dark-mode .no-posts {
-  color: #aaa;
-}
-
-body.dark-mode .no-posts h3 {
-  color: #ddd;
-}
-
-body.dark-mode .upload-prompt {
-  background: #5f785a;
-}
-
-body.dark-mode .upload-prompt:hover {
-  background: #738b6b;
-}
-
-/* Finom átmenetek */
-body.dark-mode * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
 /* Profile page header styles */
 .profile-page header {
     display: flex;
@@ -616,23 +524,6 @@ body.dark-mode * {
     color: #666;
 }
 
-/* DARK MODE */
-body.dark-mode .modal-content {
-    background: #3a3a3a;
-    color: #f3e9d2;
-}
-
-body.dark-mode .upload-area {
-    border-color: #555;
-    background: #444;
-}
-
-body.dark-mode .upload-form textarea,
-body.dark-mode .upload-form input[type="text"] {
-    background: #555;
-    border-color: #777;
-    color: #f3e9d2;
-}
 
 /* LIGHTBOX STYLES */
 .lightbox-modal {
@@ -973,4 +864,68 @@ body.dark-mode .upload-form input[type="text"] {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
     }
+}
+
+/* 1. A JOBB OLDALI CSOPORT IGAZÍTÁSA */
+.header-right {
+    margin-left: auto;      /* Jobbra tolja az egész csoportot */
+    display: flex;          /* Egymás mellé rendezi a gombokat */
+    align-items: center;    /* FÜGGŐLEGES KÖZÉPRE IGAZÍTÁS (Ez javítja a felcsúszást!) */
+    gap: 15px;              /* Távolság a Kijelentkezés és a Nyíl között */
+    height: 100%;           /* Kitölti a fejléc magasságát */
+}
+
+/* 2. A KIJELENTKEZÉS GOMB STÍLUSA (Ugyanaz, mint a Login gomb) */
+#logoutBtn {
+    margin: 0;              /* Fontos! Nullázzuk a margókat, hogy ne csússzon el */
+    
+    /* Kinézet */
+    background-color: #fcf6e9;   /* Bézs háttér */
+    border: 1px solid #eaddcf;   /* Halvány keret */
+    color: #4b2e05;              /* Barna betű */
+    
+    /* Méret és Betű */
+    padding: 8px 20px;           
+    border-radius: 10px;         
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    font-size: 14px;             
+    cursor: pointer;
+    
+    /* Árnyék és Effekt */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    transition: all 0.3s ease;
+    
+    /* Biztosítjuk a középraigazítást a gombon belül is */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px; /* Opcionális: Fix magasság, ha a másik gomb is ekkora */
+}
+
+/* Hover effektus (ha ráviszed az egeret) */
+#logoutBtn:hover {
+    background-color: #ede2cd;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+/* 3. A VISSZA NYÍL (Hogy ez is középen legyen) */
+#profileBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    
+    display: flex;       
+    align-items: center; /* A nyíl ikon vertikális középre igazítása */
+    justify-content: center;
+    height: 40px;        /* Ugyanakkora helyet foglaljon, mint a logout gomb */
+    width: 40px;         /* Kerek legyen a kattintható terület */
+}
+
+.profile-icon {
+    font-size: 24px;     
+    line-height: 1;      /* Megakadályozza a soremelés miatti elcsúszást */
 }

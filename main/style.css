@@ -145,27 +145,6 @@ nav {
   height: 32px;
 }
 
-/* DARK MODE TOGGLE */
-.darkmode-toggle {
-  font-size: 1.3rem;
-  cursor: pointer;
-  background: none;
-  border: 2px solid #c4a86e;
-  color: #4b2e05;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s ease;
-}
-
-.darkmode-toggle:hover {
-  transform: scale(1.1);
-  border-color: #8ba978;
-  background-color: #f8f4ea;
-}
 
 /* MAIN CONTENT STYLES */
 main {
@@ -339,101 +318,6 @@ main {
   background: #b39a5e;
 }
 
-/* DARK MODE STYLES */
-body.dark-mode {
-  background-color: #2b2b2b;
-  color: #f3e9d2;
-}
-
-body.dark-mode header {
-  background-color: #3a3a3a;
-  border-bottom-color: #5a5a5a;
-}
-
-body.dark-mode .nav-btn {
-  background: #444;
-  color: #f3e9d2;
-  box-shadow: none;
-}
-
-body.dark-mode .nav-btn:hover {
-  background: #5a5a5a;
-}
-
-body.dark-mode .nav-btn.login-btn {
-  background: #444;
-  color: #f3e9d2;
-  box-shadow: none;
-}
-
-body.dark-mode .nav-btn.login-btn:hover {
-  background-color: #0b5ed7;
-}
-
-body.dark-mode .speech-bubble {
-  background: #5f785a;
-  color: #f3e9d2;
-}
-
-body.dark-mode .speech-bubble:after {
-  border-right-color: #5f785a;
-}
-
-body.dark-mode .speech-bubble h2 {
-  color: #f3e9d2;
-}
-
-body.dark-mode .speech-bubble button {
-  background: #7b926c;
-  color: #fff;
-}
-
-body.dark-mode .speech-bubble button:hover {
-  background: #90a582;
-}
-
-body.dark-mode .ai-bubble {
-  background: #4e654f;
-}
-
-body.dark-mode .ai-bubble-header {
-  background: #4e654f;
-  color: #f3e9d2;
-}
-
-body.dark-mode .ai-bubble-content {
-  background: #3a3a3a;
-  color: #f3e9d2;
-}
-
-body.dark-mode .ai-bubble-content h3 {
-  color: #f3e9d2;
-}
-
-body.dark-mode .ai-bubble-content input {
-  background: #555;
-  border-color: #777;
-  color: #f3e9d2;
-}
-
-body.dark-mode .ai-bubble-content button {
-  background: #777;
-  color: #fff;
-}
-
-body.dark-mode .ai-bubble-content button:hover {
-  background: #999;
-}
-
-body.dark-mode .profile-btn {
-  border-color: #777;
-}
-
-body.dark-mode .darkmode-toggle {
-  color: #f3e9d2;
-  border-color: #777;
-  background-color: #3a3a3a;
-}
 
 /* TRANSITIONS */
 * {
