@@ -299,6 +299,33 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.target === lightboxModal) lightboxModal.classList.remove('show');
         });
 
-        // (Itt lehetne még Next/Prev gomb logika a currentIndex alapján)
+        
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            console.log('Kijelentkezés folyamatban...');
+            
+            localStorage.removeItem('username');
+            localStorage.removeItem('loggedInUser'); 
+
+            
+            fetch('../logout.php')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Kijelentkezés sikeres:', data);
+                window.location.href = '../main/index.html';
+            })
+            .catch(error => {
+                console.error('Hiba kijelentkezéskor:', error);
+                // Ha hiba van, akkor is visszadobjuk a főoldalra
+                window.location.href = '../index.html';
+            });
+        });
     }
 });

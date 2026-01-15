@@ -132,15 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-// 🌙 Sötét mód váltás
-const darkModeToggle = document.getElementById('darkModeToggle');
-const body = document.body;
 
-// Ellenőrizzük, volt-e korábbi beállítás
-if (localStorage.getItem('darkMode') === 'enabled') {
-  body.classList.add('dark-mode');
-  darkModeToggle.textContent = '☀️';
-}
 
 // Gomb kattintás esemény
 darkModeToggle.addEventListener('click', () => {
