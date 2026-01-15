@@ -267,6 +267,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log("✅ Sikeres belépés");
                     
                     alert("Sikeres bejelentkezés! Üdv, " + data.user);
+
+                    localStorage.setItem('username', data.user);
                     
                     
                     window.location.href = '../profile/profile.html';
@@ -279,5 +281,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Hálózati hiba történt!");
             });
         });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Megnézzük, van-e elmentett felhasználónév
+    const savedUser = localStorage.getItem('username');
+    
+    // 2. Megkeressük az elemeket a HTML-ben
+    const loginBtn = document.getElementById('loginDropdownBtn');
+    const statusSpan = document.getElementById('userStatus');
+
+    // 3. Ha van bejelentkezett felhasználó...
+    if (savedUser) {
+        // ...akkor ELTÜNTETJÜK a gombot:
+        if (loginBtn) {
+            loginBtn.style.display = 'none';
+        }
+
+        // ...és KIÍRJUK a szöveget a helyére (vagy mellé):
+        if (statusSpan) {
+            statusSpan.innerText = "Bejelentkezve: " + savedUser;
+        }
     }
 });
