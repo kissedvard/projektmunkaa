@@ -45,14 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Profilkép betöltése
             if (elements.avatarPreview && data.profil_kep) {
-                const imgPath = (data.profil_kep && data.profil_kep !== 'default_avatar.jpg')
-                                ? `../../uploads/${data.profil_kep}`
-                                : '../../images/default_avatar.jpg';
                 
+                // Megnézzük, hogy a kép neve az alapértelmezett-e (vagy a régi default, vagy az új fiok-ikon)
+                const isDefault = (data.profil_kep === 'fiok-ikon.png' || data.profil_kep === 'default_avatar.jpg');
+            
+                const imgPath = isDefault
+                    ? '../../images/fiok-ikon.png'        // Ha alapértelmezett -> images mappa
+                    : `../../uploads/${data.profil_kep}`; // Ha egyedi feltöltés -> uploads mappa
+            
                 // HTML csere a képre
                 elements.avatarPreview.innerHTML = `<img src="${imgPath}" alt="Profilkép" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
             }
-
         } else {
             // Ha nincs bejelentkezve, visszaküldjük a főoldalra
             console.log("Nincs bejelentkezve, átirányítás...");

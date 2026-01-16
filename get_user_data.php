@@ -1,5 +1,6 @@
 <?php
-// get_user_data.php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
 // 1. Kapcsolat felvétele (ez indítja a session-t is!)
 require_once 'db_connection.php'; 
@@ -48,7 +49,7 @@ if ($result->num_rows > 0) {
     // Mivel új regisztrációnál a profil adatok NULL-ok, ezeket kezelni kell:
     
     if (empty($data['profil_kep'])) {
-        $data['profil_kep'] = "default_avatar.jpg";
+        $data['profil_kep'] = "fiok-ikon.png";
     }
     
     if ($data['bemutatkozas'] === null) $data['bemutatkozas'] = "";

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   
   -- Profil adatok
   `bemutatkozas` text COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `profil_kep` varchar(255) COLLATE utf8_hungarian_ci DEFAULT 'default_avatar.jpg',
+  `profil_kep` varchar(255) COLLATE utf8_hungarian_ci DEFAULT 'fiok-ikon.png',
   `telefon` varchar(50) COLLATE utf8_hungarian_ci DEFAULT NULL,
   `lakhely` varchar(100) COLLATE utf8_hungarian_ci DEFAULT NULL,
   `weboldal` varchar(150) COLLATE utf8_hungarian_ci DEFAULT NULL,
