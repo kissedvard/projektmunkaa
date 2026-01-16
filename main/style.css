@@ -92,6 +92,7 @@ nav {
   background: #f6f0df;
   color: #4b2e05;
   margin-left: auto;
+  font-weight:bold;
 }
 
 .nav-btn.login-btn:hover {

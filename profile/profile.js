@@ -3,7 +3,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("📱 Profil oldal betöltődött - Valós adatok mód");
 
-    // Globális változó a posztok tárolására (a Lightboxhoz kell)
     let currentUserPosts = [];
 
     // --- 1. KEZDETI BETÖLTÉSEK ---
@@ -12,12 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeLightbox();
     
     // Adatok lekérése
-    fetchProfileData(); // Profil infók (név, kép, statisztika)
-    fetchUserPosts();   // Posztok (KÉPEK)
+    fetchProfileData(); 
+    fetchUserPosts();   
 
-    // --- 2. ADATLEKÉRŐ FÜGGVÉNYEK ---
-
-    // A: Profil adatok lekérése
+    
+    // --- 2. ADATOK LEKÉRÉSE ---
     function fetchProfileData() {
         fetch('../get_user_data.php')
         .then(response => response.json())
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Profil hiba:', error));
     }
 
-    // B: Posztok lekérése (EZ AZ ÚJ RÉSZ A DEMO HELYETT)
     function fetchUserPosts() {
         const postsGrid = document.getElementById('postsGrid');
         const noPostsElement = document.getElementById('noPostsPosts');
@@ -319,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch('../logout.php')
             .then(response => response.json())
             .then(data => {
+                localStorage.clear();
                 console.log('Kijelentkezés sikeres:', data);
                 window.location.href = '../main/index.html';
             })

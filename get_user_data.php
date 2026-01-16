@@ -1,73 +1,64 @@
 <?php
+// get_user_data.php
 
+// 1. Kapcsolat felvétele (ez indítja a session-t is!)
+require_once 'db_connection.php'; 
 
-session_start();
 header('Content-Type: application/json; charset=utf-8');
 
-
+// 2. Ellenőrzés: Van-e bejelentkezett felhasználó?
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Nincs bejelentkezve']);
+    echo json_encode(['success' => false, 'message' => 'Nincs bejelentkezve.']);
     exit;
 }
 
-$current_user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 
-
-$servername = getenv('MYSQL_HOST') ?: "db";
-$username   = getenv('MYSQL_USER') ?: "user_dev";
-$password   = getenv('MYSQL_PASSWORD') ?: "secure_pass";
-$dbname     = getenv('MYSQL_DATABASE') ?: "egyetemidb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => 'DB Hiba']);
-    exit;
-}
-$conn->set_charset("utf8mb4");
-
-
+// 3. ADATOK LEKÉRÉSE (JAVÍTOTT SQL)
+// A JOIN helyett LEFT JOIN-t használunk!
 $sql = "SELECT 
             r.teljes_nev, 
-            r.felhasznalo, 
+            r.felhasznalo AS felhasznalonev,  /* Átnevezzük, hogy a JS megtalálja */
             r.email,
             p.bemutatkozas, 
             p.profil_kep, 
             p.lakhely, 
             p.weboldal,
+            p.privat_profil,    
+            p.ertesitesek,
             
-            -- Posztok számlálása
+            -- Statisztikák (ezek jók voltak)
             (SELECT COUNT(*) FROM posts WHERE user_id = r.reg_id) as posts_count,
-            
-            -- Követők számlálása (ahol ÉN vagyok a 'following_id')
             (SELECT COUNT(*) FROM follows WHERE following_id = r.reg_id) as followers_count,
-            
-            -- Követések számlálása (ahol ÉN vagyok a 'follower_id')
             (SELECT COUNT(*) FROM follows WHERE follower_id = r.reg_id) as following_count
 
         FROM register r
-        JOIN profiles p ON r.reg_id = p.user_id
+        LEFT JOIN profiles p ON r.reg_id = p.user_id   /* <--- ITT A JAVÍTÁS! */
         WHERE r.reg_id = ?";
 
 $stmt = $conn->prepare($sql);
-if (!$stmt) {
-    echo json_encode(['success' => false, 'message' => 'SQL Hiba: ' . $conn->error]);
-    exit;
-}
-
-$stmt->bind_param("i", $current_user_id);
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-
-if ($row = $result->fetch_assoc()) {
-    // Siker: visszaküldjük az összes adatot JSON-ben
-    echo json_encode(['success' => true, 'data' => $row]);
+if ($result->num_rows > 0) {
+    $data = $result->fetch_assoc();
+    
+    // 4. HIÁNYZÓ ADATOK PÓTLÁSA (Default értékek)
+    // Mivel új regisztrációnál a profil adatok NULL-ok, ezeket kezelni kell:
+    
+    if (empty($data['profil_kep'])) {
+        $data['profil_kep'] = "default_avatar.jpg";
+    }
+    
+    if ($data['bemutatkozas'] === null) $data['bemutatkozas'] = "";
+    if ($data['lakhely'] === null) $data['lakhely'] = "";
+    if ($data['weboldal'] === null) $data['weboldal'] = "";
+    
+    // Sikeres válasz
+    echo json_encode(['success' => true, 'data' => $data]);
 } else {
-    // Furcsa hiba (pl. törölték a user-t közben)
-    echo json_encode(['success' => false, 'message' => 'Profil adat nem található']);
+    // Ez csak akkor fordulhat elő, ha törölték a felhasználót a register táblából
+    echo json_encode(['success' => false, 'message' => 'Felhasználó nem található.']);
 }
-
-$stmt->close();
-$conn->close();
 ?>

@@ -1,25 +1,13 @@
 <?php
 
+
 // 1. Munkamenet indítása (NAGYON FONTOS: ez jegyzi meg, hogy be vagy lépve)
-session_start();
+
+
 
 // Beállítjuk, hogy a válasz JSON formátumú legyen
 header('Content-Type: application/json; charset=utf-8');
-
-// 2. Adatbázis kapcsolat (Docker környezeti változókból)
-$servername = getenv('MYSQL_HOST') ?: "db";
-$username   = getenv('MYSQL_USER') ?: "user_dev";
-$password   = getenv('MYSQL_PASSWORD') ?: "secure_pass";
-$dbname     = getenv('MYSQL_DATABASE') ?: "egyetemidb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Hibaellenőrzés
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => 'Adatbázis kapcsolódási hiba']);
-    exit;
-}
-$conn->set_charset("utf8mb4");
+require_once 'db_connection.php';
 
 // 3. Adatok feldolgozása (csak POST kérés esetén)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -54,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($pass_input, $row['jelszo'])) {
             
             // SIKER! Mentsük el a munkamenetbe az adatokat
-            $_SESSION['user_id'] = $row['reg_id'];       // Ez a legfontosabb (az ID)
-            $_SESSION['username'] = $row['felhasznalo']; // A neve, hogy ki tudjuk írni
+            $_SESSION['user_id'] = $row['reg_id'];       
+            $_SESSION['username'] = $row['felhasznalo']; 
 
             echo json_encode([
                 'success' => true, 

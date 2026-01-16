@@ -1,27 +1,15 @@
 <?php
-session_start();
-header('Content-Type: application/json; charset=utf-8');
 
-// 1. Ellenőrzés: Be van-e lépve?
+header('Content-Type: application/json; charset=utf-8');
+require_once 'db_connection.php';
+
+
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'Nincs bejelentkezve!']);
     exit;
 }
 
-// 2. Adatbázis kapcsolat
-$servername = getenv('MYSQL_HOST') ?: "db";
-$username   = getenv('MYSQL_USER') ?: "user_dev";
-$password   = getenv('MYSQL_PASSWORD') ?: "secure_pass";
-$dbname     = getenv('MYSQL_DATABASE') ?: "egyetemidb";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => 'DB Hiba: ' . $conn->connect_error]);
-    exit;
-}
-$conn->set_charset("utf8mb4");
-
-// 3. Feltöltés kezelése
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Ellenőrizzük, hogy jött-e fájl

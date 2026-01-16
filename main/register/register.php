@@ -1,5 +1,4 @@
 <?php
-// register/register.php - VÉGLEGES, MŰKÖDŐ VERZIÓ
 
 // Hibakijelzés bekapcsolása fejlesztéshez
 ini_set('display_errors', 1);
@@ -30,8 +29,7 @@ function sendErrorResponse($message) {
 // 2. ADATOK FOGADÁSA
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Figyelem: A HTML űrlapodban a "name" attribútumoknak ezeknek kell lenniük:
-    // name="fullName", name="email", name="username", name="password", name="terms"
+    
     
     $teljes_nev = trim($_POST['fullName'] ?? '');
     $email = trim($_POST['email'] ?? '');
