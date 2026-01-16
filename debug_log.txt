@@ -1,0 +1,2 @@
+Script started
+Request Data: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}

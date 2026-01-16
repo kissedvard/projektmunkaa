@@ -91,6 +91,40 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
+  // AI Button functionality
+  const aiButtons = document.querySelectorAll('.ai-btn');
+
+  aiButtons.forEach(button => {
+    button.addEventListener('click', async function() {
+      const post = this.closest('.post');
+      const imageUrl = post.querySelector('.post-image img').src;
+      const aiDescription = post.querySelector('.ai-description');
+      const aiText = aiDescription.querySelector('.ai-text');
+
+      aiDescription.style.display = 'block';
+      aiText.textContent = 'Analyzing...';
+
+      try {
+        const response = await fetch('/analyze_image.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ imageUrl })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          aiText.textContent = data.description;
+        } else {
+          aiText.textContent = 'Failed to analyze the image.';
+        }
+      } catch (error) {
+        aiText.textContent = 'Error occurred while analyzing.';
+      }
+    });
+  });
+  
   // Új hozzászólás hozzáadása - improved
   function addComment(postElement, commentText) {
     const commentsContainer = postElement.querySelector('.post-comments');
