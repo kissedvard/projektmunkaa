@@ -150,3 +150,13 @@ HTTP Error: 403, Response: {
   }
 }
 
+Script started
+Request Data: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Error: 403, Response: {
+  "error": {
+    "code": 403,
+    "message": "Method doesn't allow unregistered callers (callers without established identity). Please use API Key or other form of API consumer identity to call this API.",
+    "status": "PERMISSION_DENIED"
+  }
+}
+

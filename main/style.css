@@ -23,6 +23,7 @@ header {
   font-family: "Exo 2", sans-serif;
 }
 
+
 .logo {
   display: flex;
   align-items: center;
@@ -149,13 +150,21 @@ nav {
 
 /* MAIN CONTENT STYLES */
 main {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  min-height: 500px;
+    display: flex;
+    justify-content: space-between;
+    
+    /* Ez igazítja őket egy vonalba felül */
+    align-items: flex-start; 
+    
+    max-width: 1400px; /* Kicsit szélesebbre vettem, hogy jobban szétcsússzanak */
+    margin: 0 auto;
+    
+    /* --- EZ A JAVÍTÁS A HEADER HELYÉHEZ: --- */
+    /* Told lejjebb ezt az értéket, ha még mindig takarásban van! (pl. 150px) */
+    margin-top: 120px; 
+    padding: 20px;
+    gap: 20px;
+    min-height: 800px; /* Hely a hosszú galériának */
 }
 
 .left {
@@ -165,6 +174,94 @@ main {
   flex: 1;
   position: relative;
   z-index: 1;
+  margin-top: +100px; 
+}
+
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: -100px;
+}
+
+.polaroid-gallery {
+    position: relative;
+    width: 500px; /* 300px helyett szélesebb, hogy balra is tudjunk terjeszkedni */
+    height: 700px; /* Kicsit kisebb magasság elég, mert nem csak lefelé építkezünk */
+    margin-right: 0; 
+}
+
+
+.polaroid-card {
+    position: absolute;
+    width: 240px;
+    padding: 5px; 
+    
+    
+    background-color: #efe3c0;
+    
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    border-radius: 4px; 
+    right: 0; 
+}
+
+.polaroid-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 2px;
+    border: none;
+}
+
+.p1 {
+    top: 0; 
+    right: 0; /* Ez tapad a jobb szélhez */
+    transform: rotate(6deg); /* Kicsit jobbra dől */
+    z-index: 1;
+}
+
+/* 2. Kép: EZ MEGY A PIROS KÖRBE (Balra húzzuk) */
+.p2 {
+    top: 180px; /* Feljebb hozzuk, hogy takarja kicsit az első alját */
+    right: 300px; /* FONTOS: Ez tolja be középre a képet (220px-re a szélétől) */
+    transform: rotate(-8deg); /* Balra dől, hogy kontrasztos legyen */
+    z-index: 2; /* Ez van középen */
+}
+
+/* 3. Kép: Lejjebb, de nem túl mélyen */
+.p3 {
+    top: 330px; /* Feljebb hoztuk 520-ról */
+    right: 10px; /* Kicsit beljebb van, mint az első, de kijjebb, mint a második */
+    transform: rotate(4deg);
+    z-index: 3; /* Ez van legfelül */
+}
+
+/* Hover effekt */
+.polaroid-card:hover {
+    z-index: 100;
+    transform: scale(1.05) rotate(0deg) !important; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Mobilon */
+@media (max-width: 900px) {
+    main {
+        flex-direction: column;
+        align-items: center; 
+    }
+    .right {
+        justify-content: center; 
+    }
+    .polaroid-card {
+        right: auto; 
+        left: 0; 
+        margin: auto;
+    }
+    .polaroid-gallery {
+        margin-top: 50px;
+    }
 }
 
 /* HORSE STYLING */
