@@ -3,6 +3,10 @@ html {
   overflow-y: scroll;
 }
 
+* {
+    box-sizing: border-box; 
+}
+
 body {
   font-family: "Alegraya Sans", sans-serif;
   font-weight: 300;
@@ -164,7 +168,7 @@ main {
     margin-top: 120px; 
     padding: 20px;
     gap: 20px;
-    min-height: 800px; /* Hely a hosszú galériának */
+    min-height: 600px; /* Hely a hosszú galériának */
 }
 
 .left {
@@ -262,6 +266,155 @@ main {
     .polaroid-gallery {
         margin-top: 50px;
     }
+}
+
+/* --- INFORMÁCIÓS TÁBLÁK SZEKCIÓ --- */
+.info-section {
+    width: 100%;
+    padding: 60px 20px;
+    /* Opcionális: ha akarsz a táblák mögé egy halvány hátteret, ide írhatod */
+    /* background-color: rgba(0,0,0,0.02); */
+}
+
+.info-container {
+    display: flex;
+    justify-content: center; /* Középre igazítjuk őket */
+    gap: 40px; /* Távolság a táblák között */
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Hogy mobilon egymás alá kerüljenek */
+}
+
+/* Maga a Tábla */
+.info-board {
+    background-color: #efe3c0;
+    color: #4b2e05;
+    width: 300px; /* Szélesség */
+    padding: 30px 20px;
+    border-radius: 8px; /* Kicsit kerekített sarkok */
+    text-align: center; /* Középre zárt szöveg */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border: 1px solid #4b2e05;
+    /* A mozgáshoz szükséges átmenet (ugyanaz, mint a képeknél) */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: default;
+    position: relative;
+    top: 0;
+}
+
+/* Ikon a tábla tetején */
+.info-board .icon {
+    /* Méretek és elhelyezés */
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px auto; /* Középre igazítás + távolság az alatta lévő szövegtől */
+    
+    /* Ikon középre igazítása a körön belül (Flexbox a legjobb erre) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Stílus: Elegáns kör */
+    background-color: transparent; /* Átlátszó háttér */
+    border: 2px solid #4b2e05; /* Sötétbarna keret a körnek */
+    border-radius: 50%; /* Kerek forma */
+    
+    /* Ikon stílusa */
+    font-size: 32px; /* Ikon mérete */
+    color: #4b2e05; /* Sötétbarna szín (hogy passzoljon a kerethez) */
+    
+    /* Pici árnyék a mélységért */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* Animáció előkészítése */
+    transition: all 0.3s ease;
+}
+
+.info-board h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    color: #4b2e05;
+}
+
+.info-board p {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* --- HOVER EFFEKT (UGYANAZ MINT A POLAROIDNÁL) --- */
+.info-board:hover {
+    transform: scale(1.05) translateY(-10px); /* Kicsit megnő és felugrik */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4); /* Erősebb árnyék */
+    z-index: 10;
+}
+
+.info-board:hover .icon {
+    background-color: #4b2e05; 
+    color: #F5F5DC; 
+    transform: rotate(360deg); 
+}
+
+/* Mobilon */
+@media (max-width: 768px) {
+    .info-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* --- DÍSZES ELVÁLASZTÓ STÍLUSOK --- */
+.section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px; /* Nem ér végig teljesen, így elegánsabb */
+    margin: 0 auto;
+    position: relative;
+    z-index: 20; /* Hogy biztosan látsszon */
+    
+    /* Mivel az alsó részt felhúztuk negatív margóval, 
+       ennek adunk egy kis helyet, hogy ne lógjon bele semmibe */
+    margin-bottom: 20px; 
+    margin-top: -40px; 
+    
+}
+
+/* A vonalak balra és jobbra */
+.section-divider .line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #4E342E, transparent); /* Átmenetes barna vonal */
+    opacity: 0.6;
+    border-radius: 2px;
+}
+
+/* A középső ikon tartója */
+.section-divider .divider-icon {
+    width: 60px;  /* Kicsit megnöveltem 50-ről, hogy jobban mutasson a logó */
+    height: 60px;
+    background-color: #F5F5DC;
+    border: 2px solid #4E342E;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* FONT-SIZE ÉS COLOR SOROKAT INNEN TÖRÖLTEM! */
+    
+    margin: 0 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 0 2px #efe3c0, 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* FONTOS: Ez vágja le, ha kilógna a kép a körből */
+    overflow: hidden; 
+}
+
+.section-divider .divider-icon img {
+    width: 80%;  /* A kör méretének 80%-a legyen a kép */
+    height: 80%; /* Így marad egy kis "levegő" körülötte */
+    object-fit: contain; /* Ez biztosítja, hogy ne torzuljon a logó aránya */
 }
 
 /* HORSE STYLING */
