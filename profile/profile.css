@@ -473,7 +473,7 @@ main {
     margin-top: 2rem;
 }
 
-.btn-cancel {
+.cancel-btn {
     background: #95a5a6;
     color: white;
     border: none;
@@ -484,6 +484,76 @@ main {
     font-weight: 500;
 }
 
+.upload-area {
+    display: flex;              /* Hogy középre tudjuk igazítani a tartalmát */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;                /* Kitölti a rendelkezésre álló helyet */
+    min-height: 100px;         /* Legyen egy minimális magassága */
+    border: 2px dashed #ccc;    /* Szaggatott keret */
+    border-radius: 10px;        /* Lekerekített sarok */
+    background-color: #f9f9f9;  /* Halvány háttér */
+    cursor: pointer;            /* Kéz ikon, ha ráviszed az egeret */
+    transition: all 0.3s ease;  /* Szép átmenet, ha rákattintasz */
+    overflow: hidden;           /* Hogy a kép ne lógjon ki a lekerekítésből */
+    position: relative;  
+    box-sizing: border-box;       
+}
+
+/* Ha ráviszed az egeret, sötétedjen picit */
+.upload-area:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+}
+
+/* A belső szöveges rész (Placeholder) */
+.upload-placeholder {
+    text-align: center;
+    padding: 20px;
+    /* Alapból látszik, de flex kell neki, hogy középen legyen */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+}
+
+.folder-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Az előnézeti kép stílusa */
+#imagePreview {
+    display: none;          /* ALAPBÓL REJTVE! */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Hogy kitöltse a dobozt torzulás nélkül */
+    border-radius: 10px;    /* Ugyanaz a kerekítés, mint a doboznak */
+}
+
+
+.remove-image-btn {
+    position: absolute; /* Ez tapasztja a sarokhoz */
+    top: 10px;
+    right: 10px;
+    z-index: 100;       /* Hogy biztosan a kép FELETT legyen */
+    
+    background-color: rgba(255, 0, 0, 0.8); /* Félig átlátszó piros */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Köralak */
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 28px;  /* Hogy középen legyen az X */
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.remove-image-btn:hover {
+    background-color: rgb(255, 0, 0); /* Ha ráviszed az egeret, élénk piros */
+}
 .btn-upload {
     background: #8ba978;
     color: white;

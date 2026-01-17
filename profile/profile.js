@@ -173,79 +173,159 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 5. FELTÖLTÉS MODAL (JAVÍTOTT) ---
+    // --- 5. FELTÖLTÉS MODAL KEZELÉSE ---
+
     
     function initializeUploadModal() {
         const uploadButton = document.getElementById('uploadButton');
         const uploadModal = document.getElementById('uploadModal');
         const closeModal = document.querySelector('.close-modal');
-        const cancelButton = document.querySelector('.btn-cancel');
+        const cancelButton = document.querySelector('.cancel-btn');
         const uploadForm = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
+        const placeholder = document.querySelector('.upload-placeholder');
         
         if (!uploadButton || !uploadModal) return;
 
-        // Megnyitás
-        uploadButton.addEventListener('click', () => uploadModal.classList.add('show'));
-        
-        // Bezárás
-        const closeFunc = () => uploadModal.classList.remove('show');
-        if (closeModal) closeModal.addEventListener('click', closeFunc);
-        if (cancelButton) cancelButton.addEventListener('click', closeFunc);
-        uploadModal.addEventListener('click', (e) => { if (e.target === uploadModal) closeFunc(); });
-
-        // Valós feltöltés kezelése
-        if (uploadForm) {
-            uploadForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                const submitBtn = this.querySelector('.btn-upload');
-                const originalText = submitBtn.textContent;
-                
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Feltöltés...';
-
-                // Itt küldjük a szervernek (upload_post.php)
-                fetch('../upload_post.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('✅ Sikeres feltöltés!');
-                        closeFunc();
-                        this.reset();
-                        fetchUserPosts(); // Frissítjük a listát, hogy azonnal megjelenjen!
-                    } else {
-                        alert('Hiba: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Hiba:', error);
-                    alert('Hiba történt a feltöltés során.');
-                })
-                .finally(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                });
+        // --- 1. EZ MARADT KI A MÚLTKOR: A KATTINTÁS FIGYELÉSE! ---
+        // Ha a dobozra (placeholder) kattintasz, nyíljon meg a fájlkezelő
+        if (placeholder && fileInput) {
+            placeholder.addEventListener('click', function() {
+                fileInput.click(); // Ez nyitja meg az ablakot!
             });
         }
-        
-        // Fájl kiválasztás előnézet (egyszerűsítve)
+        // -----------------------------------------------
+
+        // 2. RESETELŐ FÜGGVÉNY (Visszaállítja a mappa ikont)
+        const resetUploadState = () => {
+            if (fileInput) fileInput.value = '';
+
+            if (placeholder) {
+                placeholder.innerHTML = `
+                    <div class="folder-icon" style="font-size: 40px; margin-bottom: 10px;">📁</div>
+                    <p>Kattints ide vagy húzd ide a képet</p>
+                    <small style="color: #666;">Formátumok: JPG, PNG, GIF (max. 10MB)</small>
+                `;
+                // Visszatesszük a szaggatott keretet az üres állapothoz
+                placeholder.style.border = '2px dashed #ccc'; 
+            }
+
+            const submitBtn = document.querySelector('.btn-upload');
+            if (submitBtn) {
+                submitBtn.textContent = 'Feltöltés';
+                submitBtn.disabled = false;
+            }
+        };
+
+        // 3. BEZÁRÁS
+        const closeFunc = () => {
+            uploadModal.classList.remove('show');
+            uploadModal.style.display = 'none'; 
+            resetUploadState(); 
+        };
+
+        // 4. NYITÁS
+        uploadButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetUploadState(); 
+            uploadModal.style.display = 'flex'; 
+            setTimeout(() => {
+                uploadModal.classList.add('show');
+            }, 10);
+        });
+
+        // 5. BEZÁRÓ GOMBOK
+        if (closeModal) closeModal.addEventListener('click', closeFunc);
+        if (cancelButton) {
+            cancelButton.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                closeFunc();
+            });
+    }
+
+        uploadModal.addEventListener('click', (e) => { 
+            if (e.target === uploadModal) closeFunc(); 
+        });
+
+        // 6. ELŐNÉZET + X GOMB KEZELÉSE (ITT A JAVÍTÁS!)
         if (fileInput) {
             fileInput.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
+
                     reader.onload = function(e) {
-                        const placeholder = document.querySelector('.upload-placeholder');
-                        placeholder.innerHTML = `<img src="${e.target.result}" style="max-height: 200px; max-width: 100%;">`;
-                        document.querySelector('.btn-upload').disabled = false;
+                        if(placeholder) {
+                            // 1. JAVÍTÁS: Levesszük a szaggatott keretet, hogy ne legyen dupla
+                            placeholder.style.border = 'none';
+
+                            // 2. JAVÍTÁS: A HTML-ből kivettem a feliratot
+                            placeholder.innerHTML = `
+                                <div style="position: relative; width: 100%; height: 100%;">
+                                    <button type="button" id="dynamicRemoveBtn" style="
+                                        position: absolute; top: 5px; right: 5px; 
+                                        background: rgba(255,0,0,0.8); color: white; border: none; 
+                                        border-radius: 50%; width: 25px; height: 25px; cursor: pointer; z-index: 100;">
+                                        &times;
+                                    </button>
+
+                                    <img src="${e.target.result}" style="max-height: 250px; max-width: 100%; border-radius: 8px; display: block; margin: 0 auto;">
+
+                                    </div>
+                            `;
+
+                            // X Gomb esemény
+                            const xBtn = document.getElementById('dynamicRemoveBtn');
+                            if (xBtn) {
+                                xBtn.addEventListener('click', function(evt) {
+                                    evt.preventDefault();
+                                    evt.stopPropagation(); // Ezért nem nyílik meg újra a fájlkezelő
+                                    resetUploadState();    
+                                });
+                            }
+                        }
                     }
                     reader.readAsDataURL(file);
                 }
+            });
+        }
+
+        // 7. BEKÜLDÉS
+        if (uploadForm) {
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const submitBtn = this.querySelector('.btn-upload');
+                const originalText = submitBtn ? submitBtn.textContent : 'Feltöltés';
+
+                if(submitBtn) { 
+                    submitBtn.disabled = true; 
+                    submitBtn.textContent = 'Feltöltés...'; 
+                }
+
+                fetch('../upload_post.php', { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('✅ Sikeres feltöltés!');
+                        closeFunc(); 
+                        this.reset();
+                        if (typeof fetchUserPosts === 'function') fetchUserPosts(); 
+                        else location.reload();
+                    } else {
+                        alert('Hiba: ' + (data.message || 'Ismeretlen hiba'));
+                    }
+                })
+                .catch(err => { 
+                    console.error(err); 
+                    alert('Hiba történt a feltöltés során.'); 
+                })
+                .finally(() => { 
+                    if(submitBtn) { 
+                        submitBtn.disabled = false; 
+                        submitBtn.textContent = originalText; 
+                    }
+                });
             });
         }
     }
@@ -328,3 +408,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+

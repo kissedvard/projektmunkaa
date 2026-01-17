@@ -121,13 +121,16 @@
             
             <form id="uploadForm" class="upload-form">
                 <div class="upload-area" id="uploadArea">
-                    <div class="upload-placeholder">
-                        <div class="upload-icon">📁</div>
+                    <div class="upload-placeholder" id="uploadPlaceholder">
+                        <div class="folder-icon">📁</div>
                         <p>Kattints ide vagy húzd ide a képet</p>
                         <small>Formátumok: JPG, PNG, GIF (max. 10MB)</small>
                     </div>
-                    <input type="file" id="fileInput" accept="image/*" multiple>
+                    <img id="imagePreview" src="" alt="Előnézet" style="display: none;">
+                    <button type="button" id="removeImageBtn" class="remove-image-btn" style="display: none;">&times;</button>
                 </div>
+
+                <input type="file" id="fileInput" accept="image/*" name="file" hidden>
                 
                 <div class="form-group">
                     <label for="imageCaption">Kép leírása</label>
@@ -149,7 +152,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <button type="button" class="btn-cancel">Mégse</button>
+                    <button type="button" class="cancel-btn">Mégse</button>
                     <button type="submit" class="btn-upload" disabled>Feltöltés</button>
                 </div>
             </form>
