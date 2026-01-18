@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Vissza gombok
-        const homeBtns = document.querySelectorAll('.nav-btn, #profileBtn, #uploadPrompt');
+        const homeBtns = document.querySelectorAll('#homeBtn, #profileBtn, #uploadPrompt');
         homeBtns.forEach(btn => {
             if (btn) btn.addEventListener('click', () => window.location.href = '../main/index.html');
         });

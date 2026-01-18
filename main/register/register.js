@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("🎯 Register → Főoldal (login dropdown)");
             sessionStorage.setItem('autoOpenLogin', 'true');
             
-            window.location.href = '../main/index.html'; 
+            window.location.href = '../index.html'; 
         });
     }
 
