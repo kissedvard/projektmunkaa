@@ -53,14 +53,19 @@
                         <div class="stat-label">követ</div>
                     </div>
                 </div>
+    <div class="profile-name" id="profileName">Betöltés...</div>
+    <div class="profile-bio" id="bio"></div>
+
+    <div class="profile-actions" style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 200px;">
+        <button class="edit-profile-btn" onclick="window.location.href='profileedit/edit-profile.html'">
+            Profil szerkesztése
+        </button>
         
-                <div class="profile-name" id="profileName">Betöltés...</div>
-                <div class="profile-bio" id="bio"></div>
-        
-                <button class="edit-profile-btn" onclick="window.location.href='profileedit/edit-profile.html'">
-                    Profil szerkesztése
-                </button>
-            </div>
+        <button class="upload-prompt" id="addNewPostBtn">
+            + Új poszt
+        </button>
+    </div>
+</div>
         </div>
 
             <!-- Posztok szekció -->
@@ -136,6 +141,7 @@
                     <label for="imageCaption">Kép leírása</label>
                     <textarea 
                         id="imageCaption" 
+                        name="imageCaption"
                         placeholder="Leírás hozzáadása"
                         maxlength="220"
                     ></textarea>
@@ -147,6 +153,7 @@
                     <input 
                         type="text" 
                         id="imageTags" 
+                        name="imageTags"
                         placeholder="lovas, ló, természet, stb..."
                     >
                 </div>
@@ -162,20 +169,23 @@
     <div id="lightboxModal" class="lightbox-modal"> 
         <div class="lightbox-content">
             <button class="lightbox-close">&times;</button>
-            <button class="lightbox-prev">‹</button>
+            
             <div class="lightbox-image-container">
                 <img id="lightboxImage" src="" alt="">
+                
                 <div class="lightbox-caption">
-                    <h4 id="lightboxUsername">felhasználó</h4>
-                    <p id="lightboxCaption">kép leírása...</p>
-                    <div class="lightbox-actions">
+                    <h4 id="lightboxUsername" style="margin: 0 0 10px 0; font-size: 1.2rem; color: #fff;">felhasználó</h4>
+                    
+                    <p id="lightboxCaption" style="margin: 0 0 10px 0; font-size: 1rem; color: #eee;"></p>
+                    
+                    <p id="lightboxTags" style="color: #8ba978; font-size: 0.9rem; font-weight: bold; margin: 0;"></p>
+
+                    <div class="lightbox-actions" style="margin-top: 15px;">
                         <button class="lightbox-like">❤️ <span>0</span></button>
                         <button class="lightbox-comment">💬 <span>0</span></button>
-                        <button class="lightbox-download" title="Letöltés">📥</button>
                     </div>
                 </div>
             </div>
-            <button class="lightbox-next">›</button>
         </div>
     </div>
 </body>

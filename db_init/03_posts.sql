@@ -5,10 +5,11 @@ DROP TABLE IF EXISTS `follows`;
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `image_url` varchar(255) NOT NULL,  -- Régen: kep_utvonal
-  `caption` text,                     -- Régen: leiras
-  `likes_count` int(11) DEFAULT 0,    -- ÚJ: lájkok száma
-  `comments_count` int(11) DEFAULT 0, -- ÚJ: kommentek száma
+  `image_url` varchar(255) NOT NULL,
+  `caption` text,
+  `tags` varchar(255) DEFAULT NULL,  -- <--- EZT A SORT SZÚRD BE
+  `likes_count` int(11) DEFAULT 0,
+  `comments_count` int(11) DEFAULT 0,
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `register` (`reg_id`) ON DELETE CASCADE

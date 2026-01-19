@@ -14,7 +14,8 @@ services:
     volumes:
       - .:/var/www/html
       # Az Apache konfigurációs fájl csatolása
-      - ./docker/vhost/000-default.conf:/etc/apache2/sites-available/000-default.conf             
+      - ./docker/vhost/000-default.conf:/etc/apache2/sites-available/000-default.conf    
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini         
 
     depends_on:
       - db
