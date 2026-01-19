@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("✏️ Profil szerkesztő oldal betöltődött");
 
-    // --- 1. ELEMEK KIVÁLASZTÁSA (A HTML alapján) ---
+    // --- 1. ELEMEK KIVÁLASZTÁSA ---
     const elements = {
         fullName: document.getElementById('fullName'),
         username: document.getElementById('username'),
@@ -14,50 +14,50 @@ document.addEventListener('DOMContentLoaded', function() {
         bioCharCount: document.getElementById('bioCharCount'),
         avatarInput: document.getElementById('avatarInput'),
         avatarPreview: document.getElementById('avatarPreview'),
-        saveBtn: document.getElementById('saveProfile'),
+        saveBtn: document.getElementById('saveProfile'), // Vagy a form submit gombja
         profileBtn: document.getElementById('profileBtn'),
         removeAvatarBtn: document.getElementById('removeAvatar')
     };
 
-    // --- 2. ADATOK BETÖLTÉSE (Fetch) ---
-    fetch('../../get_user_data.php')
+    // --- 2. ADATOK BETÖLTÉSE (Időbélyeggel a cache ellen) ---
+    fetch(`../../get_user_data.php?t=${new Date().getTime()}`)
     .then(response => response.json())
     .then(response => {
         if (response.success) {
             const data = response.data;
             
-            // Mezők kitöltése (Ha van adat, beírjuk, ha nincs, üres marad)
             if(elements.fullName) elements.fullName.value = data.teljes_nev || "";
-            if(elements.username) elements.username.value = data.felhasznalonev || "";
+            if(elements.username) elements.username.value = data.felhasznalonev || ""; // Figyelj: felhasznalo vagy felhasznalonev?
             if(elements.email) elements.email.value = data.email || "";
             if(elements.bio) elements.bio.value = data.bemutatkozas || "";
             if(elements.website) elements.website.value = data.weboldal || "";
             if(elements.location) elements.location.value = data.lakhely || "";
 
-            // Checkboxok beállítása (feltételezve, hogy 0 vagy 1 jön az adatbázisból)
             if(elements.privateProfile) elements.privateProfile.checked = (data.privat_profil == 1);
             if(elements.emailNotifications) elements.emailNotifications.checked = (data.ertesitesek == 1);
 
-            // Karakterszámláló frissítése induláskor
             if(elements.bioCharCount && elements.bio) {
                 elements.bioCharCount.textContent = elements.bio.value.length;
             }
 
             // Profilkép betöltése
             if (elements.avatarPreview && data.profil_kep) {
-                
-                // Megnézzük, hogy a kép neve az alapértelmezett-e (vagy a régi default, vagy az új fiok-ikon)
+                const timestamp = new Date().getTime();
                 const isDefault = (data.profil_kep === 'fiok-ikon.png' || data.profil_kep === 'default_avatar.jpg');
-            
                 const imgPath = isDefault
-                    ? '../../images/fiok-ikon.png'        // Ha alapértelmezett -> images mappa
-                    : `../../uploads/${data.profil_kep}`; // Ha egyedi feltöltés -> uploads mappa
+                    ? `../../images/fiok-ikon.png?v=${timestamp}`
+                    : `../../uploads/${data.profil_kep}?v=${timestamp}`;
             
-                // HTML csere a képre
                 elements.avatarPreview.innerHTML = `<img src="${imgPath}" alt="Profilkép" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                
+                const img = elements.avatarPreview.querySelector('img');
+                if(img) {
+                    img.onerror = function() {
+                        this.src = `../../images/fiok-ikon.png?v=${timestamp}`;
+                    };
+                }
             }
         } else {
-            // Ha nincs bejelentkezve, visszaküldjük a főoldalra
             console.log("Nincs bejelentkezve, átirányítás...");
             window.location.href = '../../main/index.html';
         }
@@ -71,10 +71,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const length = this.value.length;
             elements.bioCharCount.textContent = length;
             
-            // Színezés, ha közeledik a limit (150)
-            if (length > 140) elements.bioCharCount.style.color = '#e74c3c'; // Piros
-            else if (length > 120) elements.bioCharCount.style.color = '#f39c12'; // Narancs
-            else elements.bioCharCount.style.color = '#666'; // Alap
+            if (length > 140) elements.bioCharCount.style.color = '#e74c3c';
+            else if (length > 120) elements.bioCharCount.style.color = '#f39c12';
+            else elements.bioCharCount.style.color = '#666';
         });
     }
 
@@ -96,21 +95,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Kép eltávolítása gomb
     if (elements.removeAvatarBtn) {
         elements.removeAvatarBtn.addEventListener('click', function() {
-            elements.avatarPreview.innerHTML = '<div class="current-avatar">E</div>'; // Visszaállítjuk a betűre vagy default képre
-            elements.avatarInput.value = ''; // Töröljük a fájlt a bemenetről
+            const deleteInput = document.getElementById('deletePicture');
+            if (deleteInput) {
+                deleteInput.value = '1'; // Beállítjuk a törlési jelet
+            }
+
+            if (elements.avatarInput) {
+                elements.avatarInput.value = ''; 
+            }
+
+            // Azonnali vizuális visszajelzés
+            if (elements.avatarPreview) {
+                elements.avatarPreview.innerHTML = '<img src="../../images/fiok-ikon.png" alt="Alapértelmezett kép" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">';
+            }
         });
     }
 
 
-    // --- 5. MENTÉS (SAVE) ---
+    // --- 5. MENTÉS (SAVE) - JAVÍTOTT VERZIÓ ---
     if (elements.saveBtn) {
         elements.saveBtn.addEventListener('click', function(e) {
-            e.preventDefault(); // Ne töltődjön újra az oldal hagyományosan
+            e.preventDefault(); 
 
-            // Adatok összegyűjtése FormData-ba
             const formData = new FormData();
             
-            // Csak akkor adjuk hozzá, ha létezik az elem a HTML-ben
             if(elements.fullName) formData.append('fullName', elements.fullName.value);
             if(elements.username) formData.append('username', elements.username.value);
             if(elements.email) formData.append('email', elements.email.value);
@@ -118,11 +126,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if(elements.website) formData.append('website', elements.website.value);
             if(elements.location) formData.append('location', elements.location.value);
             
-            // Checkboxok (1 vagy 0 értéket küldünk)
             if(elements.privateProfile) formData.append('privateProfile', elements.privateProfile.checked ? 1 : 0);
             if(elements.emailNotifications) formData.append('emailNotifications', elements.emailNotifications.checked ? 1 : 0);
             
-            // Kép hozzáadása (ha van kiválasztva új)
+            // JAVÍTÁS: Törlési kérés kezelése
+            const deleteInput = document.getElementById('deletePicture');
+            if (deleteInput && deleteInput.value === '1') {
+                formData.append('delete_picture', '1');
+            }
+
             if (elements.avatarInput && elements.avatarInput.files[0]) {
                 formData.append('profileImage', elements.avatarInput.files[0]);
             }
@@ -135,16 +147,42 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // --- LOCALSTORAGE FRISSÍTÉS ---
-                    // Ez a legfontosabb rész, hogy a header azonnal frissüljön!
-                    if (elements.fullName && elements.fullName.value) {
-                        localStorage.setItem('username', elements.fullName.value);
-                    }
                     
+                    // --- HELYI MEMÓRIA (CACHE) FRISSÍTÉSE ---
+                    // Ez a rész biztosítja, hogy a JS is tudja, hogy változott a kép
+                    let newImageName = null;
+
+                    if (deleteInput && deleteInput.value === '1') {
+                        // Ha töröltük, akkor default
+                        newImageName = 'fiok-ikon.png';
+                    } else if (data.new_profile_image) {
+                        // Ha újat töltöttünk fel, és a szerver visszaküldte a nevét
+                        newImageName = data.new_profile_image;
+                    }
+
+                    // Ha történt változás, frissítjük a LocalStorage-ot
+                    if (newImageName) {
+                        localStorage.setItem('profil_kep', newImageName);
+                        localStorage.setItem('profile_image', newImageName);
+                        localStorage.setItem('user_avatar', newImageName);
+
+                        // user_data JSON objektum frissítése (ha van ilyen)
+                        const storedUser = localStorage.getItem('user_data');
+                        if (storedUser) {
+                            try {
+                                let userObj = JSON.parse(storedUser);
+                                userObj.profil_kep = newImageName;
+                                localStorage.setItem('user_data', JSON.stringify(userObj));
+                            } catch (e) { console.error("JSON hiba", e); }
+                        }
+                    }
+                    // ------------------------------------------
+
                     alert('✅ Profil sikeresen frissítve!');
                     
-                    // Visszatérés a profil oldalra
-                    window.location.href = '../profile.html';
+                    // JAVÍTÁS: Átirányítás időbélyeggel, hogy NE a cache töltődjön be!
+                    window.location.href = `../profile.html?t=${Date.now()}`;
+
                 } else {
                     alert('Hiba történt: ' + data.message);
                 }
@@ -159,7 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 6. VISSZA GOMB ---
     if (elements.profileBtn) {
         elements.profileBtn.addEventListener('click', function() {
-            window.location.href = '../profile.html';
+            // Itt is érdemes időbélyeget használni
+            window.location.href = `../profile.html?t=${Date.now()}`;
         });
     }
 });

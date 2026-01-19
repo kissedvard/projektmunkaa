@@ -1,107 +1,202 @@
 <?php
+// --- 1. CACHE KILLER (Hogy ne ragadjon be a régi válasz) ---
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header('Content-Type: application/json');
 
-header('Content-Type: application/json; charset=utf-8');
+// --- 2. HIBÁK ELKAPÁSA (Hogy ne rontsák el a JSON-t) ---
+ob_start(); 
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
-
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-require_once 'db_connection.php'; 
-
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'Nem vagy bejelentkezve!']);
-    exit();
+// Config betöltése
+if (file_exists('db_connection.php')) {
+    require_once 'db_connection.php';
+} elseif (file_exists('../db_connection.php')) {
+    require_once '../db_connection.php';
+} else {
+    ob_end_clean();
+    die(json_encode(['success' => false, 'message' => 'Config fájl hiányzik!']));
 }
 
-$reg_id = $_SESSION['user_id'];
+session_start();
+
+$response = array('success' => false, 'message' => 'Ismeretlen hiba');
+$debug_log = array();
+
+// Időbélyeg a válaszba, hogy lásd, frissült-e
+$response['server_time'] = date("Y-m-d H:i:s");
+
+function addLog($msg) {
+    global $debug_log;
+    $debug_log[] = $msg;
+}
 
 try {
-    // 1. Adatok fogadása
-    $fullName = $_POST['fullName'] ?? '';
-    $username = $_POST['username'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $bio = $_POST['bio'] ?? '';
-    $website = $_POST['website'] ?? '';
-    $location = $_POST['location'] ?? '';
+    if (!isset($_SESSION['user_id'])) {
+        throw new Exception('Nincs bejelentkezve');
+    }
 
-    // 2. Képfeltöltés
-    $newFileName = null; 
+    $reg_id = $_SESSION['user_id'];
     
-    if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['profileImage']['tmp_name'];
-        $fileName = $_FILES['profileImage']['name'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowedExtensions = ['jpg', 'gif', 'png', 'jpeg', 'webp'];
+    // --- 3. ÚTVONAL BEÁLLÍTÁS (KŐBE VÉSVE) ---
+    // A szerver gyökerét használjuk, így biztosan megtalálja a mappát
+    $baseDir = $_SERVER['DOCUMENT_ROOT']; 
+    
+    // Ha a projekted mappában van (pl. localhost/myproject), akkor azt ide írd be!
+    // De a localhost/update_profile.php alapján ez a helyes:
+    $uploadDir = $baseDir . '/uploads/';
 
-        if (in_array($fileExtension, $allowedExtensions)) {
-            $newFileName = 'profile_' . $reg_id . '_' . time() . '.' . $fileExtension;
-            $uploadDir = './uploads/';
+    addLog("Keresés helye (Base): " . $baseDir);
+    addLog("Feltöltési mappa (Uploads): " . $uploadDir);
+
+    // Mappa ellenőrzés
+    if (!is_dir($uploadDir)) {
+        if (mkdir($uploadDir, 0777, true)) {
+             chmod($uploadDir, 0777); 
+             addLog("Uploads mappa létrehozva.");
+        } else {
+             addLog("HIBA: Nem sikerült létrehozni az uploads mappát.");
+        }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        
+        // Adatok
+        $fullname = $_POST['fullName'] ?? '';
+        $username = $_POST['username'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $bio = $_POST['bio'] ?? '';
+        $website = $_POST['website'] ?? '';
+        $location = $_POST['location'] ?? '';
+        $privateProfile = isset($_POST['privateProfile']) ? 1 : 0;
+        $emailNotifications = isset($_POST['emailNotifications']) ? 1 : 0;
+        
+        // Kép műveletek
+        $deleteRequest = (isset($_POST['delete_picture']) && $_POST['delete_picture'] == '1');
+        $defaultIcon = 'fiok-ikon.png'; // Ennek kell lennie az images mappában
+        $newFileName = null;
+
+        // --- A) ÚJ KÉP FELTÖLTÉSE ---
+        if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] === 0) {
+            $file = $_FILES['profileImage'];
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             
-            if (!file_exists($uploadDir)) mkdir($uploadDir, 0777, true);
-
-            if (!move_uploaded_file($fileTmpPath, $uploadDir . $newFileName)) {
-                throw new Exception("Hiba a kép mozgatásakor.");
+            if (in_array($ext, $allowed)) {
+                $newFileName = "profile_" . $reg_id . "_" . time() . "." . $ext;
+                $targetPath = $uploadDir . $newFileName;
+                
+                if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+                    chmod($targetPath, 0644); // Jogosultság mindenki számára
+                    addLog("Új kép sikeresen mentve: " . $newFileName);
+                } else {
+                    addLog("HIBA: move_uploaded_file sikertelen. Jogosultság?");
+                    $newFileName = null;
+                }
             }
         }
-    }
 
-    
-    $conn->begin_transaction();
+        // --- B) RÉGI KÉP TÖRLÉSE (TAKARÍTÁS) ---
+        if ($newFileName || $deleteRequest) {
+            addLog("--- Törlési folyamat indítása ---");
+            
+            $stmt = $conn->prepare("SELECT profil_kep FROM profiles WHERE user_id = ?");
+            $stmt->bind_param("i", $reg_id);
+            $stmt->execute();
+            $res = $stmt->get_result();
+            
+            if ($row = $res->fetch_assoc()) {
+                $oldImage = trim($row['profil_kep']);
+                addLog("Adatbázisban lévő régi kép: [" . $oldImage . "]");
+                
+                $protected = ['fiok-ikon.png', 'default_avatar.jpg', 'default.png', '', null];
+                
+                if (!in_array($oldImage, $protected)) {
+                    // Itt rakjuk össze a teljes útvonalat
+                    $fileToDelete = $uploadDir . $oldImage;
+                    addLog("Ezt a fájlt keressük törlésre: " . $fileToDelete);
 
-    $stmt1 = $conn->prepare("UPDATE register SET teljes_nev = ?, felhasznalo = ?, email = ? WHERE reg_id = ?");
-    
-    
-    $stmt1->bind_param("sssi", $fullName, $username, $email, $reg_id);
-    $stmt1->execute();
-    $stmt1->close();
-
-    
-    $checkStmt = $conn->prepare("SELECT profile_id FROM profiles WHERE user_id = ?");
-    $checkStmt->bind_param("i", $reg_id);
-    $checkStmt->execute();
-    $checkStmt->store_result(); // Fontos a num_rows-hoz!
-    $exists = $checkStmt->num_rows > 0;
-    $checkStmt->close();
-
-    if ($exists) {
-        if ($newFileName) {
-            // Ha van új kép, azt is frissítjük
-            $sql = "UPDATE profiles SET bemutatkozas = ?, weboldal = ?, lakhely = ?, profil_kep = ? WHERE user_id = ?";
-            $stmt2 = $conn->prepare($sql);
-            // "ssssi" -> 4 string (bio, web, lakhely, kép), 1 int (id)
-            $stmt2->bind_param("ssssi", $bio, $website, $location, $newFileName, $reg_id);
-        } else {
-            // Ha nincs új kép, nem bántjuk a régit
-            $sql = "UPDATE profiles SET bemutatkozas = ?, weboldal = ?, lakhely = ? WHERE user_id = ?";
-            $stmt2 = $conn->prepare($sql);
-            // "sssi" -> 3 string, 1 int
-            $stmt2->bind_param("sssi", $bio, $website, $location, $reg_id);
+                    if (file_exists($fileToDelete)) {
+                        addLog("Fájl megvan. Törlés...");
+                        if (@unlink($fileToDelete)) {
+                            addLog("SIKER: Fájl törölve.");
+                        } else {
+                            addLog("HIBA: unlink() nem sikerült. (Zárolva vagy nincs jog?)");
+                        }
+                    } else {
+                        addLog("INFO: A fájl fizikailag nincs a mappában (már törölték?).");
+                    }
+                } else {
+                    addLog("INFO: A régi kép védett (pl. fiok-ikon.png), nem töröljük.");
+                }
+            }
+            $stmt->close();
         }
-    } else {
-        if ($newFileName) {
-            $sql = "INSERT INTO profiles (user_id, bemutatkozas, weboldal, lakhely, profil_kep) VALUES (?, ?, ?, ?, ?)";
-            $stmt2 = $conn->prepare($sql);
-            $stmt2->bind_param("issss", $reg_id, $bio, $website, $location, $newFileName);
+
+        // --- C) ADATBÁZIS UPDATE ---
+        $check = $conn->prepare("SELECT user_id FROM profiles WHERE user_id = ?");
+        $check->bind_param("i", $reg_id);
+        $check->execute();
+        $exists = $check->get_result()->num_rows > 0;
+        $check->close();
+
+        $finalImage = null;
+
+        if ($exists) {
+            // Update
+            if ($newFileName) {
+                $sql = "UPDATE profiles SET bemutatkozas=?, weboldal=?, lakhely=?, profil_kep=?, privat_profil=?, ertesitesek=? WHERE user_id=?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ssssiii", $bio, $website, $location, $newFileName, $privateProfile, $emailNotifications, $reg_id);
+                $finalImage = $newFileName;
+            } elseif ($deleteRequest) {
+                $sql = "UPDATE profiles SET bemutatkozas=?, weboldal=?, lakhely=?, profil_kep=?, privat_profil=?, ertesitesek=? WHERE user_id=?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ssssiii", $bio, $website, $location, $defaultIcon, $privateProfile, $emailNotifications, $reg_id);
+                $finalImage = $defaultIcon;
+            } else {
+                $sql = "UPDATE profiles SET bemutatkozas=?, weboldal=?, lakhely=?, privat_profil=?, ertesitesek=? WHERE user_id=?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("sssiii", $bio, $website, $location, $privateProfile, $emailNotifications, $reg_id);
+            }
         } else {
-            $sql = "INSERT INTO profiles (user_id, bemutatkozas, weboldal, lakhely) VALUES (?, ?, ?, ?)";
-            $stmt2 = $conn->prepare($sql);
-            $stmt2->bind_param("isss", $reg_id, $bio, $website, $location);
+            // Insert
+            $finalImage = ($newFileName) ? $newFileName : $defaultIcon;
+            $sql = "INSERT INTO profiles (user_id, bemutatkozas, weboldal, lakhely, profil_kep, privat_profil, ertesitesek) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("issssii", $reg_id, $bio, $website, $location, $finalImage, $privateProfile, $emailNotifications);
+        }
+        
+        if ($stmt->execute()) {
+            // Register update
+            $sql_reg = "UPDATE register SET teljes_nev=?, felhasznalo=?, email=? WHERE reg_id=?";
+            $u_stmt = $conn->prepare($sql_reg);
+            $u_stmt->bind_param("sssi", $fullname, $username, $email, $reg_id);
+            
+            if ($u_stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = "Sikeres mentés!";
+                if ($finalImage) {
+                    $response['new_profile_image'] = $finalImage;
+                }
+            } else {
+                throw new Exception("Hiba a register tábla frissítésekor: " . $u_stmt->error);
+            }
+        } else {
+            throw new Exception("Hiba a profiles tábla frissítésekor: " . $stmt->error);
         }
     }
-
-    $stmt2->execute();
-    $stmt2->close();
-
-    // --- TRANZAKCIÓ VÉGLEGESÍTÉSE ---
-    $conn->commit();
-
-    // Session frissítése
-    $_SESSION['username'] = $fullName;
-
-    echo json_encode(['success' => true, 'message' => 'Sikeres mentés!', 'new_fullname' => $fullName]);
 
 } catch (Exception $e) {
-    // Hiba esetén visszavonás
-    $conn->rollback();
-    echo json_encode(['success' => false, 'message' => 'Hiba: ' . $e->getMessage()]);
+    $response['success'] = false;
+    $response['message'] = $e->getMessage();
+    addLog("KIVÉTEL: " . $e->getMessage());
 }
+
+$response['debug_log'] = $debug_log;
+ob_end_clean(); // Puffer tisztítása
+echo json_encode($response);
+exit;
 ?>

@@ -9,7 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- ADATOK LEKÉRÉSE ---
     function fetchProfileData() {
-        fetch('../../get_user_data.php')
+        fetch(`../../get_user_data.php?t=${Date.now()}`, {
+            method: 'GET',
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            }
+        })
         .then(r => r.ok ? r.json() : Promise.reject(r.status))
         .then(response => {
             if (response.success) {
@@ -46,16 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // --- PROFILKÉP JAVÍTÁS ---
         const imgElement = document.getElementById('profileImage');
         if (imgElement) {
-            // Ha nincs kép beállítva, vagy az alapértelmezett név van, akkor a fix elérési utat használjuk
+            const timestamp = new Date().getTime();
             if (!data.profil_kep || data.profil_kep === 'fiok-ikon.png') {
-                imgElement.src = '../../images/fiok-ikon.png';
+                imgElement.src = `../images/fiok-ikon.png?v=${timestamp}`;
             } else {
-                imgElement.src = `../../uploads/${data.profil_kep}`;
+                imgElement.src = `../uploads/${data.profil_kep}?v=${timestamp}`;
             }
             
-            // Hibakezelés: ha véletlenül nem töltődne be a kép, tegye vissza az alapértelmezettet
             imgElement.onerror = function() {
-                this.src = '../../images/fiok-ikon.png';
+                this.src = '../images/fiok-ikon.png';
+                this.onerror = null;
             };
         }
     }
