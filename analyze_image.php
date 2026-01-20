@@ -1,96 +1,120 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-// Log the start of the script to confirm execution
-file_put_contents('debug_log.txt', "Script started\n", FILE_APPEND);
+// Logolás indítása
+file_put_contents('debug_log.txt', "Gemini elemzés indítása...\n", FILE_APPEND);
 
-// Get the POST data
+// POST adatok fogadása
 $data = json_decode(file_get_contents('php://input'), true);
-file_put_contents('debug_log.txt', "Request Data: " . json_encode($data) . "\n", FILE_APPEND);
+file_put_contents('debug_log.txt', "Bejövő adat: " . json_encode($data) . "\n", FILE_APPEND);
 
-// Accept `imageUrl` from the request payload
 $imageUrl = $data['imageUrl'] ?? '';
 if (empty($imageUrl)) {
-    file_put_contents('debug_log.txt', "No image URL provided\n", FILE_APPEND);
-    echo json_encode(['success' => false, 'message' => 'No image URL provided.']);
+    echo json_encode(['success' => false, 'message' => 'Nincs kép URL megadva.']);
     exit;
 }
 
-// Google Vision API integration
-$apiKey = ''; // Replace with your Google Vision API key
-$apiUrl = 'https://vision.googleapis.com/v1/images:annotate?key=' . $apiKey;
+// ---------------------------------------------------------
+// 1. BEÁLLÍTÁSOK
+// ---------------------------------------------------------
+// IDE MÁSOLD BE A GEMINI API KULCSODAT (Google AI Studio-ból)
+$apiKey = 'AIzaSyBs_a9HKchnFbO-pvzWLPmM8loP3FQ1rU0';
 
-// Download the image from the provided URL
-$tempImagePath = sys_get_temp_dir() . '/' . uniqid('image_', true) . '.jpg';
-$imageContent = file_get_contents($imageUrl);
+// A Gemini 1.5 Flash modellt használjuk (gyors és hatékony képekhez)
+$apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=' . $apiKey;
+// ---------------------------------------------------------
+$imageContent = @file_get_contents($imageUrl);
+
 if ($imageContent === false) {
-    file_put_contents('debug_log.txt', "Failed to download image\n", FILE_APPEND);
-    echo json_encode(['success' => false, 'message' => 'Failed to download image.']);
+    file_put_contents('debug_log.txt', "Hiba: Nem sikerült letölteni a képet: $imageUrl\n", FILE_APPEND);
+    echo json_encode(['success' => false, 'message' => 'Nem sikerült letölteni a képet.']);
     exit;
 }
-file_put_contents($tempImagePath, $imageContent);
 
-// Base64-encode the image
-$base64Image = base64_encode(file_get_contents($tempImagePath));
-unlink($tempImagePath);
+// MIME típus meghatározása (fontos a Gemininek)
+$finfo = new finfo(FILEINFO_MIME_TYPE);
+$mimeType = $finfo->buffer($imageContent);
 
-// Prepare the API request payload
+// Base64 kódolás
+$base64Image = base64_encode($imageContent);
+
+// ---------------------------------------------------------
+// 3. KÉRÉS ÖSSZEÁLLÍTÁSA (Gemini struktúra)
+// ---------------------------------------------------------
+// Itt adjuk meg a promptot (utasítást) az AI-nak.
+// Mivel magyarul szeretnéd a választ, magyarul utasítjuk.
+$promptText = "Elemzed ezt a képet, és írj róla egy rövid, érdekes, közösségi médiába illő leírást magyarul (max 2 mondat). Ne használj hashtageket, csak szöveget.";
+
 $requestData = [
-    'requests' => [
+    'contents' => [
         [
-            'image' => [
-                'content' => $base64Image
-            ],
-            'features' => [
+            'parts' => [
+                ['text' => $promptText],
                 [
-                    'type' => 'LABEL_DETECTION',
-                    'maxResults' => 10
+                    'inline_data' => [
+                        'mime_type' => $mimeType,
+                        'data' => $base64Image
+                    ]
                 ]
             ]
         ]
     ]
 ];
 
-// Use cURL for the API call
+// ---------------------------------------------------------
+// 4. API HÍVÁS (cURL)
+// ---------------------------------------------------------
 $ch = curl_init($apiUrl);
-
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "Content-Type: application/json"
-]);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
 
 $response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    $error = curl_error($ch);
-    file_put_contents('debug_log.txt', "cURL Error: $error\n", FILE_APPEND);
-    echo json_encode(['success' => false, 'message' => 'Failed to connect to Google Vision API.']);
-    curl_close($ch);
-    exit;
-}
-
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlError = curl_error($ch);
 curl_close($ch);
 
-if ($httpCode !== 200) {
-    file_put_contents('debug_log.txt', "HTTP Error: $httpCode, Response: $response\n", FILE_APPEND);
-    echo json_encode(['success' => false, 'message' => 'Google Vision API returned an error.']);
+// Hibakezelés
+if ($curlError) {
+    file_put_contents('debug_log.txt', "cURL Hiba: $curlError\n", FILE_APPEND);
+    echo json_encode(['success' => false, 'message' => 'Hiba a Gemini API hívásakor.']);
     exit;
 }
 
+if ($httpCode !== 200) {
+    // Részletes hiba naplózása
+    file_put_contents('debug_log.txt', "HTTP Hiba ($httpCode): $response\n", FILE_APPEND);
+    
+    // Megpróbáljuk kinyerni a Google pontos hibaüzenetét
+    $errJson = json_decode($response, true);
+    $googleError = $errJson['error']['message'] ?? 'Ismeretlen hiba';
+    $status = $errJson['error']['status'] ?? 'UNKNOWN';
+
+    // Ezt küldjük vissza a böngészőnek, hogy lásd a képernyőn
+    echo json_encode([
+        'success' => false, 
+        'message' => "API Hiba ($status): $googleError"
+    ]);
+    exit;
+}
+
+// ---------------------------------------------------------
+// 5. VÁLASZ FELDOLGOZÁSA
+// ---------------------------------------------------------
 $responseData = json_decode($response, true);
 
-// Parse and return the response
-if (isset($responseData['responses'][0]['labelAnnotations'])) {
-    $labels = array_map(function($label) {
-        return $label['description'];
-    }, $responseData['responses'][0]['labelAnnotations']);
+// A Gemini válaszának kinyerése a JSON-ból
+if (isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
+    $description = $responseData['candidates'][0]['content']['parts'][0]['text'];
+    
+    // Sortörések és felesleges szóközök takarítása
+    $description = trim(preg_replace('/\s+/', ' ', $description));
 
-    echo json_encode(['success' => true, 'description' => implode(', ', $labels)]);
+    file_put_contents('debug_log.txt', "Sikeres elemzés: $description\n", FILE_APPEND);
+    echo json_encode(['success' => true, 'description' => $description]);
 } else {
-    file_put_contents('debug_log.txt', "Invalid API Response: $response\n", FILE_APPEND);
-    echo json_encode(['success' => false, 'message' => 'Google Vision API returned no labels.']);
+    file_put_contents('debug_log.txt', "Üres vagy hibás válasz struktúra: $response\n", FILE_APPEND);
+    echo json_encode(['success' => false, 'message' => 'Nem sikerült értelmezni a képet.']);
 }
 ?>

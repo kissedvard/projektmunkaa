@@ -1,8 +1,7 @@
-// explore.js - Like és Komment adatbázis integrációval
-
 document.addEventListener('DOMContentLoaded', function() {
   const feedContainer = document.querySelector('.feed-container');
 
+  // Posztok betöltése
   fetchFeedPosts();
 
   // ESEMÉNYKEZELÉS (Delegálás)
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // MENTÉS GOMB (Ez maradhat lokális, vagy később bekötheted)
+    // MENTÉS GOMB
     const saveBtn = target.closest('.save-btn');
     if (saveBtn) {
       saveBtn.classList.toggle('active');
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // AI GOMB
+    // AI GOMB (Ez hívja meg a függvényt)
     const aiBtn = target.closest('.ai-btn');
     if (aiBtn) {
         handleAIAnalysis(aiBtn);
@@ -89,13 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
        captionContent += `<br><span class="caption-text" style="color:#8ba978; font-size:0.9em;">#${escapeHtml(post.tags).replace(/,/g, ' #')}</span>`;
     }
 
-    // Like gomb állapota (ha 1, akkor active)
+    // Like gomb állapota
     const likeActiveClass = post.is_liked == 1 ? 'active' : '';
-    // SVG kitöltése, ha active
     const heartFill = post.is_liked == 1 ? '#e74c3c' : 'none';
     const heartStroke = post.is_liked == 1 ? '#e74c3c' : 'currentColor';
 
-    // Kommentek generálása (ha jött az adatbázisból)
+    // Kommentek
     let commentsHTML = '';
     if(post.latest_comments && post.latest_comments.length > 0) {
         post.latest_comments.forEach(c => {
@@ -156,17 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- ADATBÁZIS MŰVELETEK ---
 
   function handleLikeDatabase(btn, postId, post) {
-    // Optimista UI frissítés (azonnal átváltjuk, hogy gyorsnak tűnjön)
     const isNowActive = !btn.classList.contains('active');
     btn.classList.toggle('active');
     animateButton(btn);
     
-    // Szín és ikon frissítés azonnal
     const svg = btn.querySelector('svg');
     svg.setAttribute('fill', isNowActive ? '#e74c3c' : 'none');
     svg.setAttribute('stroke', isNowActive ? '#e74c3c' : 'currentColor');
 
-    // Kérés küldése a szervernek
     fetch('../../toggle_like.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -175,12 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(r => r.json())
     .then(data => {
         if (data.success) {
-            // Frissítjük a számot a szerver válasza alapján
             const likesElement = post.querySelector('.post-likes strong');
             likesElement.textContent = data.new_count + ' kedvelés';
             if (data.action === 'liked') createConfetti(btn);
         } else {
-            // Ha hiba volt, állítsuk vissza
             btn.classList.toggle('active');
         }
     })
@@ -199,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(r => r.json())
     .then(data => {
         if (data.success) {
-            // Sikeres mentés -> Hozzáadjuk a listához
             renderNewComment(post, data.username, text);
             inputField.value = '';
         } else {
@@ -220,17 +212,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     commentsContainer.insertBefore(newComment, viewAllComments);
     
-    // Számláló növelése a "View all" linkben
     const countLink = viewAllComments.querySelector('a');
     const currentCount = parseInt(countLink.textContent.match(/\d+/)[0]) || 0;
     countLink.textContent = `Összes hozzászólás megtekintése (${currentCount + 1})`;
   }
 
-  // (A többi segédfüggvény: animateButton, escapeHtml, createConfetti, handleAIAnalysis ugyanaz marad...)
   function animateButton(btn) { btn.style.transform = 'scale(1.2)'; setTimeout(() => { btn.style.transform = 'scale(1)'; }, 200); }
   function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text || ''; return div.innerHTML; }
   
-  function createConfetti(button) { /* ... confetti kód a régiből ... */ 
+  // --- ITT VOLT A HIÁNYZÓ KONFETTI LOGIKA ---
+  function createConfetti(button) { 
     const container = document.createElement('div');
     container.style.cssText = 'position:absolute;pointer-events:none;width:100px;height:100px;left:50%;top:50%;transform:translate(-50%,-50%)';
     button.parentElement.style.position = 'relative';
@@ -245,5 +236,38 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => container.remove(), 1000);
   }
 
-  async function handleAIAnalysis(btn) { /* ... AI kód a régiből ... */ }
+  // --- ÉS ITT A HIÁNYZÓ AI LOGIKA ---
+  async function handleAIAnalysis(btn) {
+    const post = btn.closest('.post');
+    const img = post.querySelector('.post-image img');
+    const aiDesc = post.querySelector('.ai-description');
+    const aiText = aiDesc.querySelector('.ai-text');
+
+    // Megjelenítjük a dobozt és a töltést
+    aiDesc.style.display = 'block';
+    aiText.textContent = 'Elemzés folyamatban...';
+
+    // A kép forrása (lehet relatív vagy abszolút)
+    const imageUrl = img.src;
+
+    try {
+        // PHP hívás (fontos a ../../ útvonal, mert explore mappában vagyunk)
+        const response = await fetch('../../analyze_image.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ imageUrl: imageUrl })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            aiText.textContent = data.description;
+        } else {
+            aiText.textContent = 'Hiba: ' + (data.message || 'Nem sikerült az elemzés.');
+        }
+    } catch (error) {
+        console.error(error);
+        aiText.textContent = 'Kommunikációs hiba történt.';
+    }
+  }
 });

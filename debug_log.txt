@@ -200,3 +200,104 @@ HTTP Error: 403, Response: {
   }
 }
 
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/HorseImage.png"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f7ac65b8503.54944061.png"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+HTTP Hiba (404): {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-1.5-flash-001 is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+Sikeres elemzés: A szívből jövő nevetés a legjobb! A gyönyörű hegyi legelőn ez az izlandi ló pontosan így éli meg a pillanatot.
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/HorseImage.png"}
+Sikeres elemzés: A tökéletes társ a hosszú távú utazásokhoz a kockavilágban. Vajon milyen nevet adnál ennek a gyors lábú, barna paripának, mielőtt nyeregbe pattansz?
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f7ac65b8503.54944061.png"}
+Sikeres elemzés: Ez a logó a nyári teraszok, a hűsítő fagyik és a legmenőbb street food ígéretét hordozza magában. A COOL TOUR TERASSE vibráló, színes betűi már messziről hívogatnak egy kis feltöltődésre és energiára.
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+Sikeres elemzés: Készülj, mert ennél őszintébb nevetést ma már nem látsz: a legvidámabb izlandi ló garantálja, hogy azonnal jobb kedved lesz. Pontosan így nézek ki én is, amikor rájövök, hogy sikerült túlélnem a hetet!
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/HorseImage.png"}
+Sikeres elemzés: Kockákból épült, hűséges barna paripa, aki nélkülözhetetlen társad a legveszélyesebb utazások során. Indulás! Vajon mennyi szénára lesz szüksége, amíg odaérünk?
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f7ac65b8503.54944061.png"}
+Sikeres elemzés: Ez a logó garantálja, hogy a Cool Tour Terasse nem csupán egy hely, hanem egy igazi, színes élmény, ahol a jégkrém és a street food találkozik a lazulással. Készülj fel a nyári ízkavalkádra és a tökéletes hangulatra!
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f8343c699a9.41458338.jpg"}
+Sikeres elemzés: A W123-as Merci időtlen eleganciája tökéletesen illeszkedik a modern, ültetett stílushoz. Néha csak ennyi kell: egy klasszikus forma, tiszta égbolt és a króm csillogása a tavaszi napsütésben.

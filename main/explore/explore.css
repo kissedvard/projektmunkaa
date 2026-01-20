@@ -437,3 +437,85 @@ body.dark-mode .view-all-comments a:hover {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+
+/* ======== AI ANALYSIS DESIGN ======== */
+
+.ai-description {
+  margin: 0 20px 16px 20px; /* Igazodik a paddingokhoz */
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), #fcf9f2);
+  border: 1px solid #c4a86e; /* Aranybarna keret */
+  border-left: 5px solid #8ba978; /* Zöld bal oldali kiemelés */
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* A "AI Analysis:" felirat */
+.ai-description p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  color: #8ba978; /* Márkázott zöld szín */
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Maga a generált szöveg */
+.ai-text {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: #4b2e05; /* Sötétbarna */
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+  display: block; /* Új sorba kerüljön a címke alá */
+}
+
+/* Töltés animáció (ha épp gondolkodik) */
+.ai-description p:has(.ai-text:contains("Loading")), 
+.ai-description p:has(.ai-text:contains("Analyzing")) {
+  opacity: 0.7;
+}
+
+/* Opcionális: kis csillogó ikon a sarokban CSS-sel */
+.ai-description::after {
+  content: "✨";
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2rem;
+  opacity: 0.5;
+}
+
+/* 🌙 SÖTÉT MÓD - AI Szekció */
+body.dark-mode .ai-description {
+  background: linear-gradient(135deg, #444, #3a3a3a);
+  border-color: #5a5a5a;
+  border-left-color: #8ba978; /* A zöld csík marad */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .ai-description p {
+  color: #8ba978;
+}
+
+body.dark-mode .ai-text {
+  color: #f3e9d2; /* Világos bézs a szövegnek */
+}
+
+body.dark-mode .ai-description::after {
+  opacity: 0.8;
+  filter: grayscale(100%); /* Hogy ne legyen túl élénk sötétben */
+}
