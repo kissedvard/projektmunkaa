@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// JSON input fogadása (JS-ből így küldjük majd)
+// 1. JSON input fogadása 
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($data['post_id'])) {

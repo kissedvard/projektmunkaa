@@ -127,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
             aiForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('AI keresés indítva!');
-                // Itt később lehet a keresés logikát implementálni
             });
         }
     }
@@ -147,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (loginDropdownBtn && loginDropdown) {
-        // Dropdown megnyitása/bezárása
         loginDropdownBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             loginDropdown.classList.toggle('show');
@@ -274,12 +272,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 3. Ha van bejelentkezett felhasználó...
     if (savedUser) {
-        // ...akkor ELTÜNTETJÜK a gombot:
         if (loginBtn) {
             loginBtn.style.display = 'none';
         }
 
-        // ...és KIÍRJUK a szöveget a helyére (vagy mellé):
         if (statusSpan) {
             statusSpan.innerText = "Bejelentkezve: " + savedUser;
         }

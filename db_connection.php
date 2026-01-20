@@ -1,14 +1,11 @@
 <?php
-// db_connection.php
 
-// 1. A JAVÍTÁS: Beállítjuk, hogy a süti (cookie) az egész domainen (/) érvényes legyen.
-// Ezt mindenképp a session_start() ELŐTT kell megadni!
 if (session_status() == PHP_SESSION_NONE) {
     session_set_cookie_params(0, '/'); 
     session_start();
 }
 
-// Környezeti változók betöltése (vagy alapértelmezett értékek)
+
 $servername = getenv('MYSQL_HOST') ?: "db";
 $username   = getenv('MYSQL_USER') ?: "user_dev";
 $password   = getenv('MYSQL_PASSWORD') ?: "secure_pass";

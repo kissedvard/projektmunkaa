@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Posztok betöltése
   fetchFeedPosts();
 
-  // ESEMÉNYKEZELÉS (Delegálás)
+  // ESEMÉNYKEZELÉS 
   feedContainer.addEventListener('click', function(e) {
     const target = e.target;
     
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // AI GOMB (Ez hívja meg a függvényt)
+    // AI GOMB 
     const aiBtn = target.closest('.ai-btn');
     if (aiBtn) {
         handleAIAnalysis(aiBtn);
@@ -62,17 +62,29 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- FÜGGVÉNYEK ---
 
   function fetchFeedPosts() {
-    fetch('../../get_all_posts.php')
+    fetch(`../../get_all_posts.php?t=${Date.now()}`)
       .then(response => response.json())
       .then(data => {
-        if (data.success && data.posts.length > 0) {
-          data.posts.forEach(post => {
-            const postHTML = createPostHTML(post);
-            feedContainer.insertAdjacentHTML('beforeend', postHTML);
-          });
+        feedContainer.innerHTML = ''; 
+        if (data.success && data.posts && data.posts.length > 0) {
+            if (noPostsMessage) noPostsMessage.style.display = 'none';
+            feedContainer.style.display = 'block';
+            data.posts.forEach(post => {
+                const postHTML = createPostHTML(post);
+                feedContainer.insertAdjacentHTML('beforeend', postHTML);
+            });
+
+        } else {
+            if (noPostsMessage) noPostsMessage.style.display = 'flex';
+            
+            console.log("📭 Nincsenek megjeleníthető posztok.");
         }
       })
-      .catch(err => console.error('Hiba:', err));
+      .catch(err => {
+          console.error('Hiba:', err);
+          // Hiba esetén is mutassuk az "üres" üzenetet, ne maradjon fehér a képernyő
+          if (noPostsMessage) noPostsMessage.style.display = 'flex';
+      });
   }
 
   function createPostHTML(post) {
@@ -151,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // --- ADATBÁZIS MŰVELETEK ---
+  // Adatbázis műveletek
 
   function handleLikeDatabase(btn, postId, post) {
     const isNowActive = !btn.classList.contains('active');
@@ -220,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function animateButton(btn) { btn.style.transform = 'scale(1.2)'; setTimeout(() => { btn.style.transform = 'scale(1)'; }, 200); }
   function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text || ''; return div.innerHTML; }
   
-  // --- ITT VOLT A HIÁNYZÓ KONFETTI LOGIKA ---
+  
   function createConfetti(button) { 
     const container = document.createElement('div');
     container.style.cssText = 'position:absolute;pointer-events:none;width:100px;height:100px;left:50%;top:50%;transform:translate(-50%,-50%)';
@@ -236,22 +248,21 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => container.remove(), 1000);
   }
 
-  // --- ÉS ITT A HIÁNYZÓ AI LOGIKA ---
+  
   async function handleAIAnalysis(btn) {
     const post = btn.closest('.post');
     const img = post.querySelector('.post-image img');
     const aiDesc = post.querySelector('.ai-description');
     const aiText = aiDesc.querySelector('.ai-text');
 
-    // Megjelenítjük a dobozt és a töltést
+    
     aiDesc.style.display = 'block';
     aiText.textContent = 'Elemzés folyamatban...';
 
-    // A kép forrása (lehet relatív vagy abszolút)
+    
     const imageUrl = img.src;
 
     try {
-        // PHP hívás (fontos a ../../ útvonal, mert explore mappában vagyunk)
         const response = await fetch('../../analyze_image.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

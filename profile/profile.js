@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchProfileData();
     fetchUserPosts();
 
-    // --- ADATOK LEKÉRÉSE ---
+    
     function fetchProfileData() {
         fetch(`../../get_user_data.php?t=${Date.now()}`, {
             method: 'GET',
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(console.error);
     }
 
-    // --- MEGJELENÍTÉS ---
+    
     function updateProfileUI(data) {
         setText('profileName', data.teljes_nev);
         setText('username', "@" + data.felhasznalo);
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setText('followerCount', data.followers_count || 0);
         setText('followingCount', data.following_count || 0);
 
-        // --- PROFILKÉP JAVÍTÁS ---
+        
         const imgElement = document.getElementById('profileImage');
         if (imgElement) {
             const timestamp = new Date().getTime();
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return postItem;
     }
 
-    // --- LIGHTBOX FUNKCIÓK ---
+    
     function initializeLightbox() {
         const modal = document.getElementById('lightboxModal');
         const img = document.getElementById('lightboxImage');
@@ -112,19 +112,19 @@ document.addEventListener('DOMContentLoaded', function() {
         function openLightbox(post) {
             const imagePath = post.image_url.startsWith('http') ? post.image_url : `../../uploads/${post.image_url}`;
             
-            // Kép beállítása
+            
             document.getElementById('lightboxImage').src = imagePath;
             
-            // 1. Felhasználónév betöltése (a profil oldalról vesszük)
+            
             const currentUserName = document.getElementById('profileName').textContent;
             document.getElementById('lightboxUsername').textContent = currentUserName;
 
-            // 2. Leírás betöltése
+            
             document.getElementById('lightboxCaption').textContent = post.caption || '';
 
-            // 3. Tagek betöltése (Ha van, elé teszünk egy # jelet, ha nincs benne)
+            
             let tagsText = post.tags || '';
-            // Opcionális: Szépítés, ha csak vesszővel vannak elválasztva
+            
             if(tagsText && !tagsText.includes('#')) {
                  tagsText = '#' + tagsText.replace(/,/g, ' #');
             }
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
     }
 
-    // --- FELTÖLTÉS (Változatlan, csak a rövidítés miatt) ---
+    
     function initializeUploadModal() {
         const modal = document.getElementById('uploadModal');
         const uploadForm = document.getElementById('uploadForm');
@@ -225,12 +225,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Segédfüggvények
+    
     function setText(id, text) { const el = document.getElementById(id); if(el) el.textContent = text; }
     function setDisplay(id, val) { const el = document.getElementById(id); if(el) el.style.display = val; }
 });
 
-// --- GLOBAL DELETE ---
+
 window.deletePost = function(postId, event) {
     event.stopPropagation();
     if(!confirm("Biztosan törölni szeretnéd ezt a bejegyzést?")) return;
@@ -239,7 +239,7 @@ window.deletePost = function(postId, event) {
     .catch(e => { console.error(e); alert("Hiba."); });
 };
 
-// --- LOGOUT ---
+
 document.addEventListener('DOMContentLoaded', function() {
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {

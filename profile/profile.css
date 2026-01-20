@@ -485,33 +485,33 @@ main {
 }
 
 .upload-area {
-    display: flex;              /* Hogy középre tudjuk igazítani a tartalmát */
+    display: flex;              
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;                /* Kitölti a rendelkezésre álló helyet */
-    min-height: 100px;         /* Legyen egy minimális magassága */
-    border: 2px dashed #ccc;    /* Szaggatott keret */
-    border-radius: 10px;        /* Lekerekített sarok */
-    background-color: #f9f9f9;  /* Halvány háttér */
-    cursor: pointer;            /* Kéz ikon, ha ráviszed az egeret */
-    transition: all 0.3s ease;  /* Szép átmenet, ha rákattintasz */
-    overflow: hidden;           /* Hogy a kép ne lógjon ki a lekerekítésből */
+    width: 100%;                
+    min-height: 100px;         
+    border: 2px dashed #ccc;    
+    border-radius: 10px;        
+    background-color: #f9f9f9;  
+    cursor: pointer;            
+    transition: all 0.3s ease;  
+    overflow: hidden;           
     position: relative;  
     box-sizing: border-box;       
 }
 
-/* Ha ráviszed az egeret, sötétedjen picit */
+
 .upload-area:hover {
     background-color: #f0f0f0;
     border-color: #999;
 }
 
-/* A belső szöveges rész (Placeholder) */
+
 .upload-placeholder {
     text-align: center;
     padding: 20px;
-    /* Alapból látszik, de flex kell neki, hogy középen legyen */
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -523,36 +523,36 @@ main {
     margin-bottom: 10px;
 }
 
-/* Az előnézeti kép stílusa */
+
 #imagePreview {
-    display: none;          /* ALAPBÓL REJTVE! */
+    display: none;          
     width: 100%;
     height: 100%;
-    object-fit: cover;      /* Hogy kitöltse a dobozt torzulás nélkül */
-    border-radius: 10px;    /* Ugyanaz a kerekítés, mint a doboznak */
+    object-fit: cover;      
+    border-radius: 10px;    
 }
 
 
 .remove-image-btn {
-    position: absolute; /* Ez tapasztja a sarokhoz */
+    position: absolute; 
     top: 10px;
     right: 10px;
-    z-index: 100;       /* Hogy biztosan a kép FELETT legyen */
+    z-index: 100;       
     
-    background-color: rgba(255, 0, 0, 0.8); /* Félig átlátszó piros */
+    background-color: rgba(255, 0, 0, 0.8); 
     color: white;
     border: none;
-    border-radius: 50%; /* Köralak */
+    border-radius: 50%; 
     width: 30px;
     height: 30px;
     font-size: 20px;
-    line-height: 28px;  /* Hogy középen legyen az X */
+    line-height: 28px;  
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .remove-image-btn:hover {
-    background-color: rgb(255, 0, 0); /* Ha ráviszed az egeret, élénk piros */
+    background-color: rgb(255, 0, 0); 
 }
 .btn-upload {
     background: #8ba978;
@@ -595,7 +595,7 @@ main {
 }
 
 
-/* LIGHTBOX STYLES */
+
 .lightbox-modal {
     display: none;
     position: fixed;
@@ -738,7 +738,7 @@ main {
     background: rgba(231, 76, 60, 0.2);
 }
 
-/* Post item hover effects */
+
 .post-item {
     position: relative;
     cursor: pointer;
@@ -775,7 +775,7 @@ main {
     font-size: 1.1rem;
 }
 
-/* Loading animation */
+
 .lightbox-loading {
     position: absolute;
     top: 50%;
@@ -785,7 +785,7 @@ main {
     font-size: 1.5rem;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     .lightbox-content {
         flex-direction: column;
@@ -816,7 +816,7 @@ main {
     }
 }
 
-/* Keyboard navigation hint */
+
 .lightbox-hint {
     position: absolute;
     bottom: 1rem;
@@ -827,7 +827,7 @@ main {
     text-align: center;
 }
 
-/* POST GRID FINOMHANGOLÁS */
+
 .posts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -904,7 +904,7 @@ main {
     gap: 0.3rem;
 }
 
-/* Loading state for images */
+
 .post-image.loading {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;
@@ -916,7 +916,7 @@ main {
     100% { background-position: -200% 0; }
 }
 
-/* Responsive grid */
+
 @media (max-width: 768px) {
     .posts-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -936,25 +936,25 @@ main {
     }
 }
 
-/* 1. A JOBB OLDALI CSOPORT IGAZÍTÁSA */
+
 .header-right {
-    margin-left: auto;      /* Jobbra tolja az egész csoportot */
-    display: flex;          /* Egymás mellé rendezi a gombokat */
-    align-items: center;    /* FÜGGŐLEGES KÖZÉPRE IGAZÍTÁS (Ez javítja a felcsúszást!) */
-    gap: 15px;              /* Távolság a Kijelentkezés és a Nyíl között */
-    height: 100%;           /* Kitölti a fejléc magasságát */
+    margin-left: auto;      
+    display: flex;          
+    align-items: center;    
+    gap: 15px;              
+    height: 100%;           
 }
 
-/* 2. A KIJELENTKEZÉS GOMB STÍLUSA (Ugyanaz, mint a Login gomb) */
+
 #logoutBtn {
-    margin: 0;              /* Fontos! Nullázzuk a margókat, hogy ne csússzon el */
+    margin: 0;              
     
-    /* Kinézet */
-    background-color: #fcf6e9;   /* Bézs háttér */
-    border: 1px solid #eaddcf;   /* Halvány keret */
-    color: #4b2e05;              /* Barna betű */
     
-    /* Méret és Betű */
+    background-color: #fcf6e9;   
+    border: 1px solid #eaddcf;   
+    color: #4b2e05;              
+    
+    
     padding: 8px 20px;           
     border-radius: 10px;         
     font-family: 'Exo 2', sans-serif;
@@ -962,25 +962,25 @@ main {
     font-size: 14px;             
     cursor: pointer;
     
-    /* Árnyék és Effekt */
+    
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     transition: all 0.3s ease;
     
-    /* Biztosítjuk a középraigazítást a gombon belül is */
+    
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px; /* Opcionális: Fix magasság, ha a másik gomb is ekkora */
+    height: 40px;
 }
 
-/* Hover effektus (ha ráviszed az egeret) */
+
 #logoutBtn:hover {
     background-color: #ede2cd;
     transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0,0,0,0.15);
 }
 
-/* 3. A VISSZA NYÍL (Hogy ez is középen legyen) */
+
 #profileBtn {
     background: none;
     border: none;
@@ -989,18 +989,18 @@ main {
     margin: 0;
     
     display: flex;       
-    align-items: center; /* A nyíl ikon vertikális középre igazítása */
+    align-items: center; 
     justify-content: center;
-    height: 40px;        /* Ugyanakkora helyet foglaljon, mint a logout gomb */
-    width: 40px;         /* Kerek legyen a kattintható terület */
+    height: 40px;        
+    width: 40px;         
 }
 
 .profile-icon {
     font-size: 24px;     
-    line-height: 1;      /* Megakadályozza a soremelés miatti elcsúszást */
+    line-height: 1;      
 }
 
-/* --- TÖRLÉS GOMB STÍLUSAI --- */
+
 
 .delete-post-btn {
     position: absolute;
@@ -1016,12 +1016,12 @@ main {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0; /* Alapból rejtve, csak hoverre jön elő */
+    opacity: 0; 
     transition: all 0.2s ease;
-    z-index: 10; /* Hogy a lightbox kattintás fölött legyen */
+    z-index: 10; 
 }
 
-/* Ha mobilon vagyunk, vagy ráviszi az egeret a posztra, látszódjon */
+
 .post-item:hover .delete-post-btn {
     opacity: 1;
 }
@@ -1031,7 +1031,7 @@ main {
     transform: scale(1.1);
 }
 
-/* --- ÚJ POSZT GOMB IGAZÍTÁS --- */
+
 .profile-actions {
     margin-top: 10px;
     display: flex;
@@ -1041,6 +1041,6 @@ main {
 }
 
 #addNewPostBtn {
-    width: 100%; /* Legyen ugyanolyan széles, mint a szerkesztés */
+    width: 100%; 
     margin-top: 5px;
 }

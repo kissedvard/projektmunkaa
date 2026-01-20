@@ -23,9 +23,6 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("iis", $post_id, $user_id, $comment_text);
 
 if ($stmt->execute()) {
-    // Visszaküldjük a sikert és a felhasználó nevét (hogy a JS azonnal ki tudja rajzolni)
-    // Ehhez lekérjük a user nevét a sessionből vagy DB-ből. 
-    // Egyszerűbb, ha a sessionben benne van, de itt lekérjük biztosra:
     $userSql = "SELECT felhasznalo FROM register WHERE reg_id = ?";
     $uStmt = $conn->prepare($userSql);
     $uStmt->bind_param("i", $user_id);

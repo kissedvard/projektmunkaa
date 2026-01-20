@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// FONTOS: Itt adtuk hozzá a "tags" és "caption" mezőket a lekérdezéshez!
+
 $sql = "SELECT id, image_url, caption, tags, likes_count, comments_count, created_at 
         FROM posts 
         WHERE user_id = ? 

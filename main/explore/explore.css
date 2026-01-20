@@ -1,6 +1,4 @@
-/* explore.css - Improved version */
 
-/* Explore oldal stílusai - Main design integrációval */
 .explore-main {
   padding: 2rem 0;
   max-width: 600px;
@@ -16,7 +14,7 @@
   padding: 0 1rem;
 }
 
-/* Poszt stílus - Design konzisztencia */
+
 .post {
   background: #fff;
   border-radius: 15px;
@@ -31,7 +29,7 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-/* Poszt fejléc - Improved design */
+
 .post-header {
   display: flex;
   justify-content: space-between;
@@ -39,6 +37,62 @@
   padding: 16px 20px;
   border-bottom: 2px solid #e0d6bc;
   background: #f8f4ea;
+}
+
+
+
+.explore-main {
+    
+    min-height: 80vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.no-posts {
+    
+    width: 100%;
+    flex-grow: 1; 
+    
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center; 
+    
+   
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    box-sizing: border-box; 
+}
+
+.no-posts-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    
+    background: #fff;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+
+.no-posts h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.no-posts p {
+    margin: 0;
+    font-size: 1rem;
+    color: #888;
+    max-width: 400px; 
+    line-height: 1.5;
 }
 
 .user-info {
@@ -91,7 +145,7 @@
   background-color: #e0d6bc;
 }
 
-/* Poszt kép - Improved sizing */
+
 .post-image {
   width: 100%;
   aspect-ratio: 1;
@@ -111,7 +165,7 @@
   transform: scale(1.02);
 }
 
-/* Poszt műveletek - Consistent buttons */
+
 .post-actions {
   display: flex;
   justify-content: space-between;
@@ -153,7 +207,7 @@
   fill: #8ba978;
 }
 
-/* Poszt tartalom - Better typography */
+
 .post-likes {
   padding: 12px 20px 8px;
   font-size: 0.95rem;
@@ -183,7 +237,7 @@
   font-size: 1rem;
 }
 
-/* Hozzászólások - Improved layout */
+
 .post-comments {
   padding: 0 20px 12px;
   display: flex;
@@ -230,7 +284,7 @@
   text-decoration: underline;
 }
 
-/* Időbélyeg */
+
 .post-time {
   padding: 0 20px 12px;
   font-size: 0.8rem;
@@ -241,7 +295,7 @@
   font-weight: 500;
 }
 
-/* Új hozzászólás - Improved input */
+
 .add-comment {
   display: flex;
   padding: 16px 20px;
@@ -289,82 +343,14 @@
   transform: translateY(0);
 }
 
-/* Aktív navigációs gomb */
+
 .nav-btn.active {
   background: #8ba978;
   color: white;
   box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-/* 🌙 SÖTÉT MÓD STÍLUSOK - Explore specifikus */
-body.dark-mode .explore-main {
-  background-color: #2b2b2b;
-}
 
-body.dark-mode .post {
-  background: #3a3a3a;
-  border-color: #5a5a5a;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-body.dark-mode .post-header,
-body.dark-mode .post-actions,
-body.dark-mode .add-comment {
-  background: #444;
-  border-color: #5a5a5a;
-}
-
-body.dark-mode .post-image {
-  background: #444;
-}
-
-body.dark-mode .username,
-body.dark-mode .caption-username,
-body.dark-mode .comment-username,
-body.dark-mode .post-likes,
-body.dark-mode .caption-text,
-body.dark-mode .comment-text {
-  color: #f3e9d2;
-}
-
-body.dark-mode .more-btn {
-  color: #f3e9d2;
-}
-
-body.dark-mode .more-btn:hover {
-  background-color: #5a5a5a;
-}
-
-body.dark-mode .action-btn {
-  color: #f3e9d2;
-}
-
-body.dark-mode .action-btn:hover {
-  color: #8ba978;
-  background-color: rgba(139, 169, 120, 0.2);
-}
-
-body.dark-mode .add-comment input {
-  color: #f3e9d2;
-}
-
-body.dark-mode .add-comment input::placeholder {
-  color: #8ba978;
-}
-
-body.dark-mode .post-time {
-  color: #8ba978;
-}
-
-body.dark-mode .view-all-comments a {
-  color: #8ba978;
-}
-
-body.dark-mode .view-all-comments a:hover {
-  color: #9bb988;
-}
-
-/* Reszponzív design - Improved */
 @media (max-width: 768px) {
   .explore-main {
     padding: 1rem 0;
@@ -425,7 +411,7 @@ body.dark-mode .view-all-comments a:hover {
   pointer-events: none;
 }
 
-/* Empty state */
+
 .empty-feed {
   text-align: center;
   padding: 3rem 2rem;
@@ -438,14 +424,14 @@ body.dark-mode .view-all-comments a:hover {
   margin-bottom: 1rem;
 }
 
-/* ======== AI ANALYSIS DESIGN ======== */
+
 
 .ai-description {
-  margin: 0 20px 16px 20px; /* Igazodik a paddingokhoz */
+  margin: 0 20px 16px 20px; 
   padding: 15px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), #fcf9f2);
-  border: 1px solid #c4a86e; /* Aranybarna keret */
-  border-left: 5px solid #8ba978; /* Zöld bal oldali kiemelés */
+  border: 1px solid #c4a86e; 
+  border-left: 5px solid #8ba978;
   border-radius: 10px;
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -457,7 +443,7 @@ body.dark-mode .view-all-comments a:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* A "AI Analysis:" felirat */
+
 .ai-description p {
   margin: 0;
   display: flex;
@@ -465,31 +451,31 @@ body.dark-mode .view-all-comments a:hover {
   gap: 6px;
   font-family: 'Exo 2', sans-serif;
   font-weight: 700;
-  color: #8ba978; /* Márkázott zöld szín */
+  color: #8ba978; 
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-/* Maga a generált szöveg */
+
 .ai-text {
   font-family: 'Alegreya Sans', sans-serif;
   font-weight: 400;
   font-size: 1.05rem;
-  color: #4b2e05; /* Sötétbarna */
+  color: #4b2e05; 
   line-height: 1.5;
   text-transform: none;
   letter-spacing: normal;
-  display: block; /* Új sorba kerüljön a címke alá */
+  display: block; 
 }
 
-/* Töltés animáció (ha épp gondolkodik) */
+
 .ai-description p:has(.ai-text:contains("Loading")), 
 .ai-description p:has(.ai-text:contains("Analyzing")) {
   opacity: 0.7;
 }
 
-/* Opcionális: kis csillogó ikon a sarokban CSS-sel */
+
 .ai-description::after {
   content: "✨";
   position: absolute;
@@ -499,23 +485,4 @@ body.dark-mode .view-all-comments a:hover {
   opacity: 0.5;
 }
 
-/* 🌙 SÖTÉT MÓD - AI Szekció */
-body.dark-mode .ai-description {
-  background: linear-gradient(135deg, #444, #3a3a3a);
-  border-color: #5a5a5a;
-  border-left-color: #8ba978; /* A zöld csík marad */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
 
-body.dark-mode .ai-description p {
-  color: #8ba978;
-}
-
-body.dark-mode .ai-text {
-  color: #f3e9d2; /* Világos bézs a szövegnek */
-}
-
-body.dark-mode .ai-description::after {
-  opacity: 0.8;
-  filter: grayscale(100%); /* Hogy ne legyen túl élénk sötétben */
-}

@@ -84,7 +84,7 @@
     margin-top: 5px;
 }
 
-/* Avatar feltöltés */
+
 .avatar-upload {
     display: flex;
     gap: 30px;
@@ -153,7 +153,7 @@
     background: #f6f0df;
 }
 
-/* Checkbox csoport */
+
 .checkbox-group {
     display: flex;
     align-items: flex-start;
@@ -177,7 +177,7 @@
     margin-top: 5px;
 }
 
-/* Művelet gombok */
+
 .form-actions {
     display: flex;
     gap: 15px;
@@ -235,7 +235,6 @@
         width: 100%;
     }
     .upload-controls {
-        /* Add these lines: */
         width: 100%;
         min-width: auto;
     }

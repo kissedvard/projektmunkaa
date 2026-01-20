@@ -1,11 +1,11 @@
 <?php
-// --- 1. CACHE KILLER (Hogy ne ragadjon be a régi válasz) ---
+// --- 1. CACHE KILLER  ---
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header('Content-Type: application/json');
 
-// --- 2. HIBÁK ELKAPÁSA (Hogy ne rontsák el a JSON-t) ---
+// --- 2. HIBÁK ELKAPÁSA ---
 ob_start(); 
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
@@ -25,7 +25,6 @@ session_start();
 $response = array('success' => false, 'message' => 'Ismeretlen hiba');
 $debug_log = array();
 
-// Időbélyeg a válaszba, hogy lásd, frissült-e
 $response['server_time'] = date("Y-m-d H:i:s");
 
 function addLog($msg) {
@@ -40,12 +39,10 @@ try {
 
     $reg_id = $_SESSION['user_id'];
     
-    // --- 3. ÚTVONAL BEÁLLÍTÁS (KŐBE VÉSVE) ---
-    // A szerver gyökerét használjuk, így biztosan megtalálja a mappát
+    // --- 3. ÚTVONAL BEÁLLÍTÁS ---
     $baseDir = $_SERVER['DOCUMENT_ROOT']; 
     
-    // Ha a projekted mappában van (pl. localhost/myproject), akkor azt ide írd be!
-    // De a localhost/update_profile.php alapján ez a helyes:
+    
     $uploadDir = $baseDir . '/uploads/';
 
     addLog("Keresés helye (Base): " . $baseDir);
@@ -89,7 +86,7 @@ try {
                 $targetPath = $uploadDir . $newFileName;
                 
                 if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-                    chmod($targetPath, 0644); // Jogosultság mindenki számára
+                    chmod($targetPath, 0644); 
                     addLog("Új kép sikeresen mentve: " . $newFileName);
                 } else {
                     addLog("HIBA: move_uploaded_file sikertelen. Jogosultság?");
@@ -98,7 +95,7 @@ try {
             }
         }
 
-        // --- B) RÉGI KÉP TÖRLÉSE (TAKARÍTÁS) ---
+        // --- B) RÉGI KÉP TÖRLÉSE ---
         if ($newFileName || $deleteRequest) {
             addLog("--- Törlési folyamat indítása ---");
             
@@ -114,7 +111,7 @@ try {
                 $protected = ['fiok-ikon.png', 'default_avatar.jpg', 'default.png', '', null];
                 
                 if (!in_array($oldImage, $protected)) {
-                    // Itt rakjuk össze a teljes útvonalat
+                    
                     $fileToDelete = $uploadDir . $oldImage;
                     addLog("Ezt a fájlt keressük törlésre: " . $fileToDelete);
 
@@ -196,7 +193,7 @@ try {
 }
 
 $response['debug_log'] = $debug_log;
-ob_end_clean(); // Puffer tisztítása
+ob_end_clean(); 
 echo json_encode($response);
 exit;
 ?>

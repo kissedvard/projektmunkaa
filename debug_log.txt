@@ -301,3 +301,32 @@ Sikeres elemzés: Ez a logó garantálja, hogy a Cool Tour Terasse nem csupán e
 Gemini elemzés indítása...
 Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f8343c699a9.41458338.jpg"}
 Sikeres elemzés: A W123-as Merci időtlen eleganciája tökéletesen illeszkedik a modern, ültetett stílushoz. Néha csak ennyi kell: egy klasszikus forma, tiszta égbolt és a króm csillogása a tavaszi napsütésben.
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/vices_lo_xd.jpg"}
+Sikeres elemzés: A lovak is tudnak nevetni: ezt a példányt valószínűleg egy nagyon jó viccel sikerült lencsevégre kapni, miközben fogaival és ínyével együtt mosolyog a gyönyörű zöld tájban. Képtelenség úgy elmenni mellette, hogy ne mosolyodj el azonnal!
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/images\/HorseImage.png"}
+Sikeres elemzés: Megérkezett a leggyorsabb és legmegbízhatóbb utazási partnered a kockavilágban. Csak egy nyereg kell rá, és indulhat is a felfedezés, vagy a szomszédos biomok felderítése!
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f8d2b8595e9.83180237.png"}
+Sikeres elemzés: Amikor elmeséled a világ legviccesebb történetét: garantált, hogy a ló is így fog vigyorogni. Ezt a széles mosolyt nehéz lenne felülmúlni a hegyek között!
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f8d2b8595e9.83180237.png"}
+HTTP Hiba (403): {
+  "error": {
+    "code": 403,
+    "message": "Your API key was reported as leaked. Please use another API key.",
+    "status": "PERMISSION_DENIED"
+  }
+}
+
+Gemini elemzés indítása...
+Bejövő adat: {"imageUrl":"http:\/\/localhost\/uploads\/post_696f8d2b8595e9.83180237.png"}
+HTTP Hiba (403): {
+  "error": {
+    "code": 403,
+    "message": "Your API key was reported as leaked. Please use another API key.",
+    "status": "PERMISSION_DENIED"
+  }
+}
+

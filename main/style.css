@@ -1,4 +1,4 @@
-/* style.css */
+
 html {
   overflow-y: scroll;
 }
@@ -16,7 +16,7 @@ body {
   color: #4b2e05;
 }
 
-/* HEADER STYLES */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -47,7 +47,7 @@ header {
   white-space: nowrap;
 }
 
-/* NAVIGATION */
+
 nav {
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@ nav {
   right: 0;
 }
 
-/* NAV BUTTONS */
+
 .nav-btn {
   font-family: "Exo 2", sans-serif;
   background: #f6f0df;
@@ -92,7 +92,7 @@ nav {
   transform: translateY(-0.125rem);
 }
 
-/* LOGIN BUTTON - SPECIFIC STYLES */
+
 .nav-btn.login-btn {
   background: #f6f0df;
   color: #4b2e05;
@@ -105,7 +105,7 @@ nav {
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.2);
 }
 
-/* HEADER ACTIONS */
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -152,23 +152,22 @@ nav {
 }
 
 
-/* MAIN CONTENT STYLES */
+
 main {
     display: flex;
     justify-content: space-between;
     
-    /* Ez igazítja őket egy vonalba felül */
+    
     align-items: flex-start; 
     
-    max-width: 1400px; /* Kicsit szélesebbre vettem, hogy jobban szétcsússzanak */
+    max-width: 1400px; 
     margin: 0 auto;
     
-    /* --- EZ A JAVÍTÁS A HEADER HELYÉHEZ: --- */
-    /* Told lejjebb ezt az értéket, ha még mindig takarásban van! (pl. 150px) */
+    
     margin-top: 120px; 
     padding: 20px;
     gap: 20px;
-    min-height: 600px; /* Hely a hosszú galériának */
+    min-height: 600px; 
 }
 
 .left {
@@ -190,8 +189,8 @@ main {
 
 .polaroid-gallery {
     position: relative;
-    width: 500px; /* 300px helyett szélesebb, hogy balra is tudjunk terjeszkedni */
-    height: 700px; /* Kicsit kisebb magasság elég, mert nem csak lefelé építkezünk */
+    width: 500px; 
+    height: 700px; 
     margin-right: 0; 
 }
 
@@ -221,35 +220,35 @@ main {
 
 .p1 {
     top: 0; 
-    right: 0; /* Ez tapad a jobb szélhez */
-    transform: rotate(6deg); /* Kicsit jobbra dől */
+    right: 0; 
+    transform: rotate(6deg); 
     z-index: 1;
 }
 
-/* 2. Kép: EZ MEGY A PIROS KÖRBE (Balra húzzuk) */
+
 .p2 {
-    top: 180px; /* Feljebb hozzuk, hogy takarja kicsit az első alját */
-    right: 300px; /* FONTOS: Ez tolja be középre a képet (220px-re a szélétől) */
-    transform: rotate(-8deg); /* Balra dől, hogy kontrasztos legyen */
-    z-index: 2; /* Ez van középen */
+    top: 180px; 
+    right: 300px; 
+    transform: rotate(-8deg); 
+    z-index: 2; 
 }
 
-/* 3. Kép: Lejjebb, de nem túl mélyen */
+
 .p3 {
-    top: 330px; /* Feljebb hoztuk 520-ról */
-    right: 10px; /* Kicsit beljebb van, mint az első, de kijjebb, mint a második */
+    top: 330px; 
+    right: 10px; 
     transform: rotate(4deg);
-    z-index: 3; /* Ez van legfelül */
+    z-index: 3; 
 }
 
-/* Hover effekt */
+
 .polaroid-card:hover {
     z-index: 100;
     transform: scale(1.05) rotate(0deg) !important; 
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* Mobilon */
+
 @media (max-width: 900px) {
     main {
         flex-direction: column;
@@ -268,65 +267,64 @@ main {
     }
 }
 
-/* --- INFORMÁCIÓS TÁBLÁK SZEKCIÓ --- */
+
 .info-section {
     width: 100%;
     padding: 60px 20px;
-    /* Opcionális: ha akarsz a táblák mögé egy halvány hátteret, ide írhatod */
-    /* background-color: rgba(0,0,0,0.02); */
+    
 }
 
 .info-container {
     display: flex;
-    justify-content: center; /* Középre igazítjuk őket */
-    gap: 40px; /* Távolság a táblák között */
+    justify-content: center; 
+    gap: 40px; 
     max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: wrap; /* Hogy mobilon egymás alá kerüljenek */
+    flex-wrap: wrap; 
 }
 
-/* Maga a Tábla */
+
 .info-board {
     background-color: #efe3c0;
     color: #4b2e05;
-    width: 300px; /* Szélesség */
+    width: 300px; 
     padding: 30px 20px;
-    border-radius: 8px; /* Kicsit kerekített sarkok */
-    text-align: center; /* Középre zárt szöveg */
+    border-radius: 8px; 
+    text-align: center; 
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     border: 1px solid #4b2e05;
-    /* A mozgáshoz szükséges átmenet (ugyanaz, mint a képeknél) */
+    
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: default;
     position: relative;
     top: 0;
 }
 
-/* Ikon a tábla tetején */
+
 .info-board .icon {
-    /* Méretek és elhelyezés */
+    
     width: 70px;
     height: 70px;
-    margin: 0 auto 20px auto; /* Középre igazítás + távolság az alatta lévő szövegtől */
+    margin: 0 auto 20px auto; 
     
-    /* Ikon középre igazítása a körön belül (Flexbox a legjobb erre) */
+    
     display: flex;
     align-items: center;
     justify-content: center;
     
-    /* Stílus: Elegáns kör */
-    background-color: transparent; /* Átlátszó háttér */
-    border: 2px solid #4b2e05; /* Sötétbarna keret a körnek */
-    border-radius: 50%; /* Kerek forma */
     
-    /* Ikon stílusa */
-    font-size: 32px; /* Ikon mérete */
-    color: #4b2e05; /* Sötétbarna szín (hogy passzoljon a kerethez) */
+    background-color: transparent; 
+    border: 2px solid #4b2e05; 
+    border-radius: 50%; 
     
-    /* Pici árnyék a mélységért */
+    
+    font-size: 32px; 
+    color: #4b2e05; 
+    
+    
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     
-    /* Animáció előkészítése */
+   
     transition: all 0.3s ease;
 }
 
@@ -342,10 +340,10 @@ main {
     opacity: 0.9;
 }
 
-/* --- HOVER EFFEKT (UGYANAZ MINT A POLAROIDNÁL) --- */
+
 .info-board:hover {
-    transform: scale(1.05) translateY(-10px); /* Kicsit megnő és felugrik */
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4); /* Erősebb árnyék */
+    transform: scale(1.05) translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
     z-index: 10;
 }
 
@@ -355,7 +353,7 @@ main {
     transform: rotate(360deg); 
 }
 
-/* Mobilon */
+
 @media (max-width: 768px) {
     .info-container {
         flex-direction: column;
@@ -363,36 +361,32 @@ main {
     }
 }
 
-/* --- DÍSZES ELVÁLASZTÓ STÍLUSOK --- */
+
 .section-divider {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 800px; /* Nem ér végig teljesen, így elegánsabb */
+    max-width: 800px; 
     margin: 0 auto;
     position: relative;
-    z-index: 20; /* Hogy biztosan látsszon */
-    
-    /* Mivel az alsó részt felhúztuk negatív margóval, 
-       ennek adunk egy kis helyet, hogy ne lógjon bele semmibe */
+    z-index: 20; 
     margin-bottom: 20px; 
     margin-top: -40px; 
-    
 }
 
-/* A vonalak balra és jobbra */
+
 .section-divider .line {
     flex: 1;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #4E342E, transparent); /* Átmenetes barna vonal */
+    background: linear-gradient(90deg, transparent, #4E342E, transparent); 
     opacity: 0.6;
     border-radius: 2px;
 }
 
-/* A középső ikon tartója */
+
 .section-divider .divider-icon {
-    width: 60px;  /* Kicsit megnöveltem 50-ről, hogy jobban mutasson a logó */
+    width: 60px; 
     height: 60px;
     background-color: #F5F5DC;
     border: 2px solid #4E342E;
@@ -401,23 +395,23 @@ main {
     align-items: center;
     justify-content: center;
     
-    /* FONT-SIZE ÉS COLOR SOROKAT INNEN TÖRÖLTEM! */
+    
     
     margin: 0 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     box-shadow: inset 0 0 0 2px #efe3c0, 0 4px 10px rgba(0,0,0,0.1);
     
-    /* FONTOS: Ez vágja le, ha kilógna a kép a körből */
+    
     overflow: hidden; 
 }
 
 .section-divider .divider-icon img {
-    width: 80%;  /* A kör méretének 80%-a legyen a kép */
-    height: 80%; /* Így marad egy kis "levegő" körülötte */
-    object-fit: contain; /* Ez biztosítja, hogy ne torzuljon a logó aránya */
+    width: 80%;  
+    height: 80%; 
+    object-fit: contain; 
 }
 
-/* HORSE STYLING */
+
 .horse {
   width: 600px;
   position: absolute;
@@ -432,7 +426,7 @@ main {
   transform: translateY(-50%) scaleX(-1) scale(1.02);
 }
 
-/* SPEECH BUBBLE */
+
 .speech-bubble {
   background: #8ba978;
   border-radius: 10px;
@@ -490,92 +484,12 @@ main {
   background: #94a87a;
 }
 
-/* AI BUBBLE */
-.ai-bubble-container {
-  position: static;
-  flex: 0 0 350px;
-  margin-left: 2rem;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-}
 
-.ai-bubble {
-  background: #8ba978;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  overflow: hidden;
-  max-width: 450px;
-  min-width: 280px;
-}
-
-.ai-bubble-header {
-  padding: 20px 25px;
-  color: white;
-  font-family: 'Exo 2', sans-serif;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #8ba978;
-  font-size: 1.2rem;
-}
-
-.ai-bubble-content {
-  background: #f8f4ea;
-  padding: 25px;
-  max-height: none;
-  overflow: visible;
-}
-
-.ai-bubble-content h3 {
-  font-family: 'Exo 2', sans-serif;
-  color: #4b2e05;
-  margin: 0 0 20px 0;
-  font-size: 1.3rem;
-  text-align: center;
-  line-height: 1.4;
-}
-
-.ai-bubble-content form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.ai-bubble-content input {
-  padding: 12px 15px;
-  border: 1px solid #c4a86e;
-  border-radius: 8px;
-  font-family: 'Alegreya Sans', sans-serif;
-  font-size: 1.0rem;
-}
-
-.ai-bubble-content button {
-  padding: 12px 15px;
-  background: #c4a86e;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-family: 'Exo 2', sans-serif;
-  font-weight: 500;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  margin-top: 10px;
-}
-
-.ai-bubble-content button:hover {
-  background: #b39a5e;
-}
-
-
-/* TRANSITIONS */
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* RESPONSIVE DESIGN */
+
 @media (max-width: 768px) {
   main {
     flex-direction: column;
@@ -621,7 +535,7 @@ main {
   }
 }
 
-/* Confetti container */
+
 .confetti-container {
     position: absolute;
     top: 0;
@@ -643,7 +557,7 @@ main {
     opacity: 0;
 }
 
-/* Horse animation at the bottom */
+
 .horse-animation-container {
     position: fixed;
     bottom: 0;
@@ -658,7 +572,7 @@ main {
     position: absolute;
     width: 30px;
     height: 30px;
-    transform: scaleX(-1); /* Flip horse to face right */
+    transform: scaleX(-1); 
     animation: horseRun 15s linear infinite;
 }
 
@@ -671,7 +585,7 @@ main {
     }
 }
 
-/* DROPDOWN LOGIN STYLES */
+
 .login-dropdown {
     position: relative;
     display: inline-block;

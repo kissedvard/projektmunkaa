@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
         bioCharCount: document.getElementById('bioCharCount'),
         avatarInput: document.getElementById('avatarInput'),
         avatarPreview: document.getElementById('avatarPreview'),
-        saveBtn: document.getElementById('saveProfile'), // Vagy a form submit gombja
+        saveBtn: document.getElementById('saveProfile'), 
         profileBtn: document.getElementById('profileBtn'),
         removeAvatarBtn: document.getElementById('removeAvatar')
     };
 
-    // --- 2. ADATOK BETÖLTÉSE (Időbélyeggel a cache ellen) ---
+    // --- 2. ADATOK BETÖLTÉSE 
     fetch(`../../get_user_data.php?t=${new Date().getTime()}`)
     .then(response => response.json())
     .then(response => {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = response.data;
             
             if(elements.fullName) elements.fullName.value = data.teljes_nev || "";
-            if(elements.username) elements.username.value = data.felhasznalonev || ""; // Figyelj: felhasznalo vagy felhasznalonev?
+            if(elements.username) elements.username.value = data.felhasznalonev || ""; 
             if(elements.email) elements.email.value = data.email || "";
             if(elements.bio) elements.bio.value = data.bemutatkozas || "";
             if(elements.website) elements.website.value = data.weboldal || "";
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- 5. MENTÉS (SAVE) - JAVÍTOTT VERZIÓ ---
+    // --- 5. MENTÉS (SAVE) ---
     if (elements.saveBtn) {
         elements.saveBtn.addEventListener('click', function(e) {
             e.preventDefault(); 
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if(elements.privateProfile) formData.append('privateProfile', elements.privateProfile.checked ? 1 : 0);
             if(elements.emailNotifications) formData.append('emailNotifications', elements.emailNotifications.checked ? 1 : 0);
             
-            // JAVÍTÁS: Törlési kérés kezelése
+            
             const deleteInput = document.getElementById('deletePicture');
             if (deleteInput && deleteInput.value === '1') {
                 formData.append('delete_picture', '1');
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('profileImage', elements.avatarInput.files[0]);
             }
 
-            // Küldés a PHP-nek
+            
             fetch('../../update_profile.php', {
                 method: 'POST',
                 body: formData
@@ -148,25 +148,24 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     
-                    // --- HELYI MEMÓRIA (CACHE) FRISSÍTÉSE ---
-                    // Ez a rész biztosítja, hogy a JS is tudja, hogy változott a kép
+                    
                     let newImageName = null;
 
                     if (deleteInput && deleteInput.value === '1') {
                         // Ha töröltük, akkor default
                         newImageName = 'fiok-ikon.png';
                     } else if (data.new_profile_image) {
-                        // Ha újat töltöttünk fel, és a szerver visszaküldte a nevét
+                        
                         newImageName = data.new_profile_image;
                     }
 
-                    // Ha történt változás, frissítjük a LocalStorage-ot
+                    
                     if (newImageName) {
                         localStorage.setItem('profil_kep', newImageName);
                         localStorage.setItem('profile_image', newImageName);
                         localStorage.setItem('user_avatar', newImageName);
 
-                        // user_data JSON objektum frissítése (ha van ilyen)
+                        
                         const storedUser = localStorage.getItem('user_data');
                         if (storedUser) {
                             try {
@@ -176,11 +175,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             } catch (e) { console.error("JSON hiba", e); }
                         }
                     }
-                    // ------------------------------------------
+                    
 
                     alert('✅ Profil sikeresen frissítve!');
                     
-                    // JAVÍTÁS: Átirányítás időbélyeggel, hogy NE a cache töltődjön be!
+                    
                     window.location.href = `../profile.html?t=${Date.now()}`;
 
                 } else {

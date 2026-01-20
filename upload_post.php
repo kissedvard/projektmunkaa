@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $file = $_FILES['file'];
     $caption = $_POST['imageCaption'] ?? '';
-    $tags = $_POST['imageTags'] ?? ''; // ITT VESSZÜK ÁT A TAGEKET
+    $tags = $_POST['imageTags'] ?? ''; 
     $userId = $_SESSION['user_id'];
 
     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $targetPath = $uploadDir . $newFileName;
 
     if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-        // SQL BŐVÍTÉS: most már a tags mezőt is írjuk
+        
         $stmt = $conn->prepare("INSERT INTO posts (user_id, image_url, caption, tags) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("isss", $userId, $newFileName, $caption, $tags);
 

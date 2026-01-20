@@ -1,12 +1,11 @@
 <?php
-// 1. Session indítása a közös fájlon keresztül (így biztonságos)
+// 1. Session indítása a közös fájlon keresztül
 require_once 'db_connection.php'; 
 
-// 2. Minden session változó törlése (szerver oldalon)
+// 2. Minden session változó törlése 
 $_SESSION = array();
 
-// 3. A MUNKAMENET SÜTI TÖRLÉSE A BÖNGÉSZŐBŐL (Ez hiányzott!)
-// Ez garantálja, hogy a böngésző elfelejtse a session ID-t
+// 3. A munkamenet cookie törlése 
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -18,7 +17,7 @@ if (ini_get("session.use_cookies")) {
 // 4. A munkamenet végleges megsemmisítése
 session_destroy();
 
-// 5. JSON fejléc beállítása (hogy a JS tudja, hogy ez adat)
+// 5. JSON fejléc beállítása 
 header('Content-Type: application/json');
 echo json_encode(['success' => true]);
 ?>

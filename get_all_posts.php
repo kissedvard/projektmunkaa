@@ -1,14 +1,12 @@
 <?php
-// get_all_posts.php - Bővített verzió
+
 
 header('Content-Type: application/json; charset=utf-8');
 require_once 'db_connection.php';
 
 $current_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
 
-// SQL LEKÉRDEZÉS
-// 1. Lekérjük a posztot és a user adatait.
-// 2. Egy al-lekérdezéssel (EXISTS) megnézzük, hogy a jelenlegi user like-olta-e.
+
 $sql = "SELECT 
             p.id, 
             p.user_id, 
@@ -35,7 +33,7 @@ $result = $stmt->get_result();
 $posts = [];
 if ($result) {
     while ($row = $result->fetch_assoc()) {
-        // Minden poszthoz lekérjük a legutóbbi 2 kommentet is, hogy legyen mit mutatni
+        
         $postId = $row['id'];
         $commSql = "SELECT c.comment_text, r.felhasznalo 
                     FROM post_comments c 
